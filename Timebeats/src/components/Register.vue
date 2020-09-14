@@ -55,7 +55,7 @@
                         <div class="col-xl-6">
                             <div class="img">
                                 <figure>
-                                    <img src="../assets/image/signup-image.jpg" alt="sing up image">
+                                    <img src="../assets/vendor/img/signup-image.jpg" alt="sing up image">
                                 </figure>
                                <router-link class="" tag="a" to="/login">Đăng nhập ngay</router-link>
                             </div>

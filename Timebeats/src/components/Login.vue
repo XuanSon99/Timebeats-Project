@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row signin-content">
         <div class="col-6 signin-image">
-          <img src="../assets/image/signin-image.jpg" alt />
+          <img src="../assets/vendor/img/signin-image.jpg" alt />
           <router-link tag="a" to="/register">Tạo tài khoản</router-link>
         </div>
         <div class="col-6 signin-form">

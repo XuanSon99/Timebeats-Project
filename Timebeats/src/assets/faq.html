@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description"
+		content="Timebeats là nền tảng kiếm tiền và hoàn tiền hàng đầu Việt Nam với hàng trăm nghìn thành viên kiếm thêm thu nhập bằng thời gian rãnh rỗi của mình.">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="Timebeats" />
+	<meta property="og:image" content="./vendor/img/media/fb_1200x627.jpg?v=1.0.10">
+	<!-- Title -->
+	<title>Timebeats - Nền tảng kiếm tiền & hoàn tiền hàng đầu Việt Nam</title>
+	<link rel="shortcut icon" type="image/png" href="./vendor/img/brand/Favicon_1.png?v=1.0.10" />
+
+	<!-- Icons css -->
+	<link href="./vendor/css/icons.css" rel="stylesheet">
+
+	<!--  Custom Scroll bar-->
+	<link href="./vendor/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+	<!--  Sidebar css -->
+	<link href="./vendor/plugins/sidebar/sidebar.css" rel="stylesheet">
+
+	<!--- Internal Morris css-->
+	<link href="./vendor/plugins/morris.js/morris.css" rel="stylesheet">
+
+	<!--- Style css --->
+	<link href="./vendor/css/style.css" rel="stylesheet">
+
+	<!--- Dark-mode css --->
+	<link href="./vendor/css/style-dark.css" rel="stylesheet">
+
+	<!---Skinmodes css-->
+	<link href="./vendor/css/skin-modes.css" rel="stylesheet" />
+
+	<!--Internal   Notify -->
+	<link href="./vendor/plugins/notify/css/notifIt.css" rel="stylesheet" />
+	<link href="./vendor/plugins/slick-master/slick/slick.css" rel="stylesheet" />
+	<style type="text/css">
+		.eyeball {
+			fill: red !important
+		}
+
+		.desktop-logo {
+			height: 3.2rem;
+		}
+
+		#twitterIcon {
+			position: fixed;
+			left: 20px;
+			bottom: 20px;
+			background: url(./vendor/img/telegram.png) no-repeat;
+			width: 40px;
+			height: 40px;
+			background-size: cover;
+			border-radius: 50%;
+		}
+
+		#facebookIcon {
+			position: fixed;
+			left: 20px;
+			bottom: 70px;
+			background: url(./vendor/img/facebook.png) no-repeat;
+			width: 40px;
+			height: 40px;
+			background-size: cover;
+			background-color: white;
+			border-radius: 50%;
+		}
+
+		@media (max-width: 991.98px) {
+			.profileHeader {
+				display: none !important;
+			}
+
+			#dasboardMobile {
+				display: inline !important;
+			}
+
+		}
+
+		@media (max-width: 720px) {
+			#mobileShow {
+				display: inline !important;
+			}
+
+			.main-header-center {
+				display: none;
+			}
+
+			.navbar-lang {
+				display: block !important;
+			}
+		}
+
+		.content-title {
+			padding-top: 10px;
+		}
+
+		.text-muted {
+			padding-top: 10px;
+		}
+
+		@media (max-width: 480px) {
+			.main-header-right .nav .nav-item .dropdown-menu {
+				top: 94px !important
+			}
+		}
+	</style>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171447448-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-171447448-1');
+	</script>
+</head>
+
+<body class="main-body">
+
+	<!-- Loader -->
+	<div id="global-loader">
+		<img src="./vendor/img/loader.gif" class="loader-img" alt="Loader">
+	</div>
+	<!-- /Loader -->
+
+	<!-- Page -->
+	<div class="page">
+
+		<!-- main-header opened -->
+		<div class="main-header nav nav-item hor-header">
+			<div class="container">
+				<div class="main-header-left ">
+					<a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a><!-- sidebar-toggle-->
+					<a class="header-brand" href="./dashboard.html">
+						<img src="./vendor/img/brand/logo-white.png" class="desktop-dark">
+						<h2 style="margin-left:1.25rem; ">Timebeat</h1>
+						<img src="./vendor/img/brand/favicon-white.png" class="desktop-logo-dark">
+					</a>
+					<div class="main-header-center  ml-4">
+						<span id="myInput">https://timebeats.com/ref/y3pwnm </span><span style="cursor: pointer;"
+							onclick="copyToClipboard('#myInput')" class="tag tag-indigo ml-1">Mời Bạn Bè</span>
+					</div>
+
+				</div>
+
+				<div class="main-header-right">
+					<div class="nav nav-item  navbar-nav-right ml-auto">
+						<div class="dropdown nav-item main-header-notification">
+							<a class="new nav-link" href="#">
+								<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="feather feather-bell">
+									<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+									<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+								</svg><span class=" pulse"></span></a>
+							<div class="dropdown-menu">
+								<div class="menu-header-content bg-primary text-left">
+									<div class="d-flex">
+										<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Thông báo
+										</h6>
+										<span class="badge badge-pill badge-warning ml-auto my-auto float-right">Đánh
+											dấu tất cả đã đọc</span>
+									</div>
+									<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 "></p>
+								</div>
+
+								<div class="dropdown-footer">
+									<a href="#">Xem tất cả</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="dropdown main-profile-menu nav nav-item nav-link" style="z-index: 999999">
+							<a class="profile-user d-flex" href=""><img alt="" src="./vendor/img/photos/user.png"></a>
+							<div class="dropdown-menu">
+								<div class="main-header-profile bg-primary p-3">
+									<div class="d-flex wd-100p">
+										<div class="main-img-user"><img alt="" src="./vendor/img/photos/user1.png"
+												class=""></div>
+										<div class="ml-3 my-auto">
+											<h6>Nguyen Khanh</h6>
+											<span>
+												<img src="./vendor/img/kyc_verify_fail.png" width="90px" />
+											</span>
+										</div>
+									</div>
+								</div>
+								<a class="dropdown-item" href="./profile.html"><i class="bx bx-user-circle"></i>Thông
+									tin cá nhân</a>
+								<a class="dropdown-item" href="./logout.html"><i class="bx bx-log-out"></i> Đăng xuất
+								</a>
+							</div>
+						</div>
+						<div class="nav-item profileHeader" style="display: flex;">
+							<p style="margin-bottom: auto; margin-top: auto; padding: 3px; font-weight: bolder;">Nguyen
+								Khanh </p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="main-header nav nav-item hor-header" id="mobileShow" style="display:none;top:55px;height:37px;">
+			<div class="container">
+				<div class="sub-header" style="margin: auto;">
+					<span id="myInput">https://timebeats.com/ref/y3pwnm </span><span style="cursor: pointer;"
+						onclick="copyToClipboard('#myInput')" class="tag tag-indigo ml-1">Mời bạn bè</span>
+					<br />
+				</div>
+
+			</div>
+		</div>
+
+		<!-- /main-header -->
+
+		<!--Horizontal-main -->
+		<div class="sticky">
+			<div class="horizontal-main hor-menu clearfix side-header">
+
+				<div class="horizontal-mainwrapper container clearfix">
+					<!--Nav-->
+
+					<nav class="horizontalMenu clearfix">
+						<ul class="horizontalMenu-list">
+							<li aria-haspopup="true">
+								<a href="dashboard.html" class="sub-icon">
+									<div >
+										<i class="fas fa-home"> Trang Chủ</i>
+									</div>
+								</a>
+							</li>
+							<li aria-haspopup="true">
+								<a href="task.html" class="sub-icon">
+									<div >
+										<i class="fas fa-book-open"> Nhận Nhiệm Vụ</i>
+									</div>
+								</a>
+							</li>
+							<li aria-haspopup="true">
+								<a href="make-camp.html" class="sub-icon">
+									<div >
+										<i class="fas fa-ad"> Tạo Chiến Dịch</i>
+									</div>
+								</a>
+							</li>
+							<li aria-haspopup="true">
+								<a href="wallet.html" class="sub-icon">
+									<div >
+										<i class="fas fa-wallet"> Số Dư Tài Khoản</i>
+									</div>							
+								</a>	
+							</li>
+							
+							<li aria-haspopup="true">
+								<a href="#" class="sub-icon">
+									<div >
+										<i class="fas fa-clipboard-list"> Thống Kê</i>
+										<i class="fe fe-chevron-down horizontal-icon"></i>
+									</div>
+								</a>
+								<ul class="sub-menu">
+									<li aria-haspopup="true"><a href="personal-income.html" class="slide-item">Thu nhập cá nhân</a></li>
+										<li aria-haspopup="true"><a href="group-income.html" class="slide-item">Thu nhập nhóm</a></li>
+								</ul>
+							</li>
+
+							
+							<li aria-haspopup="true">
+								<a href="team-member.html" class="sub-icon">
+									<div >
+										<i class="fas fa-users"> Bạn Bè</i>
+									</div>
+								</a>
+							</li>
+							<li aria-haspopup="true">
+								<a href="resource.html" class="sub-icon">
+									<div >
+										<i class="fas fa-recycle"> Tài Nguyên & Tải về</i>
+									</div>
+								</a>
+							</li>
+							<li aria-haspopup="true">
+								<a href="faq.html" class="sub-icon">
+									<div >
+										<i class="fas fa-question-circle"> Hỗ Trợ</i>
+									</div>
+								</a>
+							</li>
+
+							<li aria-haspopup="true">
+								<a href="#" class="sub-icon">
+									<div >
+										<i class="fas fa-sliders-h"> Cài Đặt</i>
+										<i class="fe fe-chevron-down horizontal-icon"></i>
+									</div>
+								</a>
+								<ul class="sub-menu">
+									<li aria-haspopup="true"><a href="./profile.html" class="slide-item">Thông tin cá
+											nhân</a></li>
+									<li aria-haspopup="true"><a href="./2FA.html" class="slide-item">Xác thực hai
+											lớp</a></li>
+									<li aria-haspopup="true"><a href="./kyc.html" class="slide-item">
+											Xác thực KYC
+									<li aria-haspopup="true"><a href="./register-vndc.html" class="slide-item">Liên kết
+											VNDC</a></li>
+									<li aria-haspopup="true"><a href="./logout.html" class="slide-item">Đăng xuất</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<!--Nav-->
+				</div>
+			</div>
+		</div>
+		<!--Horizontal-main -->
+
+		<!-- main-content opened -->
+		<div class="main-content horizontal-content">
+			<!-- container opened -->
+			<div class="container">
+
+				<!-- breadcrumb -->
+				<div class="breadcrumb-header justify-content-between">
+					<div class="my-auto">
+						<div class="d-flex">
+							<h4 class="content-title mb-0 my-auto">Trang chủ</h4><span
+								class="text-muted mt-1 tx-13 ml-2 mb-0">/ Hỏi đáp</span>
+						</div>
+					</div>
+				</div>
+				<!-- breadcrumb -->
+
+				<!-- row -->
+				<div class="row">
+					<!-- /Col -->
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<h1 class="card-title" style="font-size: 25px">Hỏi đáp</h1>
+								<span class="text-muted mt-1 tx-13 mb-0">2020-06-29 14:37:10</span>
+							</div>
+							<div class="card-body">
+								<div class="eamil-body">
+									<p><strong>1. Timebeats l&agrave; g&igrave;?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong>&nbsp;Timebeats l&agrave; nền tảng gi&uacute;p cho
+										c&aacute;c th&agrave;nh vi&ecirc;n tận dụng thời gian r&atilde;nh rỗi của
+										m&igrave;nh để kiếm th&ecirc;m thu nhập bằng c&aacute;ch thực hiện một số nhiệm
+										vụ đơn giản như đăng k&yacute; t&agrave;i khoản, xem quảng c&aacute;o, tải
+										app... hoặc c&oacute; thể tiết kiệm tiền bằng c&aacute;ch tham gia chương
+										tr&igrave;nh ho&agrave;n tiền khi mua sắm tại h&agrave;ng ngh&igrave;n cửa
+										h&agrave;ng online, offline c&oacute; li&ecirc;n kết với Timebeats</p>
+
+									<p><strong>2. Kiếm tiền với Timebeats như thế n&agrave;o?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong> C&oacute; 3 c&aacute;ch ch&iacute;nh để kiếm tiền
+										với Timebeats:</p>
+
+									<p>- C&aacute;ch 1: Tham gia thực hiện c&aacute;c Nhiệm vụ của Timebeats đưa ra như:
+										tải app nhận từ 5.000đ đến&nbsp;50.000đ/lượt, trả lời khảo s&aacute;t từ 5.000đ
+										đến 100.000đ b&agrave;i khảo s&aacute;t, xem quảng c&aacute;o từ 50đ đến
+										1.000đ/lượt xem...</p>
+
+									<p>- C&aacute;ch 2: D&ugrave;ng t&iacute;nh năng ho&agrave;n tiền của Timebeats để
+										mua sắm tại c&aacute;c trang thương mại điện tử h&agrave;ng đầu Việt Nam cũng
+										như c&aacute;c c&aacute;c cửa h&agrave;ng offline li&ecirc;n kết với Timebeats để
+										được ho&agrave;n tiền từ 3% - 50% tuỳ v&agrave;o từng đối t&aacute;c.</p>
+
+									<p>- C&aacute;ch 3: Giới thiệu bạn b&egrave; tham gia kiếm tiền với Timebeats
+										v&agrave; nhận thưởng 3% tr&ecirc;n tổng doanh số của tất cả c&aacute;c
+										th&agrave;nh vi&ecirc;n trong hệ thống 7&nbsp;tầng của bạn. V&iacute; dụ: bạn
+										giới thiệu được 10 ng bạn, 10 người bạn n&agrave;y mỗi người giới thiệu được 10
+										người nữa th&igrave; bạn sẽ c&oacute; 110 người trong team. Mỗi 1 người 1
+										th&aacute;ng kiếm được từ Timebeats 1.000.000đ th&igrave; bạn sẽ c&oacute; được
+										khoản thưởng team l&agrave;: 110 x 1.000.000đ x 3% = 3.300.000đ</p>
+
+									<p><strong>3. Timebeats c&oacute; thu ph&iacute; hay b&aacute;n h&agrave;ng g&igrave;
+											cho t&ocirc;i kh&ocirc;ng?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong>&nbsp;Timebeats l&agrave; chương tr&igrave;nh
+										ho&agrave;n to&agrave;n miễn ph&iacute;, vĩnh viễn kh&ocirc;ng thu bất kỳ khoản
+										ph&iacute; n&agrave;o của th&agrave;nh vi&ecirc;n. Timebeats cũng ho&agrave;n
+										to&agrave;n kh&ocirc;ng b&aacute;n bất kỳ sản phẩm n&agrave;o cho th&agrave;nh
+										vi&ecirc;n m&agrave; chỉ giới thiệu đến c&aacute;c th&agrave;nh vi&ecirc;n
+										c&aacute;c sản phẩm, dịch vụ của c&aacute;c đối t&aacute;c li&ecirc;n kết uy
+										t&iacute;n, c&oacute; thương hiệu nổi tiếng tr&ecirc;n thị trường. Ch&iacute;nh
+										nhất, Timebeats sẽ cung cấp c&aacute;c chiến dịch, nhiệm vụ gi&uacute;p cho
+										c&aacute;c th&agrave;nh vi&ecirc;n tham gia kiếm tiền ho&agrave;n to&agrave;n
+										miễn ph&iacute;.</p>
+
+									<p><strong>4. T&ocirc;i c&oacute; thể kiếm được bao nhi&ecirc;u tiền với Timebeats?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong>&nbsp;Việc n&agrave;y l&agrave; do bạn. Với mỗi
+										h&agrave;nh động như tải app, xem quảng c&aacute;o, l&agrave;m khảo
+										s&aacute;t... bạn sẽ nhận được từ 1000đ đến 500.000đ tuỳ v&agrave;o từng chiến
+										dịch. Thời gian v&agrave; c&ocirc;ng sức bạn bỏ ra sẽ tương xứng với những
+										g&igrave; bạn c&oacute; thể nhận được. Ngo&agrave;i ra, Timebeats c&ograve;n cho
+										ph&eacute;p bạn x&acirc;y dựng đội nh&oacute;m c&ugrave;ng kiếm tiền chung với
+										bạn v&agrave; bạn sẽ được hưởng % thu nhập tr&ecirc;n tổng nh&oacute;m m&agrave;
+										bạn x&acirc;y dựng.</p>
+
+									<p><strong>5. Số tiền tối thiểu t&ocirc;i được r&uacute;t l&agrave; bao
+											nhiu?</strong></p>
+
+									<p><strong>Đ&aacute;p:&nbsp;</strong>Với Timebeats, số tiền tối thiểu bạn c&oacute;
+										thể r&uacute;t về&nbsp;chỉ l&agrave; 100.000đ đối với phương thức thanh
+										to&aacute;n qua VNDC Wallet Pro v&agrave; 200.000đ đối với t&agrave;i khoản
+										ng&acirc;n h&agrave;ng. Một con số cực kỳ nhỏ m&agrave; bạn c&oacute; thể dễ
+										d&agrave;ng thực hiện chỉ trong v&agrave;i bước đơn giản.</p>
+
+									<p><strong>6. T&ocirc;i c&oacute; thể r&uacute;t tiền về bằng c&aacute;ch
+											n&agrave;o?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong>&nbsp;Timebeats hợp t&aacute;c chiến lược với VNDC,
+										một nền tảng stable coin bảng vị Việt Nam Đồng cực kỳ uy t&iacute;n tr&ecirc;n
+										thị trường. Việc r&uacute;t tiền từ Timebeats về v&iacute; VNDC sẽ được thực hiện
+										trong một khoản thời gian cực kỳ nhanh ch&oacute;ng.</p>
+
+									<p><strong>7. T&ocirc;i giới thiệu bạn b&egrave; tham gia th&igrave; c&oacute; được
+											g&igrave; kh&ocirc;ng?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong>&nbsp;Tất nhi&ecirc;n l&agrave; được, với Timebeats,
+										khi bạn giới thiệu th&agrave;nh vi&ecirc;n mới tham gia kiếm tiền c&ugrave;ng
+										với bạn, bạn sẽ được hưởng thu nhập l&ecirc;n đến 3% thu nhập của tất cả
+										c&aacute;c th&agrave;nh vi&ecirc;n m&agrave; bạn giới thiệu, hoa hồng được
+										t&iacute;nh cho c&aacute;c th&agrave;nh vi&ecirc;n trong team đến 7&nbsp;tầng hệ
+										thống.</p>
+
+									<p><strong>8. Timebeats c&oacute; phải b&aacute;n h&agrave;ng đa cấp
+											kh&ocirc;ng?</strong></p>
+
+									<p><strong>Đ&aacute;p:</strong> Timebeats ứng dụng phương thức ph&aacute;t triển
+										Affiliate nhiều level để gi&uacute;p c&aacute;c th&agrave;nh vi&ecirc;n
+										c&oacute; thể dễ d&agrave;ng x&acirc;y dựng đội nh&oacute;m c&ugrave;ng
+										l&agrave;m việc v&agrave; tạo n&ecirc;n những khoản thu nhập lớn v&agrave; thụ
+										động. Tuy nhi&ecirc;n, Timebeats ho&agrave;n to&agrave;n kh&ocirc;ng b&aacute;n
+										h&agrave;ng, kh&ocirc;ng thu bất kỳ khoản ph&iacute; n&agrave;o của th&agrave;nh
+										vi&ecirc;n, Timebeats ho&agrave;n to&agrave;n kh&ocirc;ng phải l&agrave;
+										b&aacute;n h&agrave;ng đa cấp. Timebeats chỉ l&agrave; k&ecirc;nh marketing
+										ph&aacute;t triển thị trường cho c&aacute;c&nbsp;đối t&aacute;c l&agrave;
+										c&aacute;c doanh nghiệp&nbsp;lớn v&agrave; uy t&iacute;n tr&ecirc;n thị trường
+										v&agrave; chia lại c&aacute;c khoản thu nhập từ dịch vụ marketing n&agrave;y.
+									</p>
+
+									<p>&nbsp;</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- Container closed -->
+		</div>
+		<!-- Container closed -->
+
+		<!-- Sidebar-right-->
+
+		<!--/Sidebar-right-->
+
+		<!-- Message Modal -->
+
+
+		<!--Video Modal -->
+		<!-- modal -->
+
+		<!-- Audio Modal -->
+		<!-- modal -->
+
+		<!-- Footer opened -->
+		<div class="main-footer ht-40">
+			<div class="container-fluid pd-t-0-f ht-100p">
+				<span>Copyright © 2020 <a href="#">TimeBeats</a>
+			</div>
+		</div>
+		<!-- Footer closed -->
+
+	</div>
+	<!-- End Page -->
+
+	<!-- Back-to-top -->
+	<a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
+
+	<a href="https://t.me/timebeats" target="_blank" class="hover-fade-out" id="twitterIcon">
+	</a>
+
+	<a href="https://www.facebook.com/groups/timebeats" target="_blank" class="hover-fade-out" id="facebookIcon">
+	</a>
+	<!-- JQuery min js -->
+	<script src="./vendor/plugins/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Bundle js -->
+	<script src="./vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Ionicons js -->
+	<script src="./vendor/plugins/ionicons/ionicons.js"></script>
+
+	<!-- Moment js -->
+	<script src="./vendor/plugins/moment/moment.js"></script>
+
+	<!--Internal Sparkline js -->
+	<script src="./vendor/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Moment js -->
+	<script src="./vendor/plugins/raphael/raphael.min.js"></script>
+
+	<!-- Internal Piety js -->
+	<script src="./vendor/plugins/peity/jquery.peity.min.js"></script>
+
+	<!--Internal  Flot js-->
+	<script src="./vendor/plugins/jquery.flot/jquery.flot.js"></script>
+	<script src="./vendor/plugins/jquery.flot/jquery.flot.pie.js"></script>
+	<script src="./vendor/plugins/jquery.flot/jquery.flot.resize.js"></script>
+	<script src="./vendor/plugins/jquery.flot/jquery.flot.categories.js"></script>
+	<script src="./vendor/js/dashboard.sampledata.js"></script>
+	<script src="./vendor/js/chart.flot.sampledata.js"></script>
+
+	<!-- Sticky js -->
+	<script src="./vendor/js/sticky.js"></script>
+
+	<!-- Rating js-->
+	<script src="./vendor/plugins/rating/jquery.rating-stars.js"></script>
+	<script src="./vendor/plugins/rating/jquery.barrating.js"></script>
+
+	<!-- P-scroll js -->
+
+
+
+	<!-- Horizontalmenu js-->
+
+
+	<!-- Eva-icons js -->
+	<script src="./vendor/js/eva-icons.min.js"></script>
+
+
+
+	<!-- Horizontalmenu js-->
+	<script src="./vendor/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
+
+	<!-- Internal Map -->
+	<script src="./vendor/plugins/jqvmap/jquery.vmap.min.js"></script>
+	<script src="./vendor/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+	<!-- Internal Chart js -->
+	<script src="./vendor/plugins/chart.js/Chart.bundle.min.js"></script>
+
+	<!--Internal  index js -->
+	<script src="./vendor/js/index.js"></script>
+	<script src="./vendor/js/jquery.vmap.sampledata.js"></script>
+
+	<!-- custom js -->
+	<script src="./vendor/js/custom.js"></script>
+	<script src="./vendor/js/jquery.vmap.sampledata.js"></script>
+
+
+	<script src="./vendor/plugins/notify/js/notifIt.js"></script>
+	<script src="./vendor/plugins/notify/js/notifit-custom.js"></script>
+	<script type="text/javascript" src="./vendor/plugins/slick-master/slick/slick.min.js"></script>
+	<script type="text/javascript">
+		function copyToClipboard(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).html()).select();
+			document.execCommand("copy");
+			$temp.remove();
+			notif({
+				msg: "Bạn đã copy link giới thiệu &lt;b&gt;thành công&lt;/b&gt;!",
+				type: "success"
+			});
+		}
+	</script>
+</body>
+
+</html>
