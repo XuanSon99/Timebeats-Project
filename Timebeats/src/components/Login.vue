@@ -112,7 +112,6 @@
 </template>
 
 <script>
-import user from "@/database/user.json";
 import axios from "axios";
 export default {
   name: "signin",
@@ -148,7 +147,6 @@ export default {
         })
         .then(
           (response) => {
-              console.log({ response });
               this.status = response.data.status;
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
@@ -160,7 +158,6 @@ export default {
             }
         )
         .catch((error,response) => {
-          console.log({ error });
           this.status = error.response.data.status;
           if (!this.status) {
             this.errors.push("Tài khoản hoặc mật khẩu không đúng");

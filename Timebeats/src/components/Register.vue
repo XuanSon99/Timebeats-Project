@@ -81,11 +81,11 @@ export default {
             users: [],
         }
     },
-    mounted () {
-    this.$axios 
-      .post('http://192.168.60.69:3000/api/auth/login')
-      .then(response => this.info = response.data)
-    },
+    // mounted () {
+    // this.$axios 
+    //   .post('http://192.168.60.69:3000/api/auth/login')
+    //   .then(response => this.info = response.data)
+    // },
     methods: {
         checkForm: function(e) {
             this.errors = [];
@@ -142,7 +142,7 @@ export default {
         color: #2c3e50;
     }
     .sign-up {
-        padding: 150px 0 200px 0;
+        margin: 50px;
     }
     .sign-up  .register-form > div {
         text-align: left;
