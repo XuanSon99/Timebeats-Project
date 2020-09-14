@@ -1,15 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Login from '@/components/Login'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 
-export default new Router({
+var isAuthenticated = false;
+if (localStorage.getItem('LoggedUser')) isAuthenticated = true;
+else isAuthenticated = false;
+
+const router = new Router({
+  mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        if (to.name == 'Login' && isAuthenticated) next({ name: 'Home' })
+        next()
+      }
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
+    },
   ]
 })
+router.beforeEach((to, from, next) => {
+  if (to.name != 'Login' && !isAuthenticated) next({ name: 'Login' })
+  next()
+})
+export default router
