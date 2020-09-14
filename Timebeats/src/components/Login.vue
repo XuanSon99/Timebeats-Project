@@ -5,7 +5,7 @@
       <div class="row signin-content">
         <div class="col-6 signin-image">
           <img src="../assets/image/signin-image.jpg" alt />
-          <a href>Tạo tài khoản</a>
+          <router-link tag="a" to="/register">Tạo tài khoản</router-link>
         </div>
         <div class="col-6 signin-form">
           <h2 class="signin-title">Đăng nhập</h2>
