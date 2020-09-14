@@ -113,6 +113,7 @@
 
 <script>
 import user from "@/database/user.json";
+import axios from "axios";
 export default {
   name: "signin",
   data() {
@@ -121,50 +122,55 @@ export default {
         email: null,
         password: null,
       },
-      info: null,
+      status: false,
       errors: [],
       loggedUser: null,
     };
   },
-  // mounted() {
-  //   this.$axios
-  //     .get("./src/database/user.json")
-  //     .then((response) => (this.info = response.data.users));
-  // },
   methods: {
     checkFormSignin(e) {
+      e.preventDefault();
       this.errors = [];
-
       if (!this.signin.email || !this.signin.password) {
         this.errors.push("Tài khoản và mật khẩu không được để trống");
-      } else if (!this.validEmail(this.signin.email)) {
+        return;
+      }
+
+      if (!this.validEmail(this.signin.email)) {
         this.errors.push("Email không đúng định dạng");
-      }
-      if (
-        !this.errors.length &&
-        !this.checkAccount(this.signin.email, this.signin.password)
-      ) {
-        this.errors.push("Tài khoản hoặc mật khẩu không đúng");
+        return;
       }
 
-      if (!this.errors.length) {
-        this.loggedUser = this.signin.email;
-        this.SetStorage();
-        this.$router.push({ name: "Home" }).catch((error) => {});
-      }
-
-      e.preventDefault();
+      this.$axios
+        .post("http://192.168.60.69:3000/api/auth/login", {
+          email: this.signin.email,
+          password: this.signin.password,
+        })
+        .then(
+          (response) => {
+              console.log({ response });
+              this.status = response.data.status;
+              if (!this.status) {
+                this.errors.push("Tài khoản hoặc mật khẩu không đúng");
+                return false;
+              }
+              this.loggedUser = this.signin.email;
+              this.SetStorage();  
+              this.$router.push({ name: "Home" }).catch((error) => {});
+            }
+        )
+        .catch((error,response) => {
+          console.log({ error });
+          this.status = error.response.data.status;
+          if (!this.status) {
+            this.errors.push("Tài khoản hoặc mật khẩu không đúng");
+            return false;
+          }
+        });
     },
     validEmail(email) {
       const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return reg.test(email);
-    },
-    checkAccount(email, password) {
-      for (let item of user.users) {
-        if (email == item.email && password == item.password) {
-          return true;
-        }
-      }
     },
     SetStorage() {
       var jsonListAccount = JSON.stringify(this.loggedUser);
