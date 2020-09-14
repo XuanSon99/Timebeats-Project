@@ -1,22 +1,30 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
-Vue.prototype.$axios = axios
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faUserSecret)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.config.productionTip = false
+import vueHeadful from 'vue-headful';
 
-/* eslint-disable no-new */
-new Vue({
+Vue.component('vue-headful', vueHeadful);
+Vue.config.productionTip = false
+Vue.prototype.$axios = axios
+
+const app = new Vue({
   el: '#app',
+  axios,
   router,
-  components: { App },
-  template: '<App/>'
+  render: h => h(App)
 })
+
+export default app
+
+
+
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   axios,
+//   components: { App },
+//   template: '<App/>'
+// })

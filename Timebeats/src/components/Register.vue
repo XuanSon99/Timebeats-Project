@@ -55,9 +55,9 @@
                         <div class="col-xl-6">
                             <div class="img">
                                 <figure>
-                                    <img src="../assets/signup-image.jpg" alt="sing up image">
+                                    <img src="../assets/image/signup-image.jpg" alt="sing up image">
                                 </figure>
-                                <a href="#" class="signup-image-link">Đăng nhập ngay</a>
+                               <router-link class="" tag="a" to="/login">Đăng nhập ngay</router-link>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ export default {
                 this.errors.push("Trường điều khoản thỏa thuận là bắt buộc.")
             }
             if (!this.errors.length) {
-                this.users = JSON.parse(localStorage.getItem('Users')) || [] // get storage
+                this.users = JSON.parse(localStorage.getItem('users')) || [] // get storage
                 this.setStorage(this.users,this.username,this.password,this.email)
                 alert("Đăng kí thành công")
                 console.log(this.info)
@@ -119,25 +119,17 @@ export default {
         },
         setStorage: function (users, username, password, email) {
             users.push({username: username, email: email, password: password})
-            localStorage.setItem('Users', JSON.stringify(users))
+            localStorage.setItem('users', JSON.stringify(users))
         },
         checkLocal: function(email) {
-            this.users = JSON.parse(localStorage.getItem('Users')) || [] // get storage
+            this.users = JSON.parse(localStorage.getItem('users')) || [] // get storage
             for(let item of this.users) {
                 if(email == item.email) {
                     return false
                 }
             }
             return true
-        },
-        // checkJson: function(email) {
-        //     for(let i = 0 ; i < this.myJson.length ; i++) {
-        //         if(email == this.myJson[i].email) {
-        //             return false
-        //         }
-        //     }
-        //     return true
-        // }
+        }
     }
 }
 </script>
@@ -192,7 +184,7 @@ export default {
         line-height: 33px;
     }
     .sign-up button {
-        padding: 15px 30px;
+        padding: 10px 30px;
     }
     .errors {
         padding: 0;
@@ -203,5 +195,11 @@ export default {
         text-align: left;
         padding: 0;
         color: red;
+    }
+    .sign-up a {
+        text-decoration:underline ;
+    }
+    a:hover {
+        color: #2c3e50;
     }
 </style>

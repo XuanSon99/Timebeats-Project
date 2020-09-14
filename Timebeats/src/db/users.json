@@ -1,7 +1,0 @@
-{
-    "accountRegister": [
-        {"username": "admin","email": "admin@gmail.com","password": "Admin123"},
-        {"username": "admin1","email": "admin@gmail.com","password": "Admin123"},
-        {"username": "admin123","email": "admin123@gmail.com","password": "Admin123"}
-    ]
-}
