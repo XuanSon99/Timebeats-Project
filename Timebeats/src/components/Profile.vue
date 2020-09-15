@@ -394,7 +394,12 @@ export default {
   data() {
     return {
       taggingSelected: [],
-      taggingOptions: [{ name: "Facebook", code: "ro" }],
+      taggingOptions: [
+        { name: "Facebook", code: "fa" },
+        { name: "Tiktok", code: "ti" },
+        { name: "Youtube", code: "yo" },
+        { name: "Instagram", code: "in" },
+      ],
     };
   },
   methods: {
@@ -435,6 +440,7 @@ export default {
   margin-top: 20px;
 }
 .multiselect__tags {
+  margin: 0 0.75rem;
   color: #4d5875;
   border: 1px solid #e1e5ef;
   border-radius: 3px;
