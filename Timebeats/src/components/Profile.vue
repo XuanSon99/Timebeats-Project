@@ -248,10 +248,15 @@
                             </div>
                           </div>
                         </div>
+                        <selectize v-model="selected" :settings="settings">
+                          <!-- settings is optional -->
+                          <option :value="1">One</option>
+                          <option :value="2">Two</option>
+                        </selectize>
                         <button
-                      type="submit"
-                      class="btn btn-primary waves-effect waves-light"
-                    >Xác nhận</button>
+                          type="submit"
+                          class="btn btn-primary waves-effect waves-light"
+                        >Xác nhận</button>
                       </form>
                     </div>
                   </div>
@@ -372,31 +377,38 @@
 <script>
 // global.jQuery = require('jquery');
 // var $ = global.jQuery;
-// window.$ = $; 
+// window.$ = $;
+import Selectize from "vue2-selectize";
 import Header from "./Header.vue";
 export default {
   components: {
     Header,
+    Selectize,
   },
   methods: {
-    clickActive(){
-
-    }
-  }
+    clickActive() {},
+  },
+  data() {
+    return {
+      settings: {},
+      selected: 1,
+    };
+  },
 };
 </script>
 
 <style>
-#profile .card, #settings .card{
+#profile .card,
+#settings .card {
   text-align: center;
 }
 .btn-primary:hover {
-    color: #fff;
-    background-color: #22c03c;
-    border-color: #22c03c;
-    opacity: 0.8;
+  color: #fff;
+  background-color: #22c03c;
+  border-color: #22c03c;
+  opacity: 0.8;
 }
-#accuracy button{
+#accuracy button {
   padding: 9px 40px;
   margin: 0 auto;
   display: block;

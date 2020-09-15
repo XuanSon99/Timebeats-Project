@@ -110,9 +110,9 @@
                 </router-link>
                 <ul class="sub-menu">
                   <li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
-                    <router-link tag="a" class="slide-item" :to="p.link">{{p.content}}</router-link>
+                    <router-link tag="a" :to="p.link"><span>&gt;</span>{{p.content}}</router-link>
                   </li>
-				  <li v-if="item.sub"><a class="slide-item logout" @click="logOut">Đăng xuất</a></li>
+				          <li v-if="item.sub"><a class="logout" @click="logOut"><span>&gt;</span>Đăng xuất</a></li>
                 </ul>
               </li>
             </ul>
@@ -180,5 +180,16 @@ export default {
 }
 .main-header {
     top: 0;
+}
+.sub-menu li a:before {
+    display: none;
+}
+.horizontalMenu > .horizontalMenu-list > li > ul.sub-menu > li > a {
+    padding-left: 0;
+}
+.sub-menu li a span {
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 600;
 }
 </style>
