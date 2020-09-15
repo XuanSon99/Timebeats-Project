@@ -1664,7 +1664,9 @@ pre {
   padding: 0 20px 20px;
   background-color: #ecf0fa;
   transition: none; }
-
+#kyc .card-body {
+  padding: 2cm;
+}
 .card .card {
   box-shadow: none !important; }
 
@@ -5644,7 +5646,10 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
 
 .tab-content > .active {
   display: block; }
-
+.tab-content > div h6,
+.tab-content > div .row {
+  margin: 20px 0;
+}
 /* ###### 5.7 Nav   ###### */
 @media (min-width: 768px) {
   .main-nav {
@@ -6891,6 +6896,9 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
     color: #14112d; }
   .tabs-style-3 .tabs-menu-body {
     margin-top: 20px; }
+  #kyc .tabs-style-3 .tabs-menu-body {
+    margin-top: 0px;
+  }
   .tabs-style-3 .nav.panel-tabs li a.active {
     background: #22c03c;
     color: #fff; }

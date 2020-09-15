@@ -122,6 +122,7 @@ export default {
         password: null,
       },
       status: false,
+      token: String,
       errors: [],
       loggedUser: null,
     };
@@ -148,12 +149,14 @@ export default {
         .then(
           (response) => {
               this.status = response.data.status;
+              this.token = response.data.data[0].access_token;
+              this.$store.state.token = this.token
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
                 return false;
               }
               this.loggedUser = this.signin.email;
-              this.SetStorage();  
+              this.SetStorage();
               this.$router.push({ name: "Home" }).catch((error) => {});
             }
         )
