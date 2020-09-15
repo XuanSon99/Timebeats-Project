@@ -6,7 +6,7 @@ import axios from 'axios'
 import vueHeadful from 'vue-headful';
 import './assets/vendor/css/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import bootstrap from 'bootstrap'
 import jquery from 'jquery'
 
 Vue.component('vue-headful', vueHeadful);
@@ -18,6 +18,7 @@ const app = new Vue({
   axios,
   router,
   jquery,
+  bootstrap,
   render: h => h(App)
 })
 
