@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <Header></Header>
-    <vue-headful title="Trang chủ" />
+
   </div>
 </template>
 
@@ -10,6 +9,9 @@ import Header from './Header'
 export default {
   name: "home",
   data() {
+    return{
+      
+    }
   },
   components: {
     Header

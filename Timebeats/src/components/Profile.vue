@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
 			<!-- container opened -->
 			<div class="container">
