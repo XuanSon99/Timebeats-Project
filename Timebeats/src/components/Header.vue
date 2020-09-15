@@ -110,8 +110,9 @@
                 </router-link>
                 <ul class="sub-menu">
                   <li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
-                    <router-link tag="a" class="slide-item" :to="p.link">{{p.content}}</router-link>
+                    <router-link tag="a" :to="p.link"><span>&gt;</span>{{p.content}}</router-link>
                   </li>
+				          <li v-if="item.sub"><a class="logout" @click="logOut"><span>&gt;</span>Đăng xuất</a></li>
                 </ul>
               </li>
             </ul>
@@ -138,8 +139,8 @@ export default {
           icon: "fas fa-clipboard-list",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thu nhập cá nhân", link: "/personal-income" },
-            { content: "Thu nhập nhóm", link: "/group-income" },
+            { content: "Thu nhập cá nhân", link: "/personal-income"},
+            { content: "Thu nhập nhóm", link: "/group-income"},
           ],
         },
         { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
@@ -155,18 +156,40 @@ export default {
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thông tin cá nhân", link: "/profile" },
-            { content: "Xác thực hai lớp", link: "/2FA" },
-            { content: "Xác thực KYC", link: "/kyc" },
-            { content: "Liên kết VNDC", link: "/register-vndc" },
-            { content: "Đăng xuất", link: "/logout" },
+            { content: "Thông tin cá nhân", link: "/profile"},
+            { content: "Xác thực hai lớp", link: "/2FA"},
+            { content: "Xác thực KYC", link: "/kyc"},
+            { content: "Liên kết VNDC", link: "/register-vndc"},
           ],
         },
       ],
     };
   },
+  methods: {
+    logOut() {
+      localStorage.removeItem("LoggedUser");
+	  this.$router.push({ name: "Login" }).catch((error) => {});
+	},
+  },
 };
 </script>
 
 <style>
+.logout{
+	cursor: pointer;
+}
+.main-header {
+    top: 0;
+}
+.sub-menu li a:before {
+    display: none;
+}
+.horizontalMenu > .horizontalMenu-list > li > ul.sub-menu > li > a {
+    padding-left: 0;
+}
+.sub-menu li a span {
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
 </style>

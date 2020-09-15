@@ -21,7 +21,9 @@
     "store": "^2.0.12",
     "vue": "^2.5.2",
     "vue-headful": "^2.1.0",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.0.1",
+    "vue2-selectize": "^1.1.7",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
@@ -37,6 +39,7 @@
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "expose-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",

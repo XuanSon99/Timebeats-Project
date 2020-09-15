@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div>
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -28,7 +28,7 @@
                       </a>
                     </li>
                     <li class>
-                      <a href="#accuracy" data-toggle="tab" aria-expanded="false">
+                      <a href="#accuracy" data-toggle="tab" aria-expanded="false" class>
                         <span class="visible-xs">
                           <i class="fas fa-user-lock"></i>
                         </span>
@@ -36,7 +36,7 @@
                       </a>
                     </li>
                     <li class>
-                      <a href="#settings" data-toggle="tab" aria-expanded="false">
+                      <a href="#settings" data-toggle="tab" aria-expanded="false" class>
                         <span class="visible-xs">
                           <i class="fas fa-key"></i>
                         </span>
@@ -248,13 +248,23 @@
                             </div>
                           </div>
                         </div>
+                        <multiselect
+                          v-model="taggingSelected"
+                          tag-placeholder="Lĩnh vực quan tâm"
+                          placeholder="Lĩnh vực quan tâm"
+                          label="name"
+                          track-by="code"
+                          :options="taggingOptions"
+                          :multiple="true"
+                          :taggable="true"
+                          @tag="addTag"
+                        ></multiselect>
+                        <button
+                          type="submit"
+                          class="btn btn-primary waves-effect waves-light"
+                        >Xác nhận</button>
                       </form>
                     </div>
-                    <button
-                      type="submit"
-                      form="myProfile"
-                      class="btn btn-primary waves-effect waves-light"
-                    >Xác nhận</button>
                   </div>
                   <div class="tab-pane" id="accuracy">
                     <div class="mb-4 main-content-label">Xác thực hai lớp</div>
@@ -302,7 +312,7 @@
                             />
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-main-primary btn-block">Bật</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Bật</button>
                       </form>
                     </div>
                   </div>
@@ -371,8 +381,65 @@
 </template>
 
 <script>
-export default {};
+// global.jQuery = require('jquery');
+// var $ = global.jQuery;
+// window.$ = $;
+import Header from "./Header.vue";
+import Multiselect from "vue-multiselect";
+export default {
+  components: {
+    Header,
+    Multiselect,
+  },
+  data() {
+    return {
+      taggingSelected: [],
+      taggingOptions: [{ name: "Facebook", code: "ro" }],
+    };
+  },
+  methods: {
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+      };
+      this.taggingOptions.push(tag);
+      this.taggingSelected.push(tag);
+    },
+  },
+  mounted() {
+    this.$axios
+      .get("http://192.168.60.69:3000/api/user/my-profile")
+      .then((response) => console.log(response));
+  },
+};
 </script>
 
 <style>
+#profile .card,
+#settings .card {
+  text-align: center;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #22c03c;
+  border-color: #22c03c;
+  opacity: 0.8;
+}
+#accuracy button {
+  padding: 9px 40px;
+  margin: 0 auto;
+  display: block;
+}
+#profile button {
+  margin-top: 20px;
+}
+.multiselect__tags {
+  color: #4d5875;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
+}
+#profile .form-control {
+  height: 40px;
+}
 </style>
