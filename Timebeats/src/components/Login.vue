@@ -231,4 +231,7 @@ body {
   height: 0.5cm;
   margin-left: 10px;
 }
+#header {
+  display: none;
+}
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <Header></Header>
-    <vue-headful title="Trang chủ" />
+    <!-- <vue-headful title="Trang chủ" />
     <h4>User: {{user}}</h4>
-    <button @click="logOut" class="btn btn-success">Log Out</button>
+    <button @click="logOut" class="btn btn-success">Log Out</button> -->
   </div>
 </template>
 

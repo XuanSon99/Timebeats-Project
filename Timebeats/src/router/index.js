@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Register from '@/components/Register'
+import FA from '@/components/FA'
+import Kyc from '@/components/Kyc'
 Vue.use(Router)
 
 var isAuthenticated = false;
@@ -30,6 +32,16 @@ const router = new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/2fa',
+      name: 'FA',
+      component: FA
+    },
+    {
+      path: '/kyc',
+      name: 'Kyc',
+      component: Kyc
     }
   ]
 })
