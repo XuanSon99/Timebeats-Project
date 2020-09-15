@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Register from '@/components/Register'
+import Profile from '@/components/Profile'
+
 Vue.use(Router)
 
 var isAuthenticated = false;
@@ -30,6 +32,11 @@ const router = new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     }
   ]
 })

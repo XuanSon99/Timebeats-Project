@@ -1,11 +1,220 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description"
+    content="Timebeats là nền tảng kiếm tiền và hoàn tiền hàng đầu Việt Nam với hàng trăm nghìn thành viên kiếm thêm thu nhập bằng thời gian rãnh rỗi của mình.">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="Timebeats" />
+  <meta property="og:image" content="../assets/vendor/img/media/fb_1200x627.jpg?v=1.0.10">
+  <!-- Title -->
+  <title>Timebeats - Nền tảng kiếm tiền & hoàn tiền hàng đầu Việt Nam</title>
+  <link rel="shortcut icon" type="image/png" href="../assets/vendor/img/brand/Favicon_1.png?v=1.0.10" />
+
+  <!-- Icons css -->
+  <link href="../assets/vendor/css/icons.css" rel="stylesheet">
+
+  <!--  Custom Scroll bar-->
+  <link href="../assets/vendor/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+  <!--  Sidebar css -->
+  <link href="../assets/vendor/plugins/sidebar/sidebar.css" rel="stylesheet">
+
+  <!--- Internal Morris css-->
+  <link href="../assets/vendor/plugins/morris.js/morris.css" rel="stylesheet">
+
+  <!--- Style css --->
+  <link href="../assets/vendor/css/style.css" rel="stylesheet">
+
+  <!--- Dark-mode css --->
+  <link href="../assets/vendor/css/style-dark.css" rel="stylesheet">
+
+  <!---Skinmodes css-->
+  <link href="../assets/vendor/css/skin-modes.css" rel="stylesheet" />
+
+  <!--Internal   Notify -->
+  <link href="../assets/vendor/plugins/notify/css/notifIt.css" rel="stylesheet" />
+  <link href="../assets/vendor/plugins/slick-master/slick/slick.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script src="./vendor/plugins/jquery/jquery.min.js"></script>
+
+  <!-- Bootstrap Bundle js -->
+  <script src="./vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Ionicons js -->
+  <script src="./vendor/plugins/ionicons/ionicons.js"></script>
+
+  <!-- Moment js -->
+  <script src="./vendor/plugins/moment/moment.js"></script>
+
+  <!--Internal Sparkline js -->
+  <script src="./vendor/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+  <!-- Moment js -->
+  <script src="./vendor/plugins/raphael/raphael.min.js"></script>
+
+  <!-- Internal Piety js -->
+  <script src="./vendor/plugins/peity/jquery.peity.min.js"></script>
+
+  <!--Internal  Flot js-->
+  <script src="./vendor/plugins/jquery.flot/jquery.flot.js"></script>
+  <script src="./vendor/plugins/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="./vendor/plugins/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="./vendor/plugins/jquery.flot/jquery.flot.categories.js"></script>
+  <script src="./vendor/js/dashboard.sampledata.js"></script>
+  <script src="./vendor/js/chart.flot.sampledata.js"></script>
+
+  <!-- Sticky js -->
+  <script src="./vendor/js/sticky.js"></script>
+
+  <!-- Rating js-->
+  <script src="./vendor/plugins/rating/jquery.rating-stars.js"></script>
+  <script src="./vendor/plugins/rating/jquery.barrating.js"></script>
+
+  <!-- P-scroll js -->
+
+
+
+  <!-- Horizontalmenu js-->
+
+
+  <!-- Eva-icons js -->
+  <script src="./vendor/js/eva-icons.min.js"></script>
+
+
+
+  <!-- Horizontalmenu js-->
+  <script src="./vendor/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
+
+  <!-- Internal Map -->
+  <script src="./vendor/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="./vendor/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+  <!-- Internal Chart js -->
+  <script src="./vendor/plugins/chart.js/Chart.bundle.min.js"></script>
+
+  <!--Internal  index js -->
+  <script src="./vendor/js/index.js"></script>
+  <script src="./vendor/js/jquery.vmap.sampledata.js"></script>
+
+  <!-- custom js -->
+  <script src="./vendor/js/custom.js"></script>
+  <script src="./vendor/js/jquery.vmap.sampledata.js"></script>
+
+
+  <script src="./vendor/plugins/notify/js/notifIt.js"></script>
+  <script src="./vendor/plugins/notify/js/notifit-custom.js"></script>
+  <script type="text/javascript" src="./vendor/plugins/slick-master/slick/slick.min.js"></script>
+  <script type="text/javascript">
+    function copyToClipboard(element) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val($(element).html()).select();
+      document.execCommand("copy");
+      $temp.remove();
+      notif({
+        msg: "Bạn đã copy link giới thiệu &lt;b&gt;thành công&lt;/b&gt;!",
+        type: "success"
+      });
+    }
+  </script>
+  <!--Internal  Datepicker js -->
+  <script src="./vendor/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+
+  <!-- Moment js -->
+  <script src="./vendor/plugins/moment/moment.js"></script>
+
+  <!--Internal  jquery.maskedinput js -->
+  <script src="./vendor/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
+
+  <!--Internal  spectrum-colorpicker js -->
+  <script src="./vendor/plugins/spectrum-colorpicker/spectrum.js"></script>
+
+  <!-- Internal Select2.min js -->
+  <script src="./vendor/plugins/select2/js/select2.min.js"></script>
+  <!--Internal  jquery-simple-datetimepicker js -->
+  <script src="./vendor/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
+  <!-- Internal form-elements js -->
+  <script src="./vendor/js/form-elements.js"></script>
+  <script>
+    $(document).ready(function () {
+      var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
+
+      function validatePassword() {
+        if (password.value != confirm_password.value) {
+          confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+          confirm_password.setCustomValidity('');
+        }
+      }
+
+      password.onchange = validatePassword;
+      confirm_password.onkeyup = validatePassword;
+      if (localStorage.getItem("active") !== null) {
+        var active = localStorage.getItem("active")
+        $('a[data-toggle="tab"]').each(function (index, el) {
+          $(el).removeClass('active')
+        });
+        $('.tab-pane').each(function (index, el) {
+          $(el).removeClass('active')
+        });
+        $('#' + active).addClass('active')
+        $('a[href="#' + active + '"]').addClass('active')
+      }
+      $('a[href="#profile"]').click(function (event) {
+        localStorage.setItem('active', 'profile')
+      });
+      $('a[href="#settings"]').click(function (event) {
+        localStorage.setItem('active', 'settings')
+      });
+      $('.birthdate').change(function (event) {
+        let birthday = $(this).val();
+        console.log(moment(birthday, 'DD-MM-YYYY', true).isValid())
+        if (moment(birthday, 'DD-MM-YYYY', true).isValid() === false) {
+          $('.msg-birthday').show()
+          $('#myProfile').submit(function (event) {
+            return false;
+          });
+        } else {
+          $('.msg-birthday').hide()
+          $('#myProfile').unbind('submit');
+        }
+      });
+
+      $('.profile-edit').click(function (event) {
+        $('#inputImg').click();
+      });
+      $('#inputImg').change(function (event) {
+        var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+        if ($.inArray(this.files[0]["type"], validImageTypes) < 0) {
+          return false;
+        } else {
+          readURL(this);
+        }
+      });
+
+    });
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#profileImg').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+  </script>
+</body>
+
 </html>
