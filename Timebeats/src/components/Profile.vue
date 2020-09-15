@@ -248,11 +248,17 @@
                             </div>
                           </div>
                         </div>
-                        <selectize v-model="selected" :settings="settings">
-                          <!-- settings is optional -->
-                          <option :value="1">One</option>
-                          <option :value="2">Two</option>
-                        </selectize>
+                        <multiselect
+                          v-model="taggingSelected"
+                          tag-placeholder="Lĩnh vực quan tâm"
+                          placeholder="Lĩnh vực quan tâm"
+                          label="name"
+                          track-by="code"
+                          :options="taggingOptions"
+                          :multiple="true"
+                          :taggable="true"
+                          @tag="addTag"
+                        ></multiselect>
                         <button
                           type="submit"
                           class="btn btn-primary waves-effect waves-light"
@@ -378,21 +384,33 @@
 // global.jQuery = require('jquery');
 // var $ = global.jQuery;
 // window.$ = $;
-import Selectize from "vue2-selectize";
 import Header from "./Header.vue";
+import Multiselect from "vue-multiselect";
 export default {
   components: {
     Header,
-    Selectize,
-  },
-  methods: {
-    clickActive() {},
+    Multiselect,
   },
   data() {
     return {
-      settings: {},
-      selected: 1,
+      taggingSelected: [],
+      taggingOptions: [{ name: "Facebook", code: "ro" }],
     };
+  },
+  methods: {
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+      };
+      this.taggingOptions.push(tag);
+      this.taggingSelected.push(tag);
+    },
+  },
+  mounted() {
+    this.$axios
+      .get("http://192.168.60.69:3000/api/user/my-profile")
+      .then((response) => console.log(response));
   },
 };
 </script>
@@ -412,5 +430,16 @@ export default {
   padding: 9px 40px;
   margin: 0 auto;
   display: block;
+}
+#profile button {
+  margin-top: 20px;
+}
+.multiselect__tags {
+  color: #4d5875;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
+}
+#profile .form-control {
+  height: 40px;
 }
 </style>
