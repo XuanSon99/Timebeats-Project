@@ -1,121 +1,184 @@
 <template>
   <header id="header">
-	  <!-- Banner -->
-      <div class="main-header nav nav-item hor-header">
-			<div class="container">
-				<div class="main-header-left ">
-					<a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a><!-- sidebar-toggle-->
-					<a class="header-brand" href="#">
-						<img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark">
-						<h1>Timebeat</h1>
-						<img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark">
-					</a>
-					<div class="main-header-center  ml-4">
-						<span id="myInput">https://timebeats.com/ref/y3pwnm </span><span style="cursor: pointer;"
-							onclick="copyToClipboard('#myInput')" class="tag tag-indigo ml-1">Mời Bạn Bè</span>
-					</div>
-				</div>
-				<div class="main-header-right">
-					<div class="nav nav-item  navbar-nav-right ml-auto">
-						<div class="dropdown nav-item main-header-notification">
-							<a class="new nav-link" href="#">
-								<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs feather feather-bell" viewBox="0 0 24 24"
-									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-									stroke-linejoin="round">
-									<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-									<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-								</svg><span class=" pulse"></span></a>
-							<div class="dropdown-menu">
-								<div class="menu-header-content bg-primary text-left">
-									<div class="d-flex">
-										<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Thông báo</h6>
-										<span class="badge badge-pill badge-warning ml-auto my-auto float-right">Đánh
-											dấu tất cả đã đọc</span>
-									</div>
-									<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 "></p>
-								</div>
+    <!-- Banner -->
+    <div class="main-header nav nav-item hor-header">
+      <div class="container">
+        <div class="main-header-left">
+          <a class="animated-arrow hor-toggle horizontal-navtoggle">
+            <span></span>
+          </a>
+          <!-- sidebar-toggle-->
+          <a class="header-brand" href="#">
+            <img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark" />
+            <h1>Timebeat</h1>
+            <img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark" />
+          </a>
+          <div class="main-header-center ml-4">
+            <span id="myInput">https://timebeats.com/ref/y3pwnm</span>
+            <span
+              style="cursor: pointer;"
+              onclick="copyToClipboard('#myInput')"
+              class="tag tag-indigo ml-1"
+            >Mời Bạn Bè</span>
+          </div>
+        </div>
+        <div class="main-header-right">
+          <div class="nav nav-item navbar-nav-right ml-auto">
+            <div class="dropdown nav-item main-header-notification">
+              <a class="new nav-link" href="#">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="header-icon-svgs feather feather-bell"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+                <span class="pulse"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="menu-header-content bg-primary text-left">
+                  <div class="d-flex">
+                    <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Thông báo</h6>
+                    <span class="badge badge-pill badge-warning ml-auto my-auto float-right">
+                      Đánh
+                      dấu tất cả đã đọc
+                    </span>
+                  </div>
+                  <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12"></p>
+                </div>
 
-								<div class="dropdown-footer">
-									<a href="#">Xem tất cả</a>
-								</div>
-							</div>
-						</div>
-						
-						<div class="dropdown main-profile-menu nav nav-item nav-link" style="z-index: 999999">
-							<a class="profile-user d-flex" href=""><img alt="" src="../assets/vendor/img/photos/user.png"></a>
-							<div class="dropdown-menu">
-								<div class="main-header-profile bg-primary p-3">
-									<div class="d-flex wd-100p">
-										<div class="main-img-user"><img alt="" src="../assets/vendor/img/photos/user1.png"
-												class=""></div>
-										<div class="ml-3 my-auto">
-											<h6>Nguyen Khanh</h6>
-											
-										</div>
-									</div>
-								</div>
-								<router-link class="dropdown-item" to="/profile"><i class="bx bx-user-circle"></i>Thông
-									tin cá nhân</router-link>
-								<router-link class="dropdown-item" to="/logout.html"><i class="bx bx-log-out"></i> Đăng xuất
-								</router-link>
-							</div>
-						</div>
-						<div class="nav-item profileHeader" style="display: flex;">
-							<p style="margin-bottom: auto; margin-top: auto; padding: 3px; font-weight: bolder;">Nguyen
-								Khanh </p>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	<!-- Menu -->
-	<div class="sticky sticky-pin" style="margin-bottom: 0px;">
-				<div class="horizontal-main hor-menu clearfix side-header">
-					<div class="horizontal-mainwrapper container clearfix">
-						<!--Nav-->
-						<nav class="horizontalMenu clearfix"><div class="horizontal-overlapbg active"></div>
-							<ul class="horizontalMenu-list">
-								<li aria-haspopup="true" v-for="item in menu" :key="item.index">
-									<router-link class="sub-icon" tag="a" :to="item.link">
-										<div>
-											<i :class="item.icon">{{item.content}}</i>
-											<i :class="item.subIcon"></i>
-										</div>
-									</router-link>
-									<ul class="sub-menu" >
-										<li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
-											<router-link tag="a" class="slide-item" :to="p.link">{{p.content}}</router-link>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</nav>
-						<!--Nav-->
-					</div>
-				</div>
-	</div>
+                <div class="dropdown-footer">
+                  <a href="#">Xem tất cả</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown main-profile-menu nav nav-item nav-link" style="z-index: 999999">
+              <a class="profile-user d-flex" href>
+                <img alt src="../assets/vendor/img/photos/user.png" />
+              </a>
+              <div class="dropdown-menu">
+                <div class="main-header-profile bg-primary p-3">
+                  <div class="d-flex wd-100p">
+                    <div class="main-img-user">
+                      <img alt src="../assets/vendor/img/photos/user1.png" class />
+                    </div>
+                    <div class="ml-3 my-auto">
+                      <h6>Nguyen Khanh</h6>
+                    </div>
+                  </div>
+                </div>
+                <router-link class="dropdown-item" to="/profile">
+                  <i class="bx bx-user-circle"></i>Thông
+                  tin cá nhân
+                </router-link>
+                <router-link class="dropdown-item" to="/logout.html">
+                  <i class="bx bx-log-out"></i> Đăng xuất
+                </router-link>
+              </div>
+            </div>
+            <div class="nav-item profileHeader" style="display: flex;">
+              <p style="margin-bottom: auto; margin-top: auto; padding: 3px; font-weight: bolder;">
+                Nguyen
+                Khanh
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Menu -->
+    <div class="sticky sticky-pin" style="margin-bottom: 0px;">
+      <div class="horizontal-main hor-menu clearfix side-header">
+        <div class="horizontal-mainwrapper container clearfix">
+          <!--Nav-->
+          <nav class="horizontalMenu clearfix">
+            <div class="horizontal-overlapbg active"></div>
+            <ul class="horizontalMenu-list">
+              <li aria-haspopup="true" v-for="item in menu" :key="item.index">
+                <router-link class="sub-icon" tag="a" :to="item.link">
+                  <div>
+                    <i :class="item.icon">{{item.content}}</i>
+                    <i :class="item.subIcon"></i>
+                  </div>
+                </router-link>
+                <ul class="sub-menu">
+                  <li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
+                    <router-link tag="a" class="slide-item" :to="p.link">{{p.content}}</router-link>
+                  </li>
+				  <li v-if="item.sub"><a class="slide-item logout" @click="logOut">Đăng xuất</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!--Nav-->
+        </div>
+      </div>
+    </div>
   </header>
 </template>
 
 <script>
 export default {
-	data () {
-		return {
-			menu: [
-				{content:' Trang chủ', link:'/home', icon: 'fa fa-home'},
-				{content:' Nhận nhiệm vụ', link:'/task', icon: 'fas fa-book-open'},
-				{content:' Tạo chiến dịch', link:'/make-camp', icon: 'fas fa-ad'},
-				{content:' Số dư tài khoản', link:'/wallet', icon: 'fas fa-wallet'},
-				{content:' Thống kê', link:'/thongke', icon: 'fas fa-clipboard-list', subIcon: 'fas fa-angle-down', sub : [{content: 'Thu nhập cá nhân', link: '/personal-income'}, {content: 'Thu nhập nhóm', link: '/group-income'}]},
-				{content:' Bạn bè', link:'/#', icon: 'fas fa-users'},
-				{content:' Tài Nguyên & Tải về', link:'/resource', icon: 'fas fa-recycle'},
-				{content:' Hỗ trợ', link:'/faq', icon: 'fas fa-question-circle'},
-				{content:' Cài đặt', link:'/#', icon: 'fas fa-sliders-h', subIcon: 'fas fa-angle-down', sub : [{content: 'Thông tin cá nhân', link: '/profile'}, {content: 'Xác thực hai lớp', link: '/2FA'}, {content: 'Xác thực KYC', link: '/kyc'}, {content: 'Liên kết VNDC', link: '/register-vndc'},{content: 'Đăng xuất', link: '/logout'}]},
-			]
-		}
-	}
-}
+  data() {
+    return {
+      menu: [
+        { content: " Trang chủ", link: "/home", icon: "fa fa-home" },
+        { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
+        { content: " Tạo chiến dịch", link: "/make-camp", icon: "fas fa-ad" },
+        { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
+        {
+          content: " Thống kê",
+          link: "/thongke",
+          icon: "fas fa-clipboard-list",
+          subIcon: "fas fa-angle-down",
+          sub: [
+            { content: "Thu nhập cá nhân", link: "/personal-income"},
+            { content: "Thu nhập nhóm", link: "/group-income"},
+          ],
+        },
+        { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
+        {
+          content: " Tài Nguyên & Tải về",
+          link: "/resource",
+          icon: "fas fa-recycle",
+        },
+        { content: " Hỗ trợ", link: "/faq", icon: "fas fa-question-circle" },
+        {
+          content: " Cài đặt",
+          link: "/#",
+          icon: "fas fa-sliders-h",
+          subIcon: "fas fa-angle-down",
+          sub: [
+            { content: "Thông tin cá nhân", link: "/profile"},
+            { content: "Xác thực hai lớp", link: "/2FA"},
+            { content: "Xác thực KYC", link: "/kyc"},
+            { content: "Liên kết VNDC", link: "/register-vndc"},
+          ],
+        },
+      ],
+    };
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem("LoggedUser");
+	  this.$router.push({ name: "Login" }).catch((error) => {});
+	},
+  },
+};
 </script>
 
 <style>
+.logout{
+	cursor: pointer;
+}
+.main-header {
+    top: 0;
+}
 </style>
