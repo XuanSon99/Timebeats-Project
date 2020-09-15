@@ -4,7 +4,8 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 import vueHeadful from 'vue-headful';
-
+import './assets/vendor/css/style.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
