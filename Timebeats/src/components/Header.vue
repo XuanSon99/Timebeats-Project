@@ -129,7 +129,7 @@ export default {
   data() {
     return {
       menu: [
-        { content: " Trang chủ", link: "/home", icon: "fa fa-home" },
+        { content: " Trang chủ", link: "/dashboard", icon: "fa fa-home" },
         { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
         { content: " Tạo chiến dịch", link: "/make-camp", icon: "fas fa-ad" },
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },

@@ -1,11 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Home from '@/components/Home'
+import Dashboard from '@/components/Dashboard'
 import Register from '@/components/Register'
 import FA from '@/components/FA'
 import Kyc from '@/components/Kyc'
 import Profile from '@/components/Profile'
+import Task from '@/components/Task'
+import MakeCamp from '@/components/Make-camp'
+import Wallet from '@/components/Wallet'
+import PersonalIncome from '@/components/Personal-income'
+import GroupIncome from '@/components/Group-income'
+import Resource from '@/components/Resource'
+import Faq from '@/components/Faq'
+import RegisterVndc from '@/components/Register-vndc'
 
 Vue.use(Router)
 
@@ -26,9 +34,9 @@ const router = new Router({
       }
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home,
+      path: '/Dashboard',
+      name: 'Dashboard',
+      component: Dashboard,
     },
     {
       path: '/register',
@@ -49,7 +57,47 @@ const router = new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
-    }
+    },
+    {
+      path: '/task',
+      name: 'Task',
+      component: Task
+    },
+    {
+      path: '/make-camp',
+      name: 'MakeCamp',
+      component: MakeCamp
+    },
+    {
+      path: '/wallet',
+      name: 'Wallet',
+      component: Wallet
+    },
+    {
+      path: '/personal-income',
+      name: 'PersonalIncome',
+      component: PersonalIncome
+    },
+    {
+      path: '/group-income',
+      name: 'GroupIncome',
+      component: GroupIncome
+    },
+    {
+      path: '/resource',
+      name: 'Resource',
+      component: Resource
+    },
+    {
+      path: '/faq',
+      name: 'Faq',
+      component: Faq
+    },
+    {
+      path: '/register-vndc',
+      name: 'RegisterVndc',
+      component: RegisterVndc
+    },
   ]
 })
 router.beforeEach((to, from, next) => {

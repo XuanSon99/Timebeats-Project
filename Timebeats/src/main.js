@@ -14,6 +14,7 @@ import 'vue-multiselect/dist/vue-multiselect.min.css'
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.use(Vuex);
 
 const app = new Vue({
   el: '#app',
@@ -21,7 +22,6 @@ const app = new Vue({
   router,
   jquery,
   bootstrap,
-  Vuex,
   store,
   render: h => h(App)
 })

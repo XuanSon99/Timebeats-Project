@@ -87,8 +87,9 @@
                                 type="text"
                                 class="form-control"
                                 name="full_name"
-                                placeholder="Họ Và Tên"
-                                value
+                                placeholder=""
+                                value=""
+                                v-model="name"
                               />
                             </div>
                           </div>
@@ -260,8 +261,9 @@
                           @tag="addTag"
                         ></multiselect>
                         <button
-                          type="submit"
+                          type="button"
                           class="btn btn-primary waves-effect waves-light"
+                          @click="click"
                         >Xác nhận</button>
                       </form>
                     </div>
@@ -391,6 +393,11 @@ export default {
     Header,
     Multiselect,
   },
+  computed: {
+    name(){
+      return this.$store.getters.name
+    }
+  },
   data() {
     return {
       taggingSelected: [],
@@ -411,12 +418,15 @@ export default {
       this.taggingOptions.push(tag);
       this.taggingSelected.push(tag);
     },
+    click(){
+      console.log(this.name)
+    }
   },
-  mounted() {
-    this.$axios
-      .get("http://192.168.60.69:3000/api/user/my-profile")
-      .then((response) => console.log(response));
-  },
+  // mounted() {
+  //   this.$axios
+  //     .get("http://192.168.60.69:3000/api/user/my-profile")
+  //     .then((response) => console.log(response));
+  // },
 };
 </script>
 
@@ -440,12 +450,15 @@ export default {
   margin-top: 20px;
 }
 .multiselect__tags {
-  margin: 0 0.75rem;
   color: #4d5875;
   border: 1px solid #e1e5ef;
   border-radius: 3px;
 }
 #profile .form-control {
   height: 40px;
+}
+.multiselect{
+  margin: 0 0.75em;
+  width: 95.2%;
 }
 </style>

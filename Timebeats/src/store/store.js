@@ -2,13 +2,24 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-const state = { token: null }
-const store = new Vuex.Store({
-  state,
+
+export default new Vuex.Store({
+  state: {
+    name: "Nguyễn Xuân Sơn",
+  },
+  getters: {
+    name(state) {
+      return state.name
+    }
+  },
   mutations: {
-    increment (state) {
-      state.token = response.token
+    SET_NAME(state, payload) {
+      state.name = payload
+    }
+  },
+  actions: {
+    setName({ commit }, payload) {
+      commit('SET_NAME', payload)
     }
   }
 })
-export default store
