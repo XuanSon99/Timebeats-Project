@@ -432,21 +432,6 @@
       </div>
       <!-- Container closed -->
     </div>
-    <!-- Container closed -->
-
-    <!-- Sidebar-right-->
-
-    <!--/Sidebar-right-->
-
-    <!-- Message Modal -->
-
-    <!--Video Modal -->
-    <!-- modal -->
-
-    <!-- Audio Modal -->
-    <!-- modal -->
-
-    <!-- Footer opened -->
     <div class="main-footer ht-40">
       <div class="container-fluid pd-t-0-f ht-100p">
         <span>
@@ -464,4 +449,7 @@ export default {};
 </script>
 
 <style>
+button{
+  margin-top: 0 !important;
+}
 </style>
