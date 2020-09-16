@@ -163,7 +163,7 @@ export default {
               }
               this.loggedUser = this.signin.email;
               this.SetStorage();
-              this.$router.push({ name: "Home" }).catch((error) => {});
+              this.$router.push({ name: "Dashboard" }).catch((error) => {});
             }
         )
         .catch((error,response) => {

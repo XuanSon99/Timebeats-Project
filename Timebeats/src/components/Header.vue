@@ -10,7 +10,7 @@
           <!-- sidebar-toggle-->
           <a class="header-brand" href="#">
             <img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark" />
-            <h1>Timebeat</h1>
+            <h1><router-link to="/dashboard">Timebeat</router-link></h1>
             <img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark" />
           </a>
           <div class="main-header-center ml-4">
@@ -110,9 +110,16 @@
                 </router-link>
                 <ul class="sub-menu">
                   <li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
-                    <router-link tag="a" :to="p.link"><span>&gt;</span>{{p.content}}</router-link>
+                    <router-link tag="a" :to="p.link">
+                      <span>&gt;</span>
+                      {{p.content}}
+                    </router-link>
                   </li>
-				          <li v-if="item.sub"><a class="logout" @click="logOut"><span>&gt;</span>Đăng xuất</a></li>
+                  <li v-if="item.sub">
+                    <a class="logout" @click="logOut">
+                      <span>&gt;</span>Đăng xuất
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -139,8 +146,8 @@ export default {
           icon: "fas fa-clipboard-list",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thu nhập cá nhân", link: "/personal-income"},
-            { content: "Thu nhập nhóm", link: "/group-income"},
+            { content: "Thu nhập cá nhân", link: "/personal-income" },
+            { content: "Thu nhập nhóm", link: "/group-income" },
           ],
         },
         { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
@@ -156,10 +163,10 @@ export default {
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thông tin cá nhân", link: "/profile"},
-            { content: "Xác thực hai lớp", link: "/2FA"},
-            { content: "Xác thực KYC", link: "/kyc"},
-            { content: "Liên kết VNDC", link: "/register-vndc"},
+            { content: "Thông tin cá nhân", link: "/profile" },
+            { content: "Xác thực hai lớp", link: "/2FA" },
+            { content: "Xác thực KYC", link: "/kyc" },
+            { content: "Liên kết VNDC", link: "/register-vndc" },
           ],
         },
       ],
@@ -168,28 +175,28 @@ export default {
   methods: {
     logOut() {
       localStorage.removeItem("LoggedUser");
-	  this.$router.push({ name: "Login" }).catch((error) => {});
-	},
+      this.$router.push({ name: "Login" }).catch((error) => {});
+    },
   },
 };
 </script>
 
 <style>
-.logout{
-	cursor: pointer;
+.logout {
+  cursor: pointer;
 }
 .main-header {
-    top: 0;
+  top: 0;
 }
 .sub-menu li a:before {
-    display: none;
+  display: none;
 }
 .horizontalMenu > .horizontalMenu-list > li > ul.sub-menu > li > a {
-    padding-left: 0;
+  padding-left: 0;
 }
 .sub-menu li a span {
-    padding: 0 10px;
-    font-size: 12px;
-    font-weight: 600;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
 }
 </style>

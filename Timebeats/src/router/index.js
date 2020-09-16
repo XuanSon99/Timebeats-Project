@@ -29,7 +29,7 @@ const router = new Router({
       name: 'Login',
       component: Login,
       beforeEnter: (to, from, next) => {
-        if (to.name == 'Login' && isAuthenticated) next({ name: 'Home' })
+        if (to.name == 'Login' && isAuthenticated) next({ name: 'Dashboard' })
         next()
       }
     },
