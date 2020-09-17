@@ -19,7 +19,7 @@
                 <div class="tabs-menu">
                   <!-- Tabs -->
                   <ul class="nav nav-tabs profile navtab-custom panel-tabs">
-                    <li class>
+                    <li>
                       <a
                         href="#registerVNDC"
                         class="active"
@@ -32,20 +32,12 @@
                         <span class="hidden-xs">ĐĂNG KÝ VNDC</span>
                       </a>
                     </li>
-                    <li class>
-                      <a href="#verifyOTP" class="active" data-toggle="tab" aria-expanded="false">
+                    <li>
+                      <a href="#verifyOTP" data-toggle="tab" aria-expanded="false">
                         <span class="visible-xs">
                           <i class="las la-cog tx-16 mr-1"></i>
                         </span>
-                        <span class="hidden-xs">Xác minh Otp</span>
-                      </a>
-                    </li>
-                    <li class>
-                      <a href="#verifyKYC" class="active" data-toggle="tab" aria-expanded="false">
-                        <span class="visible-xs">
-                          <i class="las la-cog tx-16 mr-1"></i>
-                        </span>
-                        <span class="hidden-xs">Xác minh Kyc</span>
+                        <span class="hidden-xs">XÁC MINH OTP</span>
                       </a>
                     </li>
                   </ul>
@@ -88,6 +80,9 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="tab-pane" id="verifyOTP">
+                    <div class="mb-4 main-content-label">Xác minh OTP</div>
                   </div>
                 </div>
               </div>
