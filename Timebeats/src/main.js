@@ -7,10 +7,9 @@ import axios from 'axios'
 import vueHeadful from 'vue-headful';
 import './assets/vendor/css/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import store from './store/store'
 import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
-
+import store from "./store/store";
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

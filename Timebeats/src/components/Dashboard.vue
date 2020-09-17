@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <vue-headful title="Trang chủ" />
+    <Header />
     <div class="main-content horizontal-content">
       <div id="dasboardMobile" style="display: none">
         <br />
@@ -349,6 +350,7 @@
 
 <script>
 import Header from "./Header";
+import { mapGetters } from 'vuex'
 export default {
   name: "home",
   data() {
@@ -357,6 +359,10 @@ export default {
   components: {
     Header,
   },
+  beforeMount(){
+    console.log(this.$store.getters.name)
+    console.log(this.$store.getters.token)
+  }
 };
 </script>
 

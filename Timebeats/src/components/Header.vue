@@ -103,7 +103,7 @@
                   </li>
                   <li v-if="item.sub">
                     <a class="logout" @click="logOut">
-                      <span>&gt;</span>Đăng xuất
+                      <span>&gt;</span> Đăng xuất
                     </a>
                   </li>
                 </ul>
