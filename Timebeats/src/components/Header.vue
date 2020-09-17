@@ -10,7 +10,9 @@
           <!-- sidebar-toggle-->
           <a class="header-brand" href="#">
             <img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark" />
-            <h1><router-link to="/dashboard">Timebeat</router-link></h1>
+            <h1>
+              <router-link to="/dashboard">Timebeat</router-link>
+            </h1>
             <img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark" />
           </a>
           <div class="main-header-center ml-4">
@@ -58,36 +60,20 @@
                 </div>
               </div>
             </div>
-
-            <div class="dropdown main-profile-menu nav nav-item nav-link" style="z-index: 999999">
-              <a class="profile-user d-flex" href>
-                <img alt src="../assets/vendor/img/photos/user.png" />
+            <div class="dropdown main-profile-menu">
+              <a
+                class="dropdown-toggle profile-user d-flex"
+                id="dropdownUser"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span><img alt src="../assets/vendor/img/photos/user.png" /> Nguyễn Khanh</span>
               </a>
-              <div class="dropdown-menu">
-                <div class="main-header-profile bg-primary p-3">
-                  <div class="d-flex wd-100p">
-                    <div class="main-img-user">
-                      <img alt src="../assets/vendor/img/photos/user1.png" class />
-                    </div>
-                    <div class="ml-3 my-auto">
-                      <h6>Nguyen Khanh</h6>
-                    </div>
-                  </div>
-                </div>
-                <router-link class="dropdown-item" to="/profile">
-                  <i class="bx bx-user-circle"></i>Thông
-                  tin cá nhân
-                </router-link>
-                <router-link class="dropdown-item" to="/logout.html">
-                  <i class="bx bx-log-out"></i> Đăng xuất
-                </router-link>
+              <div class="dropdown-menu" aria-labelledby="dropdownUser">
+                <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
+                <a class="dropdown-item" @click="logOut">Đăng xuất</a>
               </div>
-            </div>
-            <div class="nav-item profileHeader" style="display: flex;">
-              <p style="margin-bottom: auto; margin-top: auto; padding: 3px; font-weight: bolder;">
-                Nguyen
-                Khanh
-              </p>
             </div>
           </div>
         </div>
@@ -196,5 +182,24 @@ export default {
   padding: 0 10px;
   font-size: 12px;
   font-weight: 600;
+}
+.dropdown-toggle::after{
+  display: none;
+}
+.main-header .dropdown-menu:after{
+  display: none;
+}
+#dropdownUser{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+}
+.main-profile-menu .dropdown-item:last-child {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.main-profile-menu .dropdown-item:last-child:hover {
+    color: #22c03c;
 }
 </style>
