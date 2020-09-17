@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -393,9 +394,12 @@ export default {
     Header,
     Multiselect,
   },
+  beforeMount() {
+    console.log(this.$store.state.token)
+  },
   computed: {
     name(){
-      return this.$store.getters.name
+
     }
   },
   data() {

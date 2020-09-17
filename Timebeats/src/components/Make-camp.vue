@@ -1,5 +1,7 @@
 <template>
-  <div class="main-content horizontal-content">
+  <div>
+    <Header />
+    <div class="main-content horizontal-content">
     <!-- container opened -->
     <div class="container">
       <!-- breadcrumb -->
@@ -442,10 +444,16 @@
     </div>
     <!-- Footer closed -->
   </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import Header from './Header'
+export default {
+  components: {
+    Header
+  }
+};
 </script>
 
 <style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <div class="main-content horizontal-content">
       <div class="container">
         <div class="breadcrumb-header justify-content-between">
@@ -315,7 +316,12 @@
 </template>
 
 <script>
-export default {};
+import Header from './Header'
+export default {
+  components: {
+    Header
+  }
+};
 </script>
 
 <style>

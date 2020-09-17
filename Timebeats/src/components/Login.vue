@@ -154,8 +154,8 @@ export default {
               this.token = response.data.data[0].access_token;
               this.name = response.data.data[0].display_name;
 
-              this.$store.dispatch("setName", this.name)
-              console.log(this.$store.getters.name)
+              // this.$store.dispatch("setName", this.name)
+              this.$store.commit('LOGIN_SUCCESS', response)
 
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
@@ -239,8 +239,5 @@ body {
 .signin-form .social-login svg {
   height: 0.5cm;
   margin-left: 10px;
-}
-#header {
-  display: none;
 }
 </style>

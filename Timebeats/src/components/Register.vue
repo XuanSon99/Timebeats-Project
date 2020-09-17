@@ -202,7 +202,4 @@ export default {
     a:hover {
         color: #2c3e50;
     }
-    #header {
-        display: none;
-    }
 </style>

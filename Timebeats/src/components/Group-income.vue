@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -230,7 +231,12 @@
 </template>
 
 <script>
-export default {};
+import Header from './Header'
+export default {
+  components: {
+    Header
+  }
+};
 </script>
 
 <style>
