@@ -394,10 +394,18 @@ export default {
     Header,
     Multiselect,
   },
+  beforeMount() {
+    console.log(this.$store.state.token)
+  },
   computed: {
     name(){
+<<<<<<< HEAD
       return this.$store.getters.name
     },
+=======
+
+    }
+>>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
   },
   data() {
     return {

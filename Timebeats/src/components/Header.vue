@@ -101,7 +101,7 @@
                       {{p.content}}
                     </router-link>
                   </li>
-                  <li v-if="item.sub">
+                  <li v-if="item.id == 'logout'">
                     <a class="logout" @click="logOut">
                       <span>&gt;</span> Đăng xuất
                     </a>
@@ -122,7 +122,7 @@ export default {
   data() {
     return {
       menu: [
-        { content: " Trang chủ", link: "/dashboard", icon: "fa fa-home" },
+        { content: " Trang chủ", link: "/", icon: "fa fa-home" },
         { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
         { content: " Tạo chiến dịch", link: "/make-camp", icon: "fas fa-ad" },
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
@@ -144,6 +144,7 @@ export default {
         },
         { content: " Hỗ trợ", link: "/faq", icon: "fas fa-question-circle" },
         {
+          id: "logout",
           content: " Cài đặt",
           link: "/#",
           icon: "fas fa-sliders-h",

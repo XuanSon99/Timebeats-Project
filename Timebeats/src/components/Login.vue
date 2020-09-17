@@ -154,8 +154,13 @@ export default {
               this.token = response.data.data[0].access_token;
               this.name = response.data.data[0].display_name;
 
+<<<<<<< HEAD
               this.$store.dispatch("setName", this.name)
               this.$store.dispatch("setToken", this.token)
+=======
+              // this.$store.dispatch("setName", this.name)
+              this.$store.commit('LOGIN_SUCCESS', response)
+>>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
 
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
