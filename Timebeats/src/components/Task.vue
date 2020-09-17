@@ -28,18 +28,6 @@
                             <a href="#" class="nav-link active">Tất Cả</a>
                           </li>
                           <li class="nav-item">
-                            <a href="#" class="nav-link">Theo Dõi</a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="#" class="nav-link">Nghe Nhạc</a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="#" class="nav-link">Xem Video</a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="#" class="nav-link">Thêm</a>
-                          </li>
-                          <li class="nav-item">
                             <select
                               name
                               id="status"
@@ -79,61 +67,61 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>TikTok</td>
                                   <td>Follow TikTok</td>
                                   <td>10 $</td>
                                   <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo">
+                                    <span class="tag tag-indigo tag-center">
                                       <a style="color: white" href="#">Nhận</a>
                                     </span>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>TikTok</td>
                                   <td>Follow TikTok</td>
                                   <td>10 $</td>
                                   <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo">
+                                    <span class="tag tag-indigo tag-center">
                                       <a style="color: white" href="#">Nhận</a>
                                     </span>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>TikTok</td>
                                   <td>Follow TikTok</td>
                                   <td>10 $</td>
                                   <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo">
+                                    <span class="tag tag-indigo tag-center">
                                       <a style="color: white" href="#">Nhận</a>
                                     </span>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>TikTok</td>
                                   <td>Follow TikTok</td>
                                   <td>10 $</td>
                                   <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo">
+                                    <span class="tag tag-indigo tag-center">
                                       <a style="color: white" href="#">Nhận</a>
                                     </span>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>TikTok</td>
                                   <td>Follow TikTok</td>
                                   <td>10 $</td>
                                   <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo">
+                                    <span class="tag tag-indigo tag-center">
                                       <a style="color: white" href="#">Nhận</a>
                                     </span>
                                   </td>
@@ -163,4 +151,16 @@ export default {};
 </script>
 
 <style>
+#status {
+  height: 40px;
+}
+.tag-center{
+  margin: 0 auto;
+  display: block;
+  max-width: 50px;
+  text-align: center;
+}
+th{
+  text-align: center;
+}
 </style>

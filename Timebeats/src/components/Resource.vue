@@ -67,85 +67,76 @@
                       <table
                         class="table text-md-nowrap data-table table-bordered table-hover"
                         id="statistic"
-                        style="font-size: 14px;"
                       >
                         <thead>
                           <tr>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-5p border-bottom-0"
-                            >ID</th>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-10p border-bottom-0"
-                            >NỀN TẢNG</th>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-15p border-bottom-0"
-                            >TRẠNG THÁI</th>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-10p border-bottom-0"
-                            >THÔNG TIN TÀI KHOẢN</th>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-10p border-bottom-0"
-                            >NGÀY TẠO</th>
-                            <th
-                              style="padding: 12px; font-size: 14px;"
-                              class="wd-10p border-bottom-0"
-                            >CÔNG CỤ</th>
+                            <th class="wd-10p border-bottom-0">STT</th>
+                            <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
+                            <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
+                            <th class="wd-10p border-bottom-0">THÔNG TIN TÀI KHOẢN</th>
+                            <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
+                            <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>TikTok</td>
                             <td>Follow TikTok</td>
                             <td>10 $</td>
                             <td>999 Lượt</td>
-                            <td class="tools">
-                              <button class="btn ripple btn-danger" id type="button">Xóa</button>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>TikTok</td>
                             <td>Follow TikTok</td>
                             <td>10 $</td>
                             <td>999 Lượt</td>
-                            <td class="tools">
-                              <button class="btn ripple btn-danger" id type="button">Xóa</button>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>TikTok</td>
                             <td>Follow TikTok</td>
                             <td>10 $</td>
                             <td>999 Lượt</td>
-                            <td class="tools">
-                              <button class="btn ripple btn-danger" id type="button">Xóa</button>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>TikTok</td>
                             <td>Follow TikTok</td>
                             <td>10 $</td>
                             <td>999 Lượt</td>
-                            <td class="tools">
-                              <button class="btn ripple btn-danger" id type="button">Xóa</button>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>TikTok</td>
                             <td>Follow TikTok</td>
                             <td>10 $</td>
                             <td>999 Lượt</td>
-                            <td class="tools">
-                              <button class="btn ripple btn-danger" id type="button">Xóa</button>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
                             </td>
                           </tr>
                         </tbody>
@@ -272,4 +263,10 @@ export default {};
 </script>
 
 <style>
+.tag-center{
+  margin: 0 auto;
+  display: block;
+  max-width: 50px;
+  text-align: center;
+}
 </style>

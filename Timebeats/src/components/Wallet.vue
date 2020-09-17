@@ -42,7 +42,7 @@
                       <td>0 đ</td>
 
                       <td>
-                        <div class="dropdown">
+                        <div class="dropdown withdrawal">
                           <button
                             aria-expanded="false"
                             aria-haspopup="true"
@@ -55,11 +55,11 @@
                             <i class="fas fa-caret-down ml-1"></i>
                           </button>
                           <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item vnd" href="javascript:void(0)">
+                            <a class="dropdown-item vnd" href>
                               VNDC
                               Wallet Pro
                             </a>
-                            <a class="dropdown-item banking" href="javascript:void(0)">
+                            <a class="dropdown-item banking" href>
                               Tài
                               khoản ngân hàng
                             </a>
@@ -428,7 +428,7 @@
                       </option>
                     </select>
                   </div>
-                </div> -->
+                </div>-->
 
                 <div class="form-group">
                   <label class="main-content-label tx-11 tx-medium tx-gray-600">CHI NHÁNH</label>
@@ -554,4 +554,8 @@ export default {};
 </script>
 
 <style>
+.withdrawal .dropdown-menu {
+  top: -7px !important;
+  left: -1px !important;
+}
 </style>

@@ -134,67 +134,52 @@
                         <td>10 $</td>
                         <td>999 Lượt</td>
                         <td>
-                          <span class="tag tag-indigo">
-                            <a
-                              style="color: white"
-                              href="https://timebeats.com/dashboard/team-member/1"
-                            >Nhận</a>
+                          <span class="tag tag-indigo tag-center">
+                            <a style="color: white" href>Nhận</a>
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">2</th>
-                        <td>Follow Facebook</td>
+                        <th scope="row">1</th>
+                        <td>Follow TikTok</td>
                         <td>10 $</td>
                         <td>999 Lượt</td>
                         <td>
-                          <span class="tag tag-indigo">
-                            <a
-                              style="color: white"
-                              href="https://timebeats.com/dashboard/team-member/2"
-                            >Nhận</a>
+                          <span class="tag tag-indigo tag-center">
+                            <a style="color: white" href>Nhận</a>
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">3</th>
-                        <td>Subcrible Youtube</td>
+                        <th scope="row">1</th>
+                        <td>Follow TikTok</td>
                         <td>10 $</td>
                         <td>999 Lượt</td>
                         <td>
-                          <span class="tag tag-indigo">
-                            <a
-                              style="color: white"
-                              href="https://timebeats.com/dashboard/team-member/3"
-                            >Nhận</a>
+                          <span class="tag tag-indigo tag-center">
+                            <a style="color: white" href>Nhận</a>
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">4</th>
-                        <td>Download App</td>
+                        <th scope="row">1</th>
+                        <td>Follow TikTok</td>
                         <td>10 $</td>
                         <td>999 Lượt</td>
                         <td>
-                          <span class="tag tag-indigo">
-                            <a
-                              style="color: white"
-                              href="https://timebeats.com/dashboard/team-member/4"
-                            >Nhận</a>
+                          <span class="tag tag-indigo tag-center">
+                            <a style="color: white" href>Nhận</a>
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">5</th>
-                        <td>Register Account</td>
+                        <th scope="row">1</th>
+                        <td>Follow TikTok</td>
                         <td>10 $</td>
                         <td>999 Lượt</td>
                         <td>
-                          <span class="tag tag-indigo">
-                            <a
-                              style="color: white"
-                              href="https://timebeats.com/dashboard/team-member/5"
-                            >Nhận</a>
+                          <span class="tag tag-indigo tag-center">
+                            <a style="color: white" href>Nhận</a>
                           </span>
                         </td>
                       </tr>
@@ -243,7 +228,9 @@
                         c&aacute;c chiến dịch, quảng c&aacute;o, mở ra c&aacute;c chiến dịch,
                         nhiệm vụ, quảng c&aacute;o hướng đối tượng cũng như đảm bảo t&iacute;nh
                         c&ocirc;ng bằng cho tất cả c&aacute;c đối tượng...
-                        <a href="https://timebeats.com/dashboard/notification/detail/15">
+                        <a
+                          href="https://timebeats.com/dashboard/notification/detail/15"
+                        >
                           Xem
                           thêm
                         </a>
@@ -374,7 +361,10 @@ export default {
 </script>
 
 <style>
-button {
-  margin-top: 100px;
+.tag-center{
+  margin: 0 auto;
+  display: block;
+  max-width: 50px;
+  text-align: center;
 }
 </style>

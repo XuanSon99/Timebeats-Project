@@ -7370,9 +7370,6 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
 #resource .tools button:last-child{
   padding: 5px 20px;
 }
-#resource tbody td{
-  line-height: 30px;
-}
 #resource .form-control {
   width: 125px;
   display: inline;

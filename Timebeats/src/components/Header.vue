@@ -164,8 +164,6 @@ export default {
           subIcon: "fas fa-angle-down",
           sub: [
             { content: "Thông tin cá nhân", link: "/profile" },
-            { content: "Xác thực hai lớp", link: "/2FA" },
-            { content: "Xác thực KYC", link: "/kyc" },
             { content: "Liên kết VNDC", link: "/register-vndc" },
           ],
         },

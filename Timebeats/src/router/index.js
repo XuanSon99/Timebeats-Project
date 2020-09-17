@@ -3,8 +3,6 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import Register from '@/components/Register'
-import FA from '@/components/FA'
-import Kyc from '@/components/Kyc'
 import Profile from '@/components/Profile'
 import Task from '@/components/Task'
 import MakeCamp from '@/components/Make-camp'
@@ -42,16 +40,6 @@ const router = new Router({
       path: '/register',
       name: 'Register',
       component: Register
-    },
-    {
-      path: '/2fa',
-      name: 'FA',
-      component: FA
-    },
-    {
-      path: '/kyc',
-      name: 'Kyc',
-      component: Kyc
     },
     {
       path: '/profile',

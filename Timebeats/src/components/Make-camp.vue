@@ -363,7 +363,7 @@
                                 <td>10 $</td>
                                 <td>999 Lượt</td>
                                 <td>
-                                  <span class="tag tag-indigo">
+                                  <span class="tag tag-indigo tag-center">
                                     <a style="color: white" href="#">Nhận</a>
                                   </span>
                                 </td>
@@ -375,7 +375,7 @@
                                 <td>10 $</td>
                                 <td>999 Lượt</td>
                                 <td>
-                                  <span class="tag tag-indigo">
+                                  <span class="tag tag-indigo tag-center">
                                     <a style="color: white" href="#">Nhận</a>
                                   </span>
                                 </td>
@@ -387,7 +387,7 @@
                                 <td>10 $</td>
                                 <td>999 Lượt</td>
                                 <td>
-                                  <span class="tag tag-indigo">
+                                  <span class="tag tag-indigo tag-center">
                                     <a style="color: white" href="#">Nhận</a>
                                   </span>
                                 </td>
@@ -399,7 +399,7 @@
                                 <td>10 $</td>
                                 <td>999 Lượt</td>
                                 <td>
-                                  <span class="tag tag-indigo">
+                                  <span class="tag tag-indigo tag-center">
                                     <a style="color: white" href="#">Nhận</a>
                                   </span>
                                 </td>
@@ -411,7 +411,7 @@
                                 <td>10 $</td>
                                 <td>999 Lượt</td>
                                 <td>
-                                  <span class="tag tag-indigo">
+                                  <span class="tag tag-indigo tag-center">
                                     <a style="color: white" href="#">Nhận</a>
                                   </span>
                                 </td>
