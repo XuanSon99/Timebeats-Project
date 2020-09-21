@@ -359,10 +359,6 @@ export default {
   components: {
     Header,
   },
-  beforeMount(){
-    console.log(this.$store.getters.name)
-    console.log(this.$store.getters.token)
-  }
 };
 </script>
 

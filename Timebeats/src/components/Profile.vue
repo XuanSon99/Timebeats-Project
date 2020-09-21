@@ -69,7 +69,7 @@
                                 class="main-img-user profile-user"
                                 style="width: 120px; height: 120px; margin-bottom: 20px"
                               >
-                                <img alt src="../assets/vendor/img/photos/user.png" id="profileImg" />
+                                <img alt :src="avatar" id="profileImg" />
                                 <a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
                                 <input
                                   type="file"
@@ -88,8 +88,8 @@
                                 type="text"
                                 class="form-control"
                                 name="full_name"
-                                placeholder=""
-                                value=""
+                                placeholder
+                                value
                                 v-model="name"
                               />
                             </div>
@@ -100,38 +100,20 @@
                           <div class="row">
                             <div class="col-md-12">
                               <select name="gender" class="form-control select2">
-                                <option selected value="0">Nam</option>
-                                <option value="1">Nữ</option>
-                                <option value="2">Khác</option>
+                                <option
+                                  v-for="gender in gender_list"
+                                  :key="gender.gender"
+                                  :value="gender.value"
+                                  :selected="gender.selected"
+                                >{{gender.gender}}</option>
                               </select>
                             </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="row">
-                            <div class="col-md-12">
-                              <div class="row row-sm mg-b-20">
-                                <div class="input-group col-md-4">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                      <i class="fas fa-calendar-alt"></i>
-                                    </div>
-                                  </div>
-
-                                  <input
-                                    class="form-control fc-datepicker birthdate"
-                                    value="01-01-1970"
-                                    name="birthday"
-                                    placeholder="DD-MM-YYYY"
-                                    type="text"
-                                  />
-                                  <p style="display: none" class="alert alert-danger msg-birthday">
-                                    Vui lòng
-                                    nhập đúng định dạng. Ví dụ: 12-12-2002
-                                  </p>
-                                </div>
-                              </div>
-                              <!-- wd-200 -->
+                            <div class="col-md-6">
+                              <Datepicker v-model="birthday" :bootstrap-styling="true"></Datepicker>
                             </div>
                           </div>
                         </div>
@@ -230,9 +212,8 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                name="email"
                                 placeholder="example@gmail.com"
-                                value
+                                v-model="email"
                               />
                             </div>
                           </div>
@@ -245,7 +226,7 @@
                                 class="form-control"
                                 name="phone_number"
                                 placeholder="Số điện thoại"
-                                value
+                                v-model="phone"
                               />
                             </div>
                           </div>
@@ -255,7 +236,7 @@
                           tag-placeholder="Lĩnh vực quan tâm"
                           placeholder="Lĩnh vực quan tâm"
                           label="name"
-                          track-by="code"
+                          track-by="_id"
                           :options="taggingOptions"
                           :multiple="true"
                           :taggable="true"
@@ -264,7 +245,6 @@
                         <button
                           type="button"
                           class="btn btn-primary waves-effect waves-light"
-                          @click="click"
                         >Xác nhận</button>
                       </form>
                     </div>
@@ -389,53 +369,77 @@
 // window.$ = $;
 import Header from "./Header.vue";
 import Multiselect from "vue-multiselect";
+import Datepicker from "vuejs-datepicker";
 export default {
   components: {
     Header,
     Multiselect,
-  },
-  beforeMount() {
-    console.log(this.$store.state.token)
-  },
-  computed: {
-    name(){
-<<<<<<< HEAD
-      return this.$store.getters.name
-    },
-=======
-
-    }
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
+    Datepicker,
   },
   data() {
     return {
       taggingSelected: [],
-      taggingOptions: [
-        { name: "Facebook", code: "fa" },
-        { name: "Tiktok", code: "ti" },
-        { name: "Youtube", code: "yo" },
-        { name: "Instagram", code: "in" },
+      taggingOptions: [],
+      id_option: "",
+      name: "",
+      email: "",
+      birthday: "",
+      avatar: "",
+      gender: "",
+      phone: "",
+      gender_list: [
+        { gender: "Nam", value: "male", selected: false },
+        { gender: "Nữ", value: "female", selected: false },
       ],
     };
+  },
+  mounted() {
+    //Get profile
+    this.$axios
+      .get("http://192.168.60.69:3000/api/user/my-profile", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.name = response.data.data[0].display_name;
+        this.email = response.data.data[0].email;
+        this.birthday = response.data.data[0].birthday;
+        this.avatar = response.data.data[0].avatar;
+        this.gender = response.data.data[0].gender;
+        this.phone = response.data.data[0].phone;
+
+        if(this.gender == 'male'){
+          this.gender_list[0].selected = true
+        }
+        if(this.gender == 'female'){
+          this.gender_list[1].selected = true
+        }
+      });
+    //Get social network care list
+    this.$axios
+      .get("http://192.168.60.69:3000/api/areas-concern", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.taggingOptions = response.data.data[0];
+        console.log(this.taggingOptions);
+      });
   },
   methods: {
     addTag(newTag) {
       const tag = {
         name: newTag,
-        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+        _id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
       };
       this.taggingOptions.push(tag);
       this.taggingSelected.push(tag);
     },
-    click(){
-      console.log(this.name)
-    }
   },
-  // mounted() {
-  //   this.$axios
-  //     .get("http://192.168.60.69:3000/api/user/my-profile")
-  //     .then((response) => console.log(response));
-  // },
 };
 </script>
 
@@ -466,7 +470,7 @@ export default {
 #profile .form-control {
   height: 40px;
 }
-.multiselect{
+.multiselect {
   margin: 0 0.75em;
   width: 95.2%;
 }

@@ -113,7 +113,7 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   name: "signin",
   data() {
@@ -124,7 +124,7 @@ export default {
       },
       status: false,
       token: String,
-      name: String,
+      id: String,
       errors: [],
       loggedUser: null,
     };
@@ -148,30 +148,23 @@ export default {
           email: this.signin.email,
           password: this.signin.password,
         })
-        .then(
-          (response) => {
-              this.status = response.data.status;
-              this.token = response.data.data[0].access_token;
-              this.name = response.data.data[0].display_name;
+        .then((response) => {
+          this.status = response.data.status;
+          this.token = response.data.data[0].access_token;
+          this.id = response.data.data[0]._id;
 
-<<<<<<< HEAD
-              this.$store.dispatch("setName", this.name)
-              this.$store.dispatch("setToken", this.token)
-=======
-              // this.$store.dispatch("setName", this.name)
-              this.$store.commit('LOGIN_SUCCESS', response)
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
+          this.$store.dispatch("setID", this.id);
+          this.$store.dispatch("setToken", this.token);
 
-              if (!this.status) {
-                this.errors.push("Tài khoản hoặc mật khẩu không đúng");
-                return false;
-              }
-              this.loggedUser = this.signin.email;
-              this.SetStorage();
-              this.$router.push({ name: "Dashboard" }).catch((error) => {});
-            }
-        )
-        .catch((error,response) => {
+          if (!this.status) {
+            this.errors.push("Tài khoản hoặc mật khẩu không đúng");
+            return false;
+          }
+          this.loggedUser = this.signin.email;
+          this.SetStorage();
+          this.$router.push({ name: "Dashboard" }).catch((error) => {});
+        })
+        .catch((error, response) => {
           this.status = error.response.data.status;
           if (!this.status) {
             this.errors.push("Tài khoản hoặc mật khẩu không đúng");

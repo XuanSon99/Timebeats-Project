@@ -316,19 +316,11 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import Header from "./Header";
 export default {
   components: {
     Header,
   },
-=======
-import Header from './Header'
-export default {
-  components: {
-    Header
-  }
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
 };
 </script>
 
