@@ -238,4 +238,7 @@ body {
   height: 0.5cm;
   margin-left: 10px;
 }
+.signin-image{
+  text-align: center;
+}
 </style>

@@ -89,7 +89,7 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  if (to.name != 'Login' && !isAuthenticated) next({ name: 'Login' })
+  if (to.name != 'Login' && to.name != 'Register' && !isAuthenticated) next({ name: 'Login' })
   next()
 })
 export default router
