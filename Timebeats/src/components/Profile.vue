@@ -113,7 +113,7 @@
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-6">
-                              <Datepicker v-model="birthday" :bootstrap-styling="true"></Datepicker>
+                              <Datepicker v-model="birthday" :bootstrap-styling="true" placeholder="Ngày sinh"></Datepicker>
                             </div>
                           </div>
                         </div>
@@ -393,10 +393,6 @@ export default {
           this.Key_Code = response.data.data[0].KeyCode;
         }
       });
-  },
-  computed: {
-    name() {},
-    Datepicker,
   },
   data() {
     return {

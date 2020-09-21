@@ -199,7 +199,7 @@ export default {
       confirm_password: null,
       check: false,
       errors: [],
-      users: [],
+      info: [],
     };
   },
   methods: {
@@ -217,8 +217,8 @@ export default {
         this.errors.push("Vui lòng nhập đầy đủ thông tin");
         return;
       }
-      if(this.password.length < 6){
-          this.errors.push("Mật khẩu phải dài hơn 6 ký tự");
+      if (this.password.length < 6) {
+        this.errors.push("Mật khẩu phải dài hơn 6 ký tự");
         return;
       }
       if (!this.validEmail(this.email)) {
@@ -246,7 +246,18 @@ export default {
           phone: this.phone,
         })
         .then((response) => {
-          console.log(response);
+          alert("Đăng ký thành công!");
+          this.username = "";
+          this.email = "";
+          this.gender = "";
+          this.password = "";
+          this.confirm_password = "";
+          this.phone = "";
+          this.check = false;
+        })
+        .catch((error, response) => {
+          this.errors.push("Email đã tồn tại");
+          return;
         });
     },
     validEmail: function (email) {
