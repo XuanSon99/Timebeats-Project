@@ -160,6 +160,7 @@ export default {
   methods: {
     logOut() {
       localStorage.removeItem("LoggedUser");
+      localStorage.removeItem("vuex");
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },

@@ -113,7 +113,7 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   name: "signin",
   data() {
@@ -124,10 +124,9 @@ export default {
       },
       status: false,
       token: String,
-      name: String,
+      id: String,
       errors: [],
       loggedUser: null,
-      id: String
     };
   },
   methods: {
@@ -152,9 +151,7 @@ export default {
           (response) => {
               this.status = response.data.status;
               this.token = response.data.data[0].access_token;
-              this.name = response.data.data[0].display_name;
-              this.id = response.data.data[0]._id
-              this.$store.dispatch("setName", this.name)
+              this.id = response.data.data[0]._id;
               this.$store.dispatch("setToken", this.token)
               this.$store.dispatch("setID", this.id)
               if (!this.status) {

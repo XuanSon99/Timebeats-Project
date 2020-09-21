@@ -359,9 +359,6 @@ export default {
   components: {
     Header,
   },
-  beforeMount(){
-    
-  }
 };
 </script>
 
