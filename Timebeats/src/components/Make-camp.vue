@@ -445,7 +445,6 @@
       <!-- Footer closed -->
     </div>
   </div>
-  </div>
 </template>
 
 <script>
