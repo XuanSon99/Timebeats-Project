@@ -2,7 +2,6 @@
   <div>
     <Header />
     <div class="main-content horizontal-content">
-<<<<<<< HEAD
       <!-- container opened -->
       <div class="container">
         <!-- breadcrumb -->
@@ -11,15 +10,6 @@
             <div class="d-flex">
               <h4 class="content-title mb-0 my-auto">Tạo Chiến Dịch</h4>
             </div>
-=======
-    <!-- container opened -->
-    <div class="container">
-      <!-- breadcrumb -->
-      <div class="breadcrumb-header justify-content-between">
-        <div class="my-auto">
-          <div class="d-flex">
-            <h4 class="content-title mb-0 my-auto">Tạo Chiến Dịch</h4>
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
           </div>
         </div>
         <!-- breadcrumb -->
@@ -459,19 +449,11 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import Header from "./Header";
-export default {
-  components: {
-    Header,
-  },
-=======
 import Header from './Header'
 export default {
   components: {
     Header
   }
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
 };
 </script>
 

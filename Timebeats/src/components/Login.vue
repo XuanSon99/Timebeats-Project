@@ -127,6 +127,7 @@ export default {
       name: String,
       errors: [],
       loggedUser: null,
+      id: String
     };
   },
   methods: {
@@ -137,7 +138,6 @@ export default {
         this.errors.push("Tài khoản và mật khẩu không được để trống");
         return;
       }
-
       if (!this.validEmail(this.signin.email)) {
         this.errors.push("Email không đúng định dạng");
         return;
@@ -153,15 +153,10 @@ export default {
               this.status = response.data.status;
               this.token = response.data.data[0].access_token;
               this.name = response.data.data[0].display_name;
-
-<<<<<<< HEAD
+              this.id = response.data.data[0]._id
               this.$store.dispatch("setName", this.name)
               this.$store.dispatch("setToken", this.token)
-=======
-              // this.$store.dispatch("setName", this.name)
-              this.$store.commit('LOGIN_SUCCESS', response)
->>>>>>> 2a21197f9edb4e05b7ce05ede3abddbc5ad85a93
-
+              this.$store.dispatch("setID", this.id)
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
                 return false;

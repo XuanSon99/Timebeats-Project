@@ -161,6 +161,7 @@ export default {
     logOut() {
       localStorage.removeItem("LoggedUser");
       this.$router.push({ name: "Login" }).catch((error) => {});
+      location.reload();
     },
   },
 };
