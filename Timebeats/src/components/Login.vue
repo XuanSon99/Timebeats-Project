@@ -137,7 +137,6 @@ export default {
         this.errors.push("Tài khoản và mật khẩu không được để trống");
         return;
       }
-
       if (!this.validEmail(this.signin.email)) {
         this.errors.push("Email không đúng định dạng");
         return;
@@ -148,23 +147,23 @@ export default {
           email: this.signin.email,
           password: this.signin.password,
         })
-        .then((response) => {
-          this.status = response.data.status;
-          this.token = response.data.data[0].access_token;
-          this.id = response.data.data[0]._id;
-
-          this.$store.dispatch("setID", this.id);
-          this.$store.dispatch("setToken", this.token);
-
-          if (!this.status) {
-            this.errors.push("Tài khoản hoặc mật khẩu không đúng");
-            return false;
-          }
-          this.loggedUser = this.signin.email;
-          this.SetStorage();
-          this.$router.push({ name: "Dashboard" }).catch((error) => {});
-        })
-        .catch((error, response) => {
+        .then(
+          (response) => {
+              this.status = response.data.status;
+              this.token = response.data.data[0].access_token;
+              this.id = response.data.data[0]._id;
+              this.$store.dispatch("setToken", this.token)
+              this.$store.dispatch("setID", this.id)
+              if (!this.status) {
+                this.errors.push("Tài khoản hoặc mật khẩu không đúng");
+                return false;
+              }
+              this.loggedUser = this.signin.email;
+              this.SetStorage();
+              this.$router.push({ name: "Dashboard" }).catch((error) => {});
+            }
+        )
+        .catch((error,response) => {
           this.status = error.response.data.status;
           if (!this.status) {
             this.errors.push("Tài khoản hoặc mật khẩu không đúng");

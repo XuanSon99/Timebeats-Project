@@ -43,13 +43,14 @@
                     <div class="mb-4 main-content-label">QUẢN LÝ TÀI NGUYÊN</div>
                     <div class="form-group">
                       <label for>Nền tảng</label>
-                      <select name id class="form-control" style="margin-bottom: 10px;">
-                        <option value>Facebook</option>
-                        <option value>Youtube</option>
-                        <option value>TikTok</option>
-                        <option value>Instagram</option>
-                        <option value>NhacCuaTui</option>
-                        <option value>ZingMp3</option>
+                      <select name id class="form-control" style="margin-bottom: 10px;" v-model="selected">
+                        <option value="all" >Tất cả</option>
+                        <option value="FB">Facebook</option>
+                        <option value="ytb">Youtube</option>
+                        <option value="TIKTOK">TikTok</option>
+                        <option value="ig">Instagram</option>
+                        <option value="nct">NhacCuaTui</option>
+                        <option value="zing">ZingMp3</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -79,61 +80,25 @@
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td scope="row">1</td>
-                            <td>TikTok</td>
-                            <td>Follow TikTok</td>
-                            <td>10 $</td>
-                            <td>999 Lượt</td>
+                          <tbody v-for="(item, index) in info" :key="item._id">
+                          <tr v-if="selected == 'all' ">
+                            <td scope="row">{{ index + 1 }}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item._id}}</td>
+                            <td>{{item.created_at}}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
                               </span>
                             </td>
                           </tr>
-                          <tr>
-                            <td scope="row">1</td>
-                            <td>TikTok</td>
-                            <td>Follow TikTok</td>
-                            <td>10 $</td>
-                            <td>999 Lượt</td>
-                            <td>
-                              <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td scope="row">1</td>
-                            <td>TikTok</td>
-                            <td>Follow TikTok</td>
-                            <td>10 $</td>
-                            <td>999 Lượt</td>
-                            <td>
-                              <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td scope="row">1</td>
-                            <td>TikTok</td>
-                            <td>Follow TikTok</td>
-                            <td>10 $</td>
-                            <td>999 Lượt</td>
-                            <td>
-                              <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td scope="row">1</td>
-                            <td>TikTok</td>
-                            <td>Follow TikTok</td>
-                            <td>10 $</td>
-                            <td>999 Lượt</td>
+                          <tr v-if="selected == item.code ">
+                            <td scope="row">{{index + 1 }}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item._id}}</td>
+                            <td>{{item.created_at}}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
@@ -144,7 +109,6 @@
                       </table>
                     </div>
                   </div>
-
                   <div class="tab-pane" id="download">
                     <div class="mb-4 main-content-label">TẢI VỀ</div>
                   </div>
@@ -236,7 +200,6 @@
                                   </div>
                                 </div>
                               </div>
-
                               <div class="form-actions">
                                 <div class="text-center">
                                   <button type="submit" class="btn btn-info">Lưu</button>
@@ -262,6 +225,28 @@
 <script>
 import Header from "./Header";
 export default {
+  data() {
+    return {
+      info: [],
+      function: [],
+      option: [],
+      item: 0,
+      selected: 'all'
+    }
+  },
+  beforeMount() {
+    this.$axios
+    .get('http://192.168.60.69:3000/api/social/list', {
+      headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        }
+    })
+    .then((response) => {
+      this.info = response.data.data
+      console.log(this.info)
+    })
+  },
   components: {
     Header,
   },
@@ -269,10 +254,13 @@ export default {
 </script>
 
 <style>
-.tag-center{
+.tag-center {
   margin: 0 auto;
   display: block;
   max-width: 50px;
   text-align: center;
+}
+.tab-content .img {
+  display: flex;
 }
 </style>

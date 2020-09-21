@@ -252,36 +252,26 @@
                   <div class="tab-pane" id="accuracy">
                     <div class="mb-4 main-content-label">Xác thực hai lớp</div>
                     <div class="card card-body pd-20 pd-md-40 border shadow-none">
-                      <form
-                        class="form-horizontal"
-                        method="post"
-                        action="https://timebeats.com/dashboard/2FA"
-                      >
-                        <input
-                          type="hidden"
-                          name="_token"
-                          value="9CRxmKLNzjSPgU2OMwZGPGlU7RxqFNbzOhafUgRJ"
-                        />
+                      <form class="form-horizontal">
+                        <input type="hidden" name="_token" :value="Key_Code" />
                         <h5 class="card-title mg-b-20">Cài đặt xác thực hai lớp</h5>
-                        <div class="form-group" style="text-align: center;">
-                          <img
-                            src="data:image/png;base64,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"
-                          />
+                        <div class="form-group" style="text-align: center;" v-if="!is_verify">
+                          <img :src="QR_Code" />
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="!is_verify">
                           <label class="main-content-label tx-11 tx-medium tx-gray-600">
                             MÃ SỐ
                             BÍ MẬT
                           </label>
                           <input
                             class="form-control"
-                            value="6V7X63VWANWF2NYD"
+                            :value="Key_Code"
                             type="text"
                             disabled
                             name="secret"
                           />
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="!is_verify">
                           <label class="main-content-label tx-11 tx-medium tx-gray-600">
                             MÃ XÁC
                             MINH
@@ -292,10 +282,20 @@
                               required
                               name="authCode"
                               type="text"
+                              v-model="verify_code"
                             />
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Bật</button>
+                        <p class="text-danger" v-for="item in errors" :key="item">{{item}}</p>
+                        <button
+                          @click="checkVerify"
+                          type="submit"
+                          class="btn btn-primary waves-effect waves-light"
+                          v-if="!is_verify"
+                        >Bật</button>
+                        <div class="form-group success" v-if="is_verify">
+                          <div class="p-3 mb-2 bg-success text-white">Đã xác thực thành công !!!</div>
+                        </div>
                       </form>
                     </div>
                   </div>
@@ -374,10 +374,36 @@ export default {
   components: {
     Header,
     Multiselect,
+    Datepicker
+  },
+  beforeMount() {
+    console.log(this.$store.getters.token);
+    console.log(this.$store.getters.id);
+    this.$axios
+      .get("http://192.168.60.69:3000/api/setting/2fa", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.is_verify = response.data.data[0].is_verify;
+        if (!this.is_verify) {
+          this.QR_Code = response.data.data[0].QRCode;
+          this.Key_Code = response.data.data[0].KeyCode;
+        }
+      });
+  },
+  computed: {
+    name() {},
     Datepicker,
   },
   data() {
     return {
+      is_verify: Boolean,
+      QR_Code: null,
+      Key_Code: null,
+      verify_code: null,
       taggingSelected: [],
       taggingOptions: [],
       id_option: "",
@@ -391,6 +417,7 @@ export default {
         { gender: "Nam", value: "male", selected: false },
         { gender: "Nữ", value: "female", selected: false },
       ],
+      errors: [],
     };
   },
   mounted() {
@@ -439,8 +466,40 @@ export default {
       this.taggingOptions.push(tag);
       this.taggingSelected.push(tag);
     },
+    click() {
+      console.log(this.name);
+    },
+    checkVerify(e) {
+      this.$axios
+        .post(
+          "http://192.168.60.69:3000/api/setting/verify-2fa",
+          {
+            key_code: this.Key_Code,
+            verify_code: this.verify_code,
+          },
+          {
+            headers: {
+              Authorization:
+                this.$store.getters.id + " " + this.$store.getters.token,
+            },
+          }
+        )
+        .then((response) => {
+          alert("xác thực thành công")
+          location.reload();
+        })
+        .catch((error, response) => {
+          this.status = error.response.data.status;
+          if (!this.status) {
+            this.errors.push("Mã xác thực không chính xác !!!");
+            return false;
+          }
+        });
+        e.preventDefault();
+    },
   },
 };
+console.log(this.is_verify);
 </script>
 
 <style>
