@@ -113,7 +113,11 @@
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-6">
-                              <Datepicker v-model="birthday" :bootstrap-styling="true" placeholder="Ngày sinh"></Datepicker>
+                              <Datepicker
+                                v-model="birthday"
+                                class="birthday-box"
+                                placeholder="Ngày sinh"
+                              ></Datepicker>
                             </div>
                           </div>
                         </div>
@@ -374,11 +378,9 @@ export default {
   components: {
     Header,
     Multiselect,
-    Datepicker
+    Datepicker,
   },
   beforeMount() {
-    console.log(this.$store.getters.token);
-    console.log(this.$store.getters.id);
     this.$axios
       .get("http://192.168.60.69:3000/api/setting/2fa", {
         headers: {
@@ -433,11 +435,11 @@ export default {
         this.gender = response.data.data[0].gender;
         this.phone = response.data.data[0].phone;
 
-        if(this.gender == 'male'){
-          this.gender_list[0].selected = true
+        if (this.gender == "male") {
+          this.gender_list[0].selected = true;
         }
-        if(this.gender == 'female'){
-          this.gender_list[1].selected = true
+        if (this.gender == "female") {
+          this.gender_list[1].selected = true;
         }
       });
     //Get social network care list
@@ -450,7 +452,6 @@ export default {
       })
       .then((response) => {
         this.taggingOptions = response.data.data[0];
-        console.log(this.taggingOptions);
       });
   },
   methods: {
@@ -461,9 +462,6 @@ export default {
       };
       this.taggingOptions.push(tag);
       this.taggingSelected.push(tag);
-    },
-    click() {
-      console.log(this.name);
     },
     checkVerify(e) {
       this.$axios
@@ -481,7 +479,7 @@ export default {
           }
         )
         .then((response) => {
-          alert("xác thực thành công")
+          alert("xác thực thành công");
           location.reload();
         })
         .catch((error, response) => {
@@ -491,11 +489,10 @@ export default {
             return false;
           }
         });
-        e.preventDefault();
+      e.preventDefault();
     },
   },
 };
-console.log(this.is_verify);
 </script>
 
 <style>
@@ -528,5 +525,19 @@ console.log(this.is_verify);
 .multiselect {
   margin: 0 0.75em;
   width: 95.2%;
+}
+.birthday-box input {
+  height: 40px;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4d5875;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
 }
 </style>

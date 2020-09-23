@@ -11,7 +11,7 @@
           <a class="header-brand" href="#">
             <img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark" />
             <h1>
-              <router-link to="/dashboard">Timebeat</router-link>
+              <router-link to="/">Timebeat</router-link>
             </h1>
             <img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark" />
           </a>

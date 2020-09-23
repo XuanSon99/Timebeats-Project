@@ -107,6 +107,7 @@
                     placeholder="Nhập lại mật khẩu"
                   />
                 </div>
+                
                 <div class="form-group">
                   <div class="icon">
                     <svg
@@ -246,6 +247,7 @@ export default {
           phone: this.phone,
         })
         .then((response) => {
+          console.log(response);
           alert("Đăng ký thành công!");
           this.username = "";
           this.email = "";

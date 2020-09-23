@@ -161,6 +161,7 @@ export default {
               this.loggedUser = this.signin.email;
               this.SetStorage();
               this.$router.push({ name: "Dashboard" }).catch((error) => {});
+              location.reload();
             }
         )
         .catch((error,response) => {

@@ -71,25 +71,64 @@
                                       <div class="form-group">
                                         <label for="link">Chọn nền tảng</label>
                                         <select
-                                          name
-                                          id
                                           class="form-control"
+                                          v-model="social"
                                           style="margin-bottom: 10px;"
                                         >
-                                          <option value>Facebook</option>
-                                          <option value>Youtube</option>
-                                          <option value>TikTok</option>
-                                          <option value>Instagram</option>
-                                          <option value>NhacCuaTui</option>
-                                          <option value>ZingMp3</option>
+                                          <option disabled value>Chọn mạng xã hội cần chạy</option>
+                                          <option
+                                            v-for="list in socialList"
+                                            :key="list._id"
+                                          >{{list.name}}</option>
                                         </select>
                                       </div>
+
+                                      <div
+                                        class="socialList"
+                                        v-for="list in socialList"
+                                        :key="list._id"
+                                      >
+                                        <div class="card" v-if="social == list.name">
+                                          <div class="card-body">
+                                            <h4 class="card-title append-social-function">
+                                              Chức năng của
+                                              <b class="social_name">{{list.name}}</b>
+                                            </h4>
+                                            <div class="area_functoin_social">
+                                              <div
+                                                class="custom-control custom-checkbox"
+                                                v-for="func in list.function"
+                                                :key="func.key"
+                                              >
+                                                <input
+                                                  type="checkbox"
+                                                  :id="func.key"
+                                                  class="custom-control-input"
+                                                  v-model="checkedFunction"
+                                                  :value="func.key"
+                                                  @change="changeZui"
+                                                />
+                                                <label
+                                                  class="custom-control-label"
+                                                  :for="func.key"
+                                                >{{func.key}}</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
                                       <div class="form-group">
                                         <label for="link">
                                           Nhập
                                           Link
                                         </label>
-                                        <input type="text" class="form-control" id="link" />
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          v-model="link"
+                                          id="link"
+                                        />
                                         <p
                                           class="alert text-danger"
                                           style="background: #fef1f3; margin-bottom: 10px;"
@@ -131,6 +170,7 @@
                                           id="number"
                                           min="0"
                                           value="100"
+                                          v-model="amount"
                                         />
                                       </div>
                                       <div class="form-group">
@@ -326,6 +366,7 @@
                                       type="button"
                                       class="btn btn-primary"
                                       style="padding: 9px 30px;"
+                                      @click="makeCampClick"
                                     >Xác nhận</button>
                                   </div>
                                 </div>
@@ -340,8 +381,6 @@
                     >
                       <div class="row">
                         <div class="col-xl-12">
-                          <div class="row"></div>
-
                           <div class="table-responsive">
                             <table
                               class="table text-md-nowrap data-table table-bordered table-hover"
@@ -421,6 +460,13 @@
                               </tbody>
                             </table>
                           </div>
+                          <paginate
+                            :page-count="20"
+                            :click-handler="functionName"
+                            :prev-text="'Prev'"
+                            :next-text="'Next'"
+                            :container-class="'className'"
+                          ></paginate>
                         </div>
                       </div>
                     </div>
@@ -448,16 +494,120 @@
 </template>
 
 <script>
-import Header from './Header'
+import Header from "./Header";
+import Paginate from 'vuejs-paginate'
 export default {
   components: {
-    Header
-  }
+    Header,
+    Paginate
+  },
+  data() {
+    return {
+      socialList: [],
+      social: "",
+      link: "",
+      checkedFunction: [],
+      amount: 0,
+      requires: [],
+      key_option: "",
+      price: 0,
+      priceTotal: 0,
+      start_date: "",
+    };
+  },
+  mounted() {
+    this.$axios
+      .get("http://192.168.60.69:3000/api/social/list", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.socialList = response.data.data;
+        console.log(this.socialList);
+      });
+  },
+  methods: {
+    makeCampClick() {
+      //check price and key_option
+      if (this.amount <= 1000) {
+        this.key_option = "option_1";
+        this.price = 1;
+      } else {
+        this.key_option = "option_2";
+        this.price = 2;
+      }
+      //push requires
+      for (let item of this.checkedFunction) {
+        this.requires.push({
+          key: item,
+          option: {
+            key_option: this.key_option,
+            price: this.price,
+            total_price: this.price * this.amount,
+          },
+        });
+      }
+      //total price
+      for (let item of this.requires) {
+        this.priceTotal += item.option.total_price;
+      }
+      //get current time
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0");
+      var yyyy = today.getFullYear();
+      today = yyyy + "-" + mm + "-" + dd;
+      this.start_date = today;
+
+      console.log(this.requires);
+      console.log(this.priceTotal);
+      this.requires = [];
+      this.priceTotal = 0;
+      // this.$axios
+      //   .post(
+      //     "http://192.168.60.69:3000/api/task/create",
+      //     {
+      //       social_code: this.social,
+      //       require: this.requires,
+      //       amount: this.amount,
+      //       total_price: this.priceTotal,
+      //       link: this.link,
+      //       is_now: 0,
+      //       start_date: this.start_date,
+      //     },
+      //     {
+      //       headers: {
+      //         Authorization:
+      //           this.$store.getters.id + " " + this.$store.getters.token,
+      //       },
+      //     }
+      //   )
+      //   .then((response) => {
+      //     console.log(response);
+      //   })
+      //   .catch((error, response) => {
+      //     console.log(this.requires);
+      //     console.log(this.priceTotal);
+      //   });
+    },
+    changeZui() {
+      console.log(this.checkedFunction);
+    },
+  },
 };
 </script>
 
 <style>
 button {
   margin-top: 0 !important;
+}
+.socialList {
+  box-shadow: -8px 12px 18px 0 #dadee8;
+  border-radius: 5px;
+}
+.socialList .card {
+  border-radius: 5px;
 }
 </style>

@@ -10,6 +10,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import store from "./store/store";
+import Paginate from 'vuejs-paginate'
 
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
@@ -23,6 +24,7 @@ const app = new Vue({
   jquery,
   bootstrap,
   store,
+  Paginate,
   render: h => h(App)
 })
 
