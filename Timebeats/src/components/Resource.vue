@@ -43,8 +43,14 @@
                     <div class="mb-4 main-content-label">QUẢN LÝ TÀI NGUYÊN</div>
                     <div class="form-group">
                       <label for>Nền tảng</label>
-                      <select name id class="form-control" style="margin-bottom: 10px;" v-model="selected">
-                        <option value="all" >Tất cả</option>
+                      <select
+                        name
+                        id
+                        class="form-control"
+                        style="margin-bottom: 10px;"
+                        v-model="selected"
+                      >
+                        <option value="all">Tất cả</option>
                         <option value="FB">Facebook</option>
                         <option value="ytb">Youtube</option>
                         <option value="TIKTOK">TikTok</option>
@@ -80,7 +86,7 @@
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
-                          <tbody v-for="(item, index) in info" :key="item._id">
+                        <tbody v-for="(item, index) in info" :key="item._id">
                           <tr v-if="selected == 'all' ">
                             <td scope="row">{{ index + 1 }}</td>
                             <td>{{item.name}}</td>
@@ -107,6 +113,16 @@
                           </tr>
                         </tbody>
                       </table>
+                      <paginate
+                        v-model="page"
+                        :page-count="20"
+                        :page-range="1"
+                        :margin-pages="1"
+                        :click-handler="clickCallback"
+                        :prev-text="'Prev'"
+                        :next-text="'Next'"
+                        :container-class="'paginate'"
+                      >></paginate>
                     </div>
                   </div>
                   <div class="tab-pane" id="download">
@@ -217,7 +233,6 @@
           </div>
         </div>
       </div>
-      <!-- Container closed -->
     </div>
   </div>
 </template>
@@ -228,24 +243,27 @@ export default {
   data() {
     return {
       info: [],
-      function: [],
-      option: [],
-      item: 0,
-      selected: 'all'
-    }
+      selected: "all",
+      page: 1
+    };
   },
   beforeMount() {
     this.$axios
-    .get('http://192.168.60.69:3000/api/social/list', {
-      headers: {
+      .get("http://192.168.60.69:3000/api/social/list", {
+        headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
-        }
-    })
-    .then((response) => {
-      this.info = response.data.data
-      console.log(this.info)
-    })
+        },
+      })
+      .then((response) => {
+        this.info = response.data.data;
+        console.log(this.info);
+      });
+  },
+  methods: {
+    clickCallback(pageNum) {
+      console.log(pageNum);
+    },
   },
   components: {
     Header,
@@ -262,5 +280,27 @@ export default {
 }
 .tab-content .img {
   display: flex;
+}
+.paginate {
+  display: flex;
+}
+.paginate li {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+.paginate li a {
+  display: block;
+}
+.paginate .active {
+  background-color: #22c03c;
+}
+.paginate .active a {
+  color: #fff;
 }
 </style>

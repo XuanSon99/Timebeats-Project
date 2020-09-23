@@ -11,7 +11,7 @@ import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import store from "./store/store";
 import Paginate from 'vuejs-paginate'
-
+Vue.component('paginate', Paginate)
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
