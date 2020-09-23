@@ -51,13 +51,13 @@
                         v-model="selected"
                       >
                         <option value="all">Tất cả</option>
-                        <option value="FB">Facebook</option>
-                        <option value="ytb">Youtube</option>
-                        <option value="TIKTOK">TikTok</option>
-                        <option value="ig">Instagram</option>
-                        <option value="nct">NhacCuaTui</option>
-                        <option value="zing">ZingMp3</option>
+                        <option
+                          v-for="item in info"
+                          :key="item._id"
+                          :value="item.code"
+                        >{{item.code}}</option>
                       </select>
+                      
                     </div>
                     <div class="form-group">
                       <button
@@ -86,25 +86,27 @@
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
-                        <tbody v-for="(item, index) in info" :key="item._id">
-                          <tr v-if="selected == 'all' ">
+                        <tbody v-if="selected == 'all'">
+                          <tr v-for="(item,index) in displayedPosts" :key="index">
                             <td scope="row">{{ index + 1 }}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.status}}</td>
-                            <td>{{item._id}}</td>
-                            <td>{{item.created_at}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.code}}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
                               </span>
                             </td>
                           </tr>
-                          <tr v-if="selected == item.code ">
-                            <td scope="row">{{index + 1 }}</td>
+                        </tbody>
+                        <tbody >
+                          <tr v-for="(item,index) in info" :key="index" v-show="item.code == selected">
+                            <td scope="row">{{ index + 1 }}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.status}}</td>
-                            <td>{{item._id}}</td>
-                            <td>{{item.created_at}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.date}}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
@@ -113,16 +115,36 @@
                           </tr>
                         </tbody>
                       </table>
-                      <paginate
-                        v-model="page"
-                        :page-count="20"
-                        :page-range="1"
-                        :margin-pages="1"
-                        :click-handler="clickCallback"
-                        :prev-text="'Prev'"
-                        :next-text="'Next'"
-                        :container-class="'paginate'"
-                      >></paginate>
+                      <nav aria-label="Page navigation example" v-show="selected == 'all'">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <button
+                              type="button"
+                              class="page-link"
+                              v-if="page != 1"
+                              @click="page--"
+                            >Previous</button>
+                          </li>
+                          <li class="page-item">
+                            <button
+                              type="button"
+                              class="page-link"
+
+                              v-for="(pageNumber, index) in pages.slice(page-1, page+5)"
+                              :key="index"
+                              @click="page = pageNumber"
+                            >{{pageNumber}}</button>
+                          </li>
+                          <li class="page-item">
+                            <button
+                              type="button"
+                              @click="page++"
+                              v-if="page < pages.length"
+                              class="page-link"
+                            >Next</button>
+                          </li>
+                        </ul>
+                      </nav>
                     </div>
                   </div>
                   <div class="tab-pane" id="download">
@@ -159,13 +181,18 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <div class="form-group">
-                                    <select class="form-control" required name="social_code">
-                                      <option value>Tất cả</option>
-                                      <option value>Facebook</option>
-                                      <option value>Youtube</option>
-                                      <option value>TikTok</option>
-                                      <option value>ZingMp3</option>
-                                      <option value>NhacCuaTui</option>
+                                    <select
+                                      class="form-control"
+                                      required
+                                      name="social_code"
+                                      :selected="selected"
+                                    >
+                                      <option value="all">Tất cả</option>
+                                      <option
+                                        v-for="item in info"
+                                        :key="item._id"
+                                        :value="item.code"
+                                      >{{item.name}}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -244,10 +271,25 @@ export default {
     return {
       info: [],
       selected: "all",
-      page: 1
+      page: 1,
+      account: [],
+      posts: [],
+      perPage: 1,
+      pages: [],
+      data: []
     };
   },
   beforeMount() {
+    this.$axios
+      .get("http://192.168.60.69:3000/api/social/list-account", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.account = response.data.data;
+      });
     this.$axios
       .get("http://192.168.60.69:3000/api/social/list", {
         headers: {
@@ -257,12 +299,51 @@ export default {
       })
       .then((response) => {
         this.info = response.data.data;
-        console.log(this.info);
+        this.data = this.info;
+        this.SetStorage();
       });
   },
   methods: {
-    clickCallback(pageNum) {
-      console.log(pageNum);
+    getPosts() {
+     this.data = JSON.parse(localStorage.getItem('Data')) || [] // get storage
+      for (let item of this.data) {
+        this.posts.push({ name: item.name, status: item.status, id: item._id, date: item.created_at, code: item.code });
+      }
+    },
+    setPages() {
+      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate(posts) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return posts.slice(from, to);
+    },
+    SetStorage() {
+      var jsonListAccount = JSON.stringify(this.data);
+      localStorage.setItem("Data", jsonListAccount);
+    }
+  },
+  computed: {
+    displayedPosts() {
+      return this.paginate(this.posts);
+    },
+  },
+  watch: {
+    posts() {
+      this.setPages();
+    },
+  },
+  created() {
+    this.getPosts();
+  },
+  filters: {
+    trimWords(value) {
+      return value.split(" ").splice(0, 20).join(" ") + "...";
     },
   },
   components: {
@@ -302,5 +383,15 @@ export default {
 }
 .paginate .active a {
   color: #fff;
+}
+.page-item:nth-child(2) {
+  display: flex;
+}
+button.page-link {
+  font-size: 20px;
+  color: #29b3ed;
+  font-weight: 500;
+  width: auto;
+  height: auto;
 }
 </style>
