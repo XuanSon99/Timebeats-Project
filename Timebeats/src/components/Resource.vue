@@ -105,8 +105,8 @@
                             <td scope="row">{{ index + 1 }}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.status}}</td>
-                            <td>{{item.id}}</td>
-                            <td>{{item.date}}</td>
+                            <td>{{item._id}}</td>
+                            <td>{{item.created_at}}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
@@ -245,7 +245,7 @@
                               </div>
                               <div class="form-actions">
                                 <div class="text-center">
-                                  <button type="submit" class="btn btn-info">Lưu</button>
+                                  <button @click="addToListAccount" type="submit" class="btn btn-info">Lưu</button>
                                 </div>
                               </div>
                             </div>
@@ -326,6 +326,16 @@ export default {
     SetStorage() {
       var jsonListAccount = JSON.stringify(this.data);
       localStorage.setItem("Data", jsonListAccount);
+    },
+    addToListAccount() {
+      this.$axios
+      .post("http://192.168.60.69:3000/api/social/list-account", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {console.log(response)})
     }
   },
   computed: {

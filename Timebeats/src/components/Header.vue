@@ -68,7 +68,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span><img alt src="../assets/vendor/img/photos/user.png" /> {{name}}</span>
+                <span><img alt :src="avatar"> {{name}}</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser">
                 <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
@@ -121,6 +121,7 @@
 export default {
   data() {
     return {
+      avatar: 'http://192.168.60.69:3000/' + this.$store.getters.avatar,
       name: this.$store.getters.name,
       menu: [
         { content: " Trang chủ", link: "/", icon: "fa fa-home" },
