@@ -116,13 +116,13 @@
                       </table>
                       <nav aria-label="Page navigation example" v-show="selected == 'all'">
                         <ul class="pagination">
-                          <li class="page-item">
+                          <li class="page-item previous">
                             <button
                               type="button"
                               class="page-link"
                               v-if="page != 1"
                               @click="page--"
-                            >Previous</button>
+                            >Prev</button>
                           </li>
                           <li class="page-item">
                             <button
@@ -134,7 +134,7 @@
                               @click="page = pageNumber"
                             >{{pageNumber}}</button>
                           </li>
-                          <li class="page-item">
+                          <li class="page-item next">
                             <button
                               type="button"
                               @click="page++"
@@ -391,11 +391,41 @@ export default {
 .page-item:nth-child(2) {
   display: flex;
 }
+.pagination {
+    height: 30px;
+    overflow: hidden;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
 button.page-link {
-  font-size: 20px;
-  color: #29b3ed;
-  font-weight: 500;
-  width: auto;
-  height: auto;
+    font-size: 14px;
+    color: #22252f;
+    font-weight: 500;
+    border: none;
+    height: 30px;
+    border-radius: 0;
+    outline: none;
+    background: #fff;
+}
+.previous button.page-link {
+    padding: 0 35px;
+}
+.next button.page-link {
+    padding: 0 35px;
+}
+.pagination .page-item:last-child .page-link, .pagination .page-item:first-child .page-link {
+    border-radius: 0;
+}
+.pagination .page-link:hover {
+    background-color: #ecf0fa !important;
+    border: 1px solid #cdd7ef !important;
+    color: #22252f;
+}
+.pagination .page-link {
+    background-color: #fff;
+    border: 1px solid #cdd7ef;
 }
 </style>

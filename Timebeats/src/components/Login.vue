@@ -155,7 +155,9 @@ export default {
               this.id = response.data.data[0]._id;
               this.$store.dispatch("setToken", this.token)
               this.$store.dispatch("setID", this.id)
-              console.log(response.data.data)
+              this.$store.dispatch("setName", response.data.data[0].display_name)
+              this.$store.dispatch("setAvatar", response.data.data[0].avatar)
+
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
                 return false;
