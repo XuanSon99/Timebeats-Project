@@ -493,7 +493,12 @@ export default {
       this.$axios
         .put(URL, data, config)
         .then((response) => {
-          alert("Cập nhật thông tin thành công");
+          this.$toasted.success(" Đã cập nhật", {
+            theme: "bubble",
+            position: "bottom-left",
+            duration: 2000,
+            icon: '✔'
+          });
         })
         .catch(() => {});
     },
