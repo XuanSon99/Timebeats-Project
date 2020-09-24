@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -263,9 +262,7 @@
     </div>
   </div>
 </template>
-
 <script>
-import Header from "./Header";
 export default {
   data() {
     return {
@@ -355,10 +352,7 @@ export default {
     trimWords(value) {
       return value.split(" ").splice(0, 20).join(" ") + "...";
     },
-  },
-  components: {
-    Header,
-  },
+  }
 };
 </script>
 

@@ -357,4 +357,7 @@ a:hover {
 .sign-up .img a {
   margin-top: 20px;
 }
+#header {
+  display: none;
+}
 </style>

@@ -392,9 +392,9 @@ export default {
       avatar: "",
       gender: "",
       phone: "",
-      old_password: null,
-      new_password: null,
-      confirm_password: null,
+      old_password: "",
+      new_password: "",
+      confirm_password: "",
       statusCode: null,
       message: {},
       Rule: [],
@@ -502,26 +502,6 @@ export default {
       this.user = JSON.parse(localStorage.getItem('LoggedUser')) || []
       this.wrongUpdate = []
       e.preventDefault()
-      // if(!this.old_password || !this.new_password || !this.confirm_password) {
-      //   this.wrongUpdate.push("Vui lòng nhập đầy đủ thông tin !!!");
-      //   return;
-      // }
-      // if(this.old_password != this.user.password) {
-      //   this.wrongUpdate.push("Mật khẩu chưa chính xác !!!");
-      //   return;
-      // }
-      // if(this.new_password.length < 6) {
-      //   this.wrongUpdate.push("Mật khẩu mới phải có ít nhất 6 kí tự !!!");
-      //   return;
-      // }
-      if(this.old_password == this.new_password) {
-        this.wrongUpdate.push("Mật khẩu cũ và mới không được trùng nhau !!!");
-        return;
-      }
-      // if(this.new_password != this.confirm_password) {
-      //   this.wrongUpdate.push("Mật khẩu và xác nhận mật khẩu chưa trùng nhau !!!");
-      //   return;
-      // }
       this.$axios
         .put("http://192.168.60.69:3000/api/user/change-password",
         {
@@ -537,7 +517,10 @@ export default {
         }
         )
         .then((response) => {
-          alert("Đổi mật khẩu thành công !!!")
+           this.$toasted.show(`${fontawesome.icon(faSolid.faCoffee).html} Hello`, {
+  type: 'success',
+  duration: 3000
+})
           this.old_password = null;
           this.new_password = null;
           this.confirm_password = null;
