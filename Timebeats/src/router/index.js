@@ -11,7 +11,6 @@ import PersonalIncome from '@/components/Personal-income'
 import GroupIncome from '@/components/Group-income'
 import Resource from '@/components/Resource'
 import Faq from '@/components/Faq'
-import RegisterVndc from '@/components/Register-vndc'
 
 Vue.use(Router)
 
@@ -80,11 +79,6 @@ const router = new Router({
       path: '/faq',
       name: 'Faq',
       component: Faq
-    },
-    {
-      path: '/register-vndc',
-      name: 'RegisterVndc',
-      component: RegisterVndc
     },
   ]
 })

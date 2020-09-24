@@ -68,7 +68,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span><img alt src="../assets/vendor/img/photos/user.png" /> Nguyễn Khanh</span>
+                <span><img alt src="../assets/vendor/img/photos/user.png" /> {{name}}</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser">
                 <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
@@ -121,6 +121,7 @@
 export default {
   data() {
     return {
+      name: this.$store.getters.name,
       menu: [
         { content: " Trang chủ", link: "/", icon: "fa fa-home" },
         { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
@@ -128,7 +129,7 @@ export default {
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
         {
           content: " Thống kê",
-          link: "/thongke",
+          link: "",
           icon: "fas fa-clipboard-list",
           subIcon: "fas fa-angle-down",
           sub: [
@@ -151,7 +152,6 @@ export default {
           subIcon: "fas fa-angle-down",
           sub: [
             { content: "Thông tin cá nhân", link: "/profile" },
-            { content: "Liên kết VNDC", link: "/register-vndc" },
           ],
         },
       ],

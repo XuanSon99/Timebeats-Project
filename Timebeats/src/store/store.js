@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     token: null,
     id: null,
+    name: null,
   },
   getters: {
     token(state) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     id(state) {
       return state.id
+    },
+    name(state) {
+      return state.name
     },
   },
   mutations: {
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     SET_ID(state, payload) {
       state.id = payload
     },
+    SET_NAME(state, payload) {
+      state.name = payload
+    },
   },
   actions: {
     setToken({ commit }, payload) {
@@ -32,6 +39,9 @@ export default new Vuex.Store({
     },
     setID({ commit }, payload) {
       commit('SET_ID', payload)
+    },
+    setName({ commit }, payload) {
+      commit('SET_NAME', payload)
     },
   },
   plugins: [

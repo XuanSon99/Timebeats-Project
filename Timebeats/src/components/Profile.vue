@@ -69,13 +69,18 @@
                                 class="main-img-user profile-user"
                                 style="width: 120px; height: 120px; margin-bottom: 20px"
                               >
-                                <img alt :src="avatar" id="profileImg" />
-                                <a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                                <img v-if="url" alt :src="url" id="profileImg" />
+                                <img v-if="!url" alt :src="avatar" id="profileImg" />
+                                <label
+                                  for="inputImg"
+                                  class="fas fa-camera profile-edit choose-avatar"
+                                ></label>
                                 <input
                                   type="file"
                                   id="inputImg"
-                                  name="avatar"
                                   style="display: none;"
+                                  @change="uploadImage($event)"
+                                  accept="image/*"
                                 />
                               </div>
                             </div>
@@ -99,7 +104,7 @@
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-12">
-                              <select name="gender" class="form-control select2">
+                              <select v-model="gender" class="form-control select2">
                                 <option
                                   v-for="gender in gender_list"
                                   :key="gender.gender"
@@ -117,6 +122,8 @@
                                 v-model="birthday"
                                 class="birthday-box"
                                 placeholder="Ngày sinh"
+                                :format="customFormatter"
+                                @closed="changeBirthday"
                               ></Datepicker>
                             </div>
                           </div>
@@ -128,85 +135,9 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                name="address1"
+                                v-model="address"
                                 placeholder="Địa chỉ"
-                                value
                               />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <select name="city" class="form-control select2">
-                                <option value="Thành phố Hà Nội">Thành phố Hà Nội</option>
-                                <option value="Tỉnh Hà Giang">Tỉnh Hà Giang</option>
-                                <option value="Tỉnh Cao Bằng">Tỉnh Cao Bằng</option>
-                                <option value="Tỉnh Bắc Kạn">Tỉnh Bắc Kạn</option>
-                                <option value="Tỉnh Tuyên Quang">Tỉnh Tuyên Quang</option>
-                                <option value="Tỉnh Lào Cai">Tỉnh Lào Cai</option>
-                                <option value="Tỉnh Điện Biên">Tỉnh Điện Biên</option>
-                                <option value="Tỉnh Lai Châu">Tỉnh Lai Châu</option>
-                                <option value="Tỉnh Sơn La">Tỉnh Sơn La</option>
-                                <option value="Tỉnh Yên Bái">Tỉnh Yên Bái</option>
-                                <option value="Tỉnh Hoà Bình">Tỉnh Hoà Bình</option>
-                                <option value="Tỉnh Thái Nguyên">Tỉnh Thái Nguyên</option>
-                                <option value="Tỉnh Lạng Sơn">Tỉnh Lạng Sơn</option>
-                                <option value="Tỉnh Quảng Ninh">Tỉnh Quảng Ninh</option>
-                                <option value="Tỉnh Bắc Giang">Tỉnh Bắc Giang</option>
-                                <option value="Tỉnh Phú Thọ">Tỉnh Phú Thọ</option>
-                                <option value="Tỉnh Vĩnh Phúc">Tỉnh Vĩnh Phúc</option>
-                                <option value="Tỉnh Bắc Ninh">Tỉnh Bắc Ninh</option>
-                                <option value="Tỉnh Hải Dương">Tỉnh Hải Dương</option>
-                                <option value="Thành phố Hải Phòng">Thành phố Hải Phòng</option>
-                                <option value="Tỉnh Hưng Yên">Tỉnh Hưng Yên</option>
-                                <option value="Tỉnh Thái Bình">Tỉnh Thái Bình</option>
-                                <option value="Tỉnh Hà Nam">Tỉnh Hà Nam</option>
-                                <option value="Tỉnh Nam Định">Tỉnh Nam Định</option>
-                                <option value="Tỉnh Ninh Bình">Tỉnh Ninh Bình</option>
-                                <option value="Tỉnh Thanh Hóa">Tỉnh Thanh Hóa</option>
-                                <option value="Tỉnh Nghệ An">Tỉnh Nghệ An</option>
-                                <option value="Tỉnh Hà Tĩnh">Tỉnh Hà Tĩnh</option>
-                                <option value="Tỉnh Quảng Bình">Tỉnh Quảng Bình</option>
-                                <option value="Tỉnh Quảng Trị">Tỉnh Quảng Trị</option>
-                                <option value="Tỉnh Thừa Thiên Huế">Tỉnh Thừa Thiên Huế</option>
-                                <option value="Thành phố Đà Nẵng">Thành phố Đà Nẵng</option>
-                                <option value="Tỉnh Quảng Nam">Tỉnh Quảng Nam</option>
-                                <option value="Tỉnh Quảng Ngãi">Tỉnh Quảng Ngãi</option>
-                                <option value="Tỉnh Bình Định">Tỉnh Bình Định</option>
-                                <option value="Tỉnh Phú Yên">Tỉnh Phú Yên</option>
-                                <option value="Tỉnh Khánh Hòa">Tỉnh Khánh Hòa</option>
-                                <option value="Tỉnh Ninh Thuận">Tỉnh Ninh Thuận</option>
-                                <option value="Tỉnh Bình Thuận">Tỉnh Bình Thuận</option>
-                                <option value="Tỉnh Kon Tum">Tỉnh Kon Tum</option>
-                                <option value="Tỉnh Gia Lai">Tỉnh Gia Lai</option>
-                                <option value="Tỉnh Đắk Lắk">Tỉnh Đắk Lắk</option>
-                                <option value="Tỉnh Đắk Nông">Tỉnh Đắk Nông</option>
-                                <option value="Tỉnh Lâm Đồng">Tỉnh Lâm Đồng</option>
-                                <option value="Tỉnh Bình Phước">Tỉnh Bình Phước</option>
-                                <option value="Tỉnh Tây Ninh">Tỉnh Tây Ninh</option>
-                                <option value="Tỉnh Bình Dương">Tỉnh Bình Dương</option>
-                                <option value="Tỉnh Đồng Nai">Tỉnh Đồng Nai</option>
-                                <option value="Tỉnh Bà Rịa - Vũng Tàu">
-                                  Tỉnh Bà Rịa - Vũng
-                                  Tàu
-                                </option>
-                                <option value="Thành phố Hồ Chí Minh">Thành phố Hồ Chí Minh</option>
-                                <option value="Tỉnh Long An">Tỉnh Long An</option>
-                                <option value="Tỉnh Tiền Giang">Tỉnh Tiền Giang</option>
-                                <option value="Tỉnh Bến Tre">Tỉnh Bến Tre</option>
-                                <option value="Tỉnh Trà Vinh">Tỉnh Trà Vinh</option>
-                                <option value="Tỉnh Vĩnh Long">Tỉnh Vĩnh Long</option>
-                                <option value="Tỉnh Đồng Tháp">Tỉnh Đồng Tháp</option>
-                                <option value="Tỉnh An Giang">Tỉnh An Giang</option>
-                                <option value="Tỉnh Kiên Giang">Tỉnh Kiên Giang</option>
-                                <option value="Thành phố Cần Thơ">Thành phố Cần Thơ</option>
-                                <option value="Tỉnh Hậu Giang">Tỉnh Hậu Giang</option>
-                                <option value="Tỉnh Sóc Trăng">Tỉnh Sóc Trăng</option>
-                                <option value="Tỉnh Bạc Liêu">Tỉnh Bạc Liêu</option>
-                                <option value="Tỉnh Cà Mau">Tỉnh Cà Mau</option>
-                              </select>
                             </div>
                           </div>
                         </div>
@@ -218,6 +149,7 @@
                                 class="form-control"
                                 placeholder="example@gmail.com"
                                 v-model="email"
+                                disabled
                               />
                             </div>
                           </div>
@@ -246,9 +178,11 @@
                           :taggable="true"
                           @tag="addTag"
                         ></multiselect>
+                        <p class="text-danger" v-for="item in errors" :key="item">{{item}}</p>
                         <button
                           type="button"
                           class="btn btn-primary waves-effect waves-light"
+                          @click="updateProfile"
                         >Xác nhận</button>
                       </form>
                     </div>
@@ -368,9 +302,12 @@
 </template>
 
 <script>
-// global.jQuery = require('jquery');
-// var $ = global.jQuery;
-// window.$ = $;
+import Vue from "vue";
+import VueMoment from "vue-moment";
+import moment from "moment-timezone";
+Vue.use(VueMoment, {
+  moment,
+});
 import Header from "./Header.vue";
 import Multiselect from "vue-multiselect";
 import Datepicker from "vuejs-datepicker";
@@ -411,11 +348,15 @@ export default {
       avatar: "",
       gender: "",
       phone: "",
+      address: "",
       gender_list: [
         { gender: "Nam", value: "male", selected: false },
         { gender: "Nữ", value: "female", selected: false },
       ],
       errors: [],
+      url: null,
+      srcImg: {},
+      concernSelected: [],
     };
   },
   mounted() {
@@ -434,6 +375,8 @@ export default {
         this.avatar = response.data.data[0].avatar;
         this.gender = response.data.data[0].gender;
         this.phone = response.data.data[0].phone;
+        this.address = response.data.data[0].address;
+        this.taggingSelected = response.data.data[0].concern;
 
         if (this.gender == "male") {
           this.gender_list[0].selected = true;
@@ -491,6 +434,75 @@ export default {
         });
       e.preventDefault();
     },
+    uploadImage(event) {
+      this.srcImg = event.target.files[0];
+      this.url = URL.createObjectURL(this.srcImg);
+    },
+    updateProfile(e) {
+      e.preventDefault();
+      this.errors = [];
+      if (
+        !this.email ||
+        !this.name ||
+        !this.birthday ||
+        !this.address ||
+        !this.phone
+      ) {
+        this.errors.push("Vui lòng nhập đủ thông tin");
+        return;
+      }
+      if (!this.validEmail(this.email)) {
+        this.errors.push("Email không đúng định dạng");
+        return;
+      }
+      if (!this.validPhone(this.phone)) {
+        this.errors.push("Số điện thoại không đúng");
+        return;
+      }
+
+      const URL = "http://192.168.60.69:3000/api/user/update-profile";
+
+      for (let item of this.taggingSelected) {
+        this.concernSelected.push(item._id);
+      }
+
+      let data = new FormData();
+      data.append("avatar", this.srcImg);
+      data.append("display_name", this.name);
+      data.append("gender", this.gender);
+      data.append("birthday", this.birthday.slice(0, 10));
+      data.append("address", this.address);
+      data.append("phone", this.phone);
+      data.append("concern", JSON.stringify(this.concernSelected));
+
+      let config = {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      };
+
+      this.$axios.put(URL, data, config).then((response) => {
+        alert("Update Success");
+      });
+    },
+    validEmail(email) {
+      const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return reg.test(email);
+    },
+    validPhone: function (phone) {
+      const reg = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+      return reg.test(phone);
+    },
+    customFormatter() {
+      return moment(this.birthday).format("DD/MM/YYYY");
+    },
+    changeBirthday(){
+      var dd = String(this.birthday.getDate()).padStart(2, "0");
+      var mm = String(this.birthday.getMonth() + 1).padStart(2, "0");
+      var yyyy = this.birthday.getFullYear();
+      this.birthday = yyyy + "-" + mm + "-" + dd;
+    }
   },
 };
 </script>
@@ -511,9 +523,6 @@ export default {
   margin: 0 auto;
   display: block;
 }
-#profile button {
-  margin-top: 20px;
-}
 .multiselect__tags {
   color: #4d5875;
   border: 1px solid #e1e5ef;
@@ -525,6 +534,7 @@ export default {
 .multiselect {
   margin: 0 0.75em;
   width: 95.2%;
+  margin-bottom: 20px;
 }
 .birthday-box input {
   height: 40px;
@@ -539,5 +549,16 @@ export default {
   background-clip: padding-box;
   border: 1px solid #e1e5ef;
   border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+.choose-avatar {
+  cursor: pointer;
+}
+.choose-avatar:hover {
+  color: #22c03c;
+}
+.form-control:disabled {
+  background: none;
 }
 </style>
