@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <vue-headful title="Trang chủ" />
-    <Header />
     <div class="main-content horizontal-content">
       <div id="dasboardMobile" style="display: none">
         <br />
@@ -349,16 +348,12 @@
 </template>
 
 <script>
-import Header from "./Header";
 import { mapGetters } from 'vuex'
 export default {
   name: "home",
   data() {
     return {};
-  },
-  components: {
-    Header,
-  },
+  }
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -37,10 +36,10 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">VÍ VND</th>
-                      <td>0 đ</td>
-                      <td>0 đ</td>
-                      <td>0 đ</td>
+                      <td scope="row">VÍ VND</td>
+                      <td>{{lastBanlance}} đ</td>
+                      <td>{{totalWithdrawPending}} đ</td>
+                      <td>{{totalWithdraw}} đ</td>
 
                       <td>
                         <div class="dropdown withdrawal">
@@ -52,18 +51,13 @@
                             id="dropdownMenuButton"
                             type="button"
                           >
-                            Rút tiền
+                            Hành động
                             <i class="fas fa-caret-down ml-1"></i>
                           </button>
                           <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item vnd" href>
-                              VNDC
-                              Wallet Pro
-                            </a>
-                            <a class="dropdown-item banking" href>
-                              Tài
-                              khoản ngân hàng
-                            </a>
+                            <router-link class="dropdown-item withdrawal" to="/Withdrawal">Rút tiền</router-link>
+                            <router-link class="dropdown-item deposit" to="/Deposit">Nạp tiền</router-link>
+                            <router-link class="dropdown-item banking" to="/Banking">Chuyển tiền</router-link>
                           </div>
                         </div>
                       </td>
@@ -125,7 +119,18 @@
                       <th>HÀNH ĐỘNG</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    <tr>
+                      <td>0</td>
+                      <td>NGÀY</td>
+                      <td>TỔNG CỘNG</td>
+                      <td>PHƯƠNG THỨC RÚT TIỀN</td>
+                      <td>TRẠNG THÁI</td>
+                      <td>MỔ TẢ</td>
+                      <td>TIỀN TỆ</td>
+                      <td>HÀNH ĐỘNG</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <!-- bd -->
@@ -142,11 +147,39 @@
 </template>
 
 <script>
-import Header from "./Header";
 export default {
-  components: {
-    Header,
+  data() {
+    return {
+      info: {},
+      status: Boolean,
+      message: null,
+      lastBanlance: Number,
+      totalDeposit: Number,
+      totalWithdraw: Number,
+      totalWithdrawPending: Number,
+      totalWithdrawSuccess: Number
+    }
   },
+  mounted() {
+    this.$axios
+    .get('http://192.168.60.69:3000/api/money/history', {
+      headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+          }
+    })
+    .then((response) => {
+      console.log(response.data.data[0])
+      this.info = response.data
+      this.status = response.data.status
+      this.lastBanlance = response.data.data[0].dataBalance.lastBalance
+      this.totalDeposit = response.data.data[0].dataBalance.totalDeposit
+      this.totalWithdraw = response.data.data[0].dataBalance.totalWithdraw
+      this.totalWithdrawPending = response.data.data[0].dataBalance.totalWithdrawPending
+      this.totalWithdrawSuccess = response.data.data[0].dataBalance.totalWithdrawSuccess
+      
+    })
+  }
 };
 </script>
 
@@ -154,5 +187,12 @@ export default {
 .withdrawal .dropdown-menu {
   top: -7px !important;
   left: -1px !important;
+}
+.withdrawal .dropdown-menu {
+    top: -7px !important;
+    left: 129px !important;
+}
+.table thead th {
+  padding: 10px 12px;
 }
 </style>

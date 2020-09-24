@@ -11,8 +11,15 @@ import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import store from "./store/store";
 import Paginate from 'vuejs-paginate'
+<<<<<<< HEAD
 import Toasted from 'vue-toasted';
 
+=======
+import faSolid from '@fortawesome/fontawesome-free-solid'
+// register the plugin on vue
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
+>>>>>>> 22b534d6378591cb835b654b7e579aa36b8761c1
 Vue.component('paginate', Paginate)
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
@@ -28,6 +35,7 @@ const app = new Vue({
   bootstrap,
   store,
   Paginate,
+  faSolid,
   render: h => h(App)
 })
 

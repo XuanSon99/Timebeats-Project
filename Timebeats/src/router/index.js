@@ -7,11 +7,9 @@ import Profile from '@/components/Profile'
 import Task from '@/components/Task'
 import MakeCamp from '@/components/Make-camp'
 import Wallet from '@/components/Wallet'
-import PersonalIncome from '@/components/Personal-income'
-import GroupIncome from '@/components/Group-income'
 import Resource from '@/components/Resource'
 import Faq from '@/components/Faq'
-
+import Statistical from '@/components/Statistical'
 Vue.use(Router)
 
 var isAuthenticated = false;
@@ -61,16 +59,6 @@ const router = new Router({
       component: Wallet
     },
     {
-      path: '/personal-income',
-      name: 'PersonalIncome',
-      component: PersonalIncome
-    },
-    {
-      path: '/group-income',
-      name: 'GroupIncome',
-      component: GroupIncome
-    },
-    {
       path: '/resource',
       name: 'Resource',
       component: Resource
@@ -80,6 +68,11 @@ const router = new Router({
       name: 'Faq',
       component: Faq
     },
+    {
+      path: '/Statistical',
+      name: 'Statistical',
+      component: Statistical
+    }
   ]
 })
 router.beforeEach((to, from, next) => {

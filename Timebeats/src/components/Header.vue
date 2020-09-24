@@ -130,13 +130,8 @@ export default {
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
         {
           content: " Thống kê",
-          link: "",
-          icon: "fas fa-clipboard-list",
-          subIcon: "fas fa-angle-down",
-          sub: [
-            { content: "Thu nhập cá nhân", link: "/personal-income" },
-            { content: "Thu nhập nhóm", link: "/group-income" },
-          ],
+          link: "/Statistical",
+          icon: "fas fa-clipboard-list"
         },
         { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
         {
@@ -152,7 +147,7 @@ export default {
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thông tin cá nhân", link: "/profile" },
+            { content: "Thông tin cá nhân", link: "/profile" }
           ],
         },
       ],

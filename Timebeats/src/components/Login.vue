@@ -246,4 +246,7 @@ body {
 .signin-image{
   text-align: center;
 }
+#header {
+  display: none;
+}
 </style>

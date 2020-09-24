@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -487,11 +486,9 @@
 </template>
 
 <script>
-import Header from "./Header";
 import Paginate from 'vuejs-paginate'
 export default {
   components: {
-    Header,
     Paginate
   },
   data() {

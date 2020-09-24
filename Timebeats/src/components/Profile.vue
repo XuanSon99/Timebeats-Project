@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -307,12 +306,10 @@ import moment from "moment-timezone";
 Vue.use(VueMoment, {
   moment,
 });
-import Header from "./Header.vue";
 import Multiselect from "vue-multiselect";
 import Datepicker from "vuejs-datepicker";
 export default {
   components: {
-    Header,
     Multiselect,
     Datepicker,
   },
@@ -523,10 +520,6 @@ export default {
       this.user = JSON.parse(localStorage.getItem("LoggedUser")) || [];
       this.wrongUpdate = [];
       e.preventDefault();
-      if (this.old_password == this.new_password) {
-        this.wrongUpdate.push("Mật khẩu cũ và mới không được trùng nhau !!!");
-        return;
-      }
       this.$axios
         .put(
           "http://192.168.60.69:3000/api/user/change-password",
@@ -543,7 +536,10 @@ export default {
           }
         )
         .then((response) => {
-          alert("Đổi mật khẩu thành công !!!");
+           this.$toasted.show(`Hello`, {
+  type: 'success',
+  duration: 3000
+})
           this.old_password = null;
           this.new_password = null;
           this.confirm_password = null;
