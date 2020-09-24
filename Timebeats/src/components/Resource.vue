@@ -21,7 +21,12 @@
                   <!-- Tabs -->
                   <ul class="nav nav-tabs profile navtab-custom panel-tabs">
                     <li class>
-                      <a href="#resource" class="active" data-toggle="tab" aria-expanded="false">
+                      <a
+                        href="#resource"
+                        class="active"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
                         <span class="visible-xs">
                           <i class="fas fa-code"></i>
                         </span>
@@ -29,7 +34,11 @@
                       </a>
                     </li>
                     <li class>
-                      <a href="#download" data-toggle="tab" aria-expanded="false">
+                      <a
+                        href="#download"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
                         <span class="visible-xs">
                           <i class="fas fa-download"></i>
                         </span>
@@ -38,16 +47,20 @@
                     </li>
                   </ul>
                 </div>
-                <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
+                <div
+                  class="tab-content border-left border-bottom border-right border-top-0 p-4"
+                >
                   <div class="tab-pane active" id="resource">
-                    <div class="mb-4 main-content-label">QUẢN LÝ TÀI NGUYÊN</div>
+                    <div class="mb-4 main-content-label">
+                      QUẢN LÝ TÀI NGUYÊN
+                    </div>
                     <div class="form-group">
                       <label for>Nền tảng</label>
                       <select
                         name
                         id
                         class="form-control"
-                        style="margin-bottom: 10px;"
+                        style="margin-bottom: 10px"
                         v-model="selected"
                       >
                         <option value="all">Tất cả</option>
@@ -55,9 +68,10 @@
                           v-for="item in info"
                           :key="item._id"
                           :value="item.code"
-                        >{{item.code}}</option>
+                        >
+                          {{ item.code }}
+                        </option>
                       </select>
-                      
                     </div>
                     <div class="form-group">
                       <button
@@ -68,8 +82,10 @@
                         type="button"
                         data-toggle="modal"
                         data-target="#modal-resource"
-                        style="float: right;"
-                      >+ Thêm tài nguyên</button>
+                        style="float: right"
+                      >
+                        + Thêm tài nguyên
+                      </button>
                     </div>
                     <div class="table-responsive">
                       <table
@@ -81,32 +97,23 @@
                             <th class="wd-10p border-bottom-0">STT</th>
                             <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
                             <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
-                            <th class="wd-10p border-bottom-0">THÔNG TIN TÀI KHOẢN</th>
+                            <th class="wd-10p border-bottom-0">
+                              THÔNG TIN TÀI KHOẢN
+                            </th>
                             <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
                         <tbody v-if="selected == 'all'">
-                          <tr v-for="(item,index) in displayedPosts" :key="index">
+                          <tr
+                            v-for="(item, index) in displayedPosts"
+                            :key="index"
+                          >
                             <td scope="row">{{ index + 1 }}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.status}}</td>
-                            <td>{{item.id}}</td>
-                            <td>{{item.code}}</td>
-                            <td>
-                              <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody >
-                          <tr v-for="(item,index) in info" :key="index" v-show="item.code == selected">
-                            <td scope="row">{{ index + 1 }}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.status}}</td>
-                            <td>{{item.id}}</td>
-                            <td>{{item.date}}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.status }}</td>
+                            <td v-html="item.user"></td>
+                            <td>{{ item.date }}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a style="color: white" href="#">Xóa</a>
@@ -115,7 +122,10 @@
                           </tr>
                         </tbody>
                       </table>
-                      <nav aria-label="Page navigation example" v-show="selected == 'all'">
+                      <nav
+                        aria-label="Page navigation example"
+                        v-show="selected == 'all'"
+                      >
                         <ul class="pagination">
                           <li class="page-item">
                             <button
@@ -123,17 +133,23 @@
                               class="page-link"
                               v-if="page != 1"
                               @click="page--"
-                            >Previous</button>
+                            >
+                              Previous
+                            </button>
                           </li>
                           <li class="page-item">
                             <button
                               type="button"
                               class="page-link"
-
-                              v-for="(pageNumber, index) in pages.slice(page-1, page+5)"
+                              v-for="(pageNumber, index) in pages.slice(
+                                page - 1,
+                                page + 5
+                              )"
                               :key="index"
                               @click="page = pageNumber"
-                            >{{pageNumber}}</button>
+                            >
+                              {{ pageNumber }}
+                            </button>
                           </li>
                           <li class="page-item">
                             <button
@@ -141,7 +157,9 @@
                               @click="page++"
                               v-if="page < pages.length"
                               class="page-link"
-                            >Next</button>
+                            >
+                              Next
+                            </button>
                           </li>
                         </ul>
                       </nav>
@@ -163,13 +181,21 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id>THÊM MỚI TÀI NGUYÊN</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
                         <div class="card-body">
-                          <form action="/social/add-account-social" method="post">
+                          <form
+                            action="/social/add-account-social"
+                            method="post"
+                          >
                             <p class="text-danger"></p>
                             <input
                               type="hidden"
@@ -186,22 +212,27 @@
                                       required
                                       name="social_code"
                                       :selected="selected"
+                                      v-model="selected_add"
                                     >
                                       <option value="all">Tất cả</option>
                                       <option
                                         v-for="item in info"
                                         :key="item._id"
+                                        :data-id="item._id"
                                         :value="item.code"
-                                      >{{item.name}}</option>
+                                      >
+                                        {{ item.name }}
+                                      </option>
                                     </select>
                                   </div>
                                 </div>
                               </div>
                               <h5>
-                                Yêu cầu (cung cấp thông tin tài khoản
+                                Yêu cầu bạn phải đăng nhập tài khoản vào trình
+                                duyệt đang sử dụng (cung cấp thông tin tài khoản
                                 <b class="text-danger">*</b>)
                               </h5>
-                              <div id="requre_area">
+                              <!-- <div id="requre_area">
                                 <h6 class="card-title user-pass-show">
                                   Tài khoản - Mật
                                   khẩu
@@ -242,10 +273,16 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div>-->
                               <div class="form-actions">
                                 <div class="text-center">
-                                  <button type="submit" class="btn btn-info">Lưu</button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-info"
+                                    id="AddAccountSocialBtn"
+                                  >
+                                    Lưu
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -276,7 +313,8 @@ export default {
       posts: [],
       perPage: 1,
       pages: [],
-      data: []
+      data: [],
+      selected_add: "all",
     };
   },
   beforeMount() {
@@ -289,6 +327,7 @@ export default {
       })
       .then((response) => {
         this.account = response.data.data;
+        this.data = response.data.data;
       });
     this.$axios
       .get("http://192.168.60.69:3000/api/social/list", {
@@ -299,15 +338,26 @@ export default {
       })
       .then((response) => {
         this.info = response.data.data;
-        this.data = this.info;
+        // this.data = this.info;
         this.SetStorage();
       });
   },
   methods: {
     getPosts() {
-     this.data = JSON.parse(localStorage.getItem('Data')) || [] // get storage
+      this.data = JSON.parse(localStorage.getItem("Data")) || []; // get storage
       for (let item of this.data) {
-        this.posts.push({ name: item.name, status: item.status, id: item._id, date: item.created_at, code: item.code });
+        let user = "";
+        for (let userI in item.account_profile) {
+          user += "<p>" + userI + ": " + item.account_profile[userI] + "</p>";
+        }
+        this.posts.push({
+          name: item.social_code,
+          status: item.status,
+          id: item._id,
+          date: item.created_at,
+          code: item.code,
+          user: user,
+        });
       }
     },
     setPages() {
@@ -326,7 +376,13 @@ export default {
     SetStorage() {
       var jsonListAccount = JSON.stringify(this.data);
       localStorage.setItem("Data", jsonListAccount);
-    }
+    },
+    addAccountSocial() {
+      var addTiktok = new toktok();
+      addTiktok.init();
+      let social = this.selected_add;
+      chrome.console.log({ social });
+    },
   },
   computed: {
     displayedPosts() {
