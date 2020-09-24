@@ -128,7 +128,7 @@ export default {
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
         {
           content: " Thống kê",
-          link: "/thongke",
+          link: "/#",
           icon: "fas fa-clipboard-list",
           subIcon: "fas fa-angle-down",
           sub: [

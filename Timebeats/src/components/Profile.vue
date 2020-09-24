@@ -308,9 +308,6 @@
                     <div class="card card-body pd-20 pd-md-40 border shadow-none">
                       <form
                         class="form-horizontal"
-                        role="form"
-                        method="post"
-                        action="/change_password"
                       >
                         <input
                           type="hidden"
@@ -324,18 +321,17 @@
                             class="form-control"
                             id="inputOldPass"
                             placeholder="Mật khẩu hiện tại"
-                            required
+                            v-model="old_password"
                           />
                         </div>
                         <div class="form-group">
                           <input
                             type="password"
-                            pattern=".{6,}"
                             id="password"
                             name="new_password"
                             class="form-control"
                             placeholder="Mật khẩu mới"
-                            required
+                            v-model="new_password"
                           />
                         </div>
                         <div class="form-group">
@@ -345,12 +341,13 @@
                             id="confirm_password"
                             name="confirm_password"
                             placeholder="Xác nhận mật khẩu"
-                            required
+                            v-model="confirm_password"
                           />
                         </div>
+                        <p class="text-danger" v-for="item in wrongUpdate" :key="item">{{item}}</p>
                         <div class="form-group mb-0 mt-3 justify-content-end">
                           <div>
-                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            <button type="submit" @click="updatePassword" class="btn btn-primary">Xác nhận</button>
                           </div>
                         </div>
                       </form>
@@ -380,22 +377,6 @@ export default {
     Multiselect,
     Datepicker,
   },
-  beforeMount() {
-    this.$axios
-      .get("http://192.168.60.69:3000/api/setting/2fa", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.is_verify = response.data.data[0].is_verify;
-        if (!this.is_verify) {
-          this.QR_Code = response.data.data[0].QRCode;
-          this.Key_Code = response.data.data[0].KeyCode;
-        }
-      });
-  },
   data() {
     return {
       is_verify: Boolean,
@@ -411,14 +392,24 @@ export default {
       avatar: "",
       gender: "",
       phone: "",
+      old_password: null,
+      new_password: null,
+      confirm_password: null,
+      statusCode: null,
+      message: {},
+      Rule: [],
+      item: {},
       gender_list: [
         { gender: "Nam", value: "male", selected: false },
         { gender: "Nữ", value: "female", selected: false },
       ],
+      user: [],
+      wrongUpdate: [],
       errors: [],
+      checkPassword: [],
     };
   },
-  mounted() {
+  beforeMount() {
     //Get profile
     this.$axios
       .get("http://192.168.60.69:3000/api/user/my-profile", {
@@ -428,6 +419,7 @@ export default {
         },
       })
       .then((response) => {
+        console.log(response)
         this.name = response.data.data[0].display_name;
         this.email = response.data.data[0].email;
         this.birthday = response.data.data[0].birthday;
@@ -452,6 +444,21 @@ export default {
       })
       .then((response) => {
         this.taggingOptions = response.data.data[0];
+      });
+    //post 
+    this.$axios
+      .get("http://192.168.60.69:3000/api/setting/2fa", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.is_verify = response.data.data[0].is_verify;
+        if (!this.is_verify) {
+          this.QR_Code = response.data.data[0].QRCode;
+          this.Key_Code = response.data.data[0].KeyCode;
+        }
       });
   },
   methods: {
@@ -491,6 +498,73 @@ export default {
         });
       e.preventDefault();
     },
+    updatePassword(e) {
+      this.user = JSON.parse(localStorage.getItem('LoggedUser')) || []
+      this.wrongUpdate = []
+      e.preventDefault()
+      // if(!this.old_password || !this.new_password || !this.confirm_password) {
+      //   this.wrongUpdate.push("Vui lòng nhập đầy đủ thông tin !!!");
+      //   return;
+      // }
+      // if(this.old_password != this.user.password) {
+      //   this.wrongUpdate.push("Mật khẩu chưa chính xác !!!");
+      //   return;
+      // }
+      // if(this.new_password.length < 6) {
+      //   this.wrongUpdate.push("Mật khẩu mới phải có ít nhất 6 kí tự !!!");
+      //   return;
+      // }
+      if(this.old_password == this.new_password) {
+        this.wrongUpdate.push("Mật khẩu cũ và mới không được trùng nhau !!!");
+        return;
+      }
+      // if(this.new_password != this.confirm_password) {
+      //   this.wrongUpdate.push("Mật khẩu và xác nhận mật khẩu chưa trùng nhau !!!");
+      //   return;
+      // }
+      this.$axios
+        .put("http://192.168.60.69:3000/api/user/change-password",
+        {
+           "current_password": this.old_password,
+            "new_password": this.new_password,
+            "re_new_password":this.confirm_password
+        },
+        {
+          headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+          }
+        }
+        )
+        .then((response) => {
+          alert("Đổi mật khẩu thành công !!!")
+          this.old_password = null;
+          this.new_password = null;
+          this.confirm_password = null;
+        })
+        .catch((error, response) => {
+          this.statusCode = error.response.data.statusCode
+          if(this.statusCode == 405) {
+            this.wrongUpdate.push("Mật khẩu chưa chính xác !!!");
+            return;
+          }
+          this.message = error.response.data.message
+          for(this.item in this.message) {
+            if(this.message[this.item].rule == 'required') {
+              this.wrongUpdate.push("Vui lòng điền đầy đủ thông tin !!!");
+              return;
+            }
+            if(this.message[this.item].rule == 'minLength') {
+              this.wrongUpdate.push("Mật khẩu phải có ít nhất 6 kí tự !!!");
+              return;
+            }
+            if(this.message[this.item].rule == 'same') {
+              this.wrongUpdate.push("Mật khẩu và xác thực mật khẩu phải trùng nhau !!!");
+              return;
+            }
+          }
+        });
+    }
   },
 };
 </script>

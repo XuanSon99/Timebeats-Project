@@ -127,6 +127,7 @@ export default {
       id: String,
       errors: [],
       loggedUser: null,
+      loggedPassword: null,
     };
   },
   methods: {
@@ -154,11 +155,13 @@ export default {
               this.id = response.data.data[0]._id;
               this.$store.dispatch("setToken", this.token)
               this.$store.dispatch("setID", this.id)
+              console.log(response.data.data)
               if (!this.status) {
                 this.errors.push("Tài khoản hoặc mật khẩu không đúng");
                 return false;
               }
               this.loggedUser = this.signin.email;
+              this.loggedPassword = this.signin.password;
               this.SetStorage();
               this.$router.push({ name: "Dashboard" }).catch((error) => {});
               location.reload();
@@ -177,7 +180,7 @@ export default {
       return reg.test(email);
     },
     SetStorage() {
-      var jsonListAccount = JSON.stringify(this.loggedUser);
+      var jsonListAccount = JSON.stringify(this.signin) || [] ;
       localStorage.setItem("LoggedUser", jsonListAccount);
     },
   },

@@ -78,7 +78,7 @@
           <!-- bd -->
         </div>
 
-        <div class="col-xl-12" id="vndc">
+        <!-- <div class="col-xl-12" id="vndc">
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex justify-content-between">
@@ -130,12 +130,10 @@
                 </p>
               </form>
             </div>
-            <!-- bd -->
           </div>
-          <!-- bd -->
-        </div>
+        </div> -->
 
-        <div class="col-xl-12" id="accountBanking">
+        <!-- <div class="col-xl-12" id="accountBanking">
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex justify-content-between">
@@ -193,7 +191,7 @@
                   </div>
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label class="main-content-label tx-11 tx-medium tx-gray-600">TÊN NGÂN HÀNG</label>
                   <div class="pos-relative">
                     <select name="banking" class="form-control pd-r-80">
@@ -429,7 +427,7 @@
                       </option>
                     </select>
                   </div>
-                </div>-->
+                </div>
 
                 <div class="form-group">
                   <label class="main-content-label tx-11 tx-medium tx-gray-600">CHI NHÁNH</label>
@@ -482,10 +480,8 @@
                 </div>
               </form>
             </div>
-            <!-- bd -->
           </div>
-          <!-- bd -->
-        </div>
+        </div> -->
 
         <div class="col-xl-12">
           <div class="card">
