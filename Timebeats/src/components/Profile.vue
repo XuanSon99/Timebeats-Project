@@ -504,19 +504,19 @@ export default {
         .put(URL, data, config)
         .then((response) => {
           this.$toast.info("Cập nhật thông tin thành công !", {
-  position: "top-right",
-  timeout: 5232,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  draggable: true,
-  draggablePercent: 0.82,
-  showCloseButtonOnHover: true,
-  hideProgressBar: false,
-  closeButton: "button",
-  icon: true,
-  rtl: false
-});
+            position: "top-right",
+            timeout: 5232,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.82,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
         })
         .catch(() => {});
     },

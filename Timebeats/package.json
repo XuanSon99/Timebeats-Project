@@ -21,6 +21,7 @@
     "js-cookie": "^2.2.1",
     "moment-timezone": "^0.5.31",
     "popper.js": "^1.16.1",
+    "show": "0.0.1",
     "store": "^2.0.12",
     "vue": "^2.5.2",
     "vue-headful": "^2.1.0",
