@@ -13,8 +13,13 @@ import store from "./store/store";
 import Paginate from 'vuejs-paginate'
 import faSolid from '@fortawesome/fontawesome-free-solid'
 // register the plugin on vue
-import Toasted from 'vue-toasted'
-Vue.use(Toasted)
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+Vue.use(Toast, {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 20,
+  newestOnTop: true
+});
 Vue.component('paginate', Paginate)
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false

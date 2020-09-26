@@ -247,8 +247,20 @@ export default {
           phone: this.phone,
         })
         .then((response) => {
-          console.log(response);
-          alert("Đăng ký thành công!");
+          this.$toast.success("Đăng kí thành công !", {
+            position: "top-right",
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
           this.username = "";
           this.email = "";
           this.gender = "";

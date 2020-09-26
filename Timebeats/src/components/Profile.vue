@@ -231,7 +231,7 @@
                           v-if="!is_verify"
                         >Bật</button>
                         <div class="form-group success" v-if="is_verify">
-                          <div class="p-3 mb-2 bg-success text-white">Đã xác thực thành công !!!</div>
+                          <div class="p-3 mb-2 bg-success text-white">Đã xác thực !</div>
                         </div>
                       </form>
                     </div>
@@ -427,13 +427,26 @@ export default {
           }
         )
         .then((response) => {
-          alert("xác thực thành công");
+          this.$toast.success("Đổi mật khẩu thành công!", {
+            position: "top-right",
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
           location.reload();
         })
         .catch((error, response) => {
           this.status = error.response.data.status;
           if (!this.status) {
-            this.errors.push("Mã xác thực không chính xác !!!");
+            this.errors.push("Mã xác thực không chính xác !");
             return false;
           }
         });
@@ -453,15 +466,15 @@ export default {
         !this.address ||
         !this.phone
       ) {
-        this.errors.push("Vui lòng nhập đủ thông tin");
+        this.errors.push("Vui lòng nhập đủ thông tin !");
         return;
       }
       if (!this.validEmail(this.email)) {
-        this.errors.push("Email không đúng định dạng");
+        this.errors.push("Email không đúng định dạng !");
         return;
       }
       if (!this.validPhone(this.phone)) {
-        this.errors.push("Số điện thoại không đúng");
+        this.errors.push("Số điện thoại không đúng !");
         return;
       }
 
@@ -490,7 +503,20 @@ export default {
       this.$axios
         .put(URL, data, config)
         .then((response) => {
-          alert("Cập nhật thông tin thành công");
+          this.$toast.info("Cập nhật thông tin thành công !", {
+  position: "top-right",
+  timeout: 5232,
+  closeOnClick: true,
+  pauseOnFocusLoss: true,
+  pauseOnHover: true,
+  draggable: true,
+  draggablePercent: 0.82,
+  showCloseButtonOnHover: true,
+  hideProgressBar: false,
+  closeButton: "button",
+  icon: true,
+  rtl: false
+});
         })
         .catch(() => {});
     },
@@ -531,10 +557,20 @@ export default {
           }
         )
         .then((response) => {
-           this.$toasted.show(`Hello`, {
-  type: 'success',
-  duration: 3000
-})
+          this.$toast.success("Đổi mật khẩu thành công!", {
+            position: "top-right",
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
           this.old_password = null;
           this.new_password = null;
           this.confirm_password = null;
@@ -542,22 +578,22 @@ export default {
         .catch((error, response) => {
           this.statusCode = error.response.data.statusCode;
           if (this.statusCode == 405) {
-            this.wrongUpdate.push("Mật khẩu chưa chính xác !!!");
+            this.wrongUpdate.push("Mật khẩu chưa chính xác !");
             return;
           }
           this.message = error.response.data.message;
           for (this.item in this.message) {
             if (this.message[this.item].rule == "required") {
-              this.wrongUpdate.push("Vui lòng điền đầy đủ thông tin !!!");
+              this.wrongUpdate.push("Vui lòng điền đầy đủ thông tin !");
               return;
             }
             if (this.message[this.item].rule == "minLength") {
-              this.wrongUpdate.push("Mật khẩu phải có ít nhất 6 kí tự !!!");
+              this.wrongUpdate.push("Mật khẩu phải có ít nhất 6 kí tự !");
               return;
             }
             if (this.message[this.item].rule == "same") {
               this.wrongUpdate.push(
-                "Mật khẩu và xác thực mật khẩu phải trùng nhau !!!"
+                "Mật khẩu và xác thực mật khẩu phải trùng nhau !"
               );
               return;
             }

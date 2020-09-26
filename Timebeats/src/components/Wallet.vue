@@ -31,7 +31,6 @@
                       <th>SỐ DƯ TÀI KHOẢN</th>
                       <th>RÚT TIỀN CHỜ DUYỆT</th>
                       <th>TỔNG RÚT TIỀN</th>
-                      <th>HÀNH ĐỘNG</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -40,32 +39,24 @@
                       <td>{{lastBanlance}} đ</td>
                       <td>{{totalWithdrawPending}} đ</td>
                       <td>{{totalWithdraw}} đ</td>
-
-                      <td>
-                        <div class="dropdown withdrawal">
-                          <button
-                            aria-expanded="false"
-                            aria-haspopup="true"
-                            class="btn ripple btn-primary"
-                            data-toggle="dropdown"
-                            id="dropdownMenuButton"
-                            type="button"
-                          >
-                            Hành động
-                            <i class="fas fa-caret-down ml-1"></i>
-                          </button>
-                          <div class="dropdown-menu tx-13">
-                            <router-link class="dropdown-item withdrawal" to="/Withdrawal">Rút tiền</router-link>
-                            <router-link class="dropdown-item deposit" to="/Deposit">Nạp tiền</router-link>
-                            <router-link class="dropdown-item banking" to="/Banking">Chuyển tiền</router-link>
-                          </div>
-                        </div>
-                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+
               <!-- bd -->
+            </div>
+            <div class="card-footer">
+              <div class="action">
+                <router-link
+                  class="badge badge-success"
+                  tag="a"
+                  to="/Withdrawal"
+                  role="button"
+                >Rút tiền</router-link>
+                <router-link class="badge badge-success" tag="a" to="/Deposit">Nạp tiền</router-link>
+                <router-link class="badge badge-success" tag="a" to="/Banking">Chuyển tiền</router-link>
+              </div>
             </div>
             <!-- bd -->
           </div>
@@ -81,26 +72,24 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="dataTables_length" id="example1_length">
-                <label>
-                  <span>Lọc</span>
-                  <select
-                    id="filter"
-                    style="display: block; width: 164px"
-                    name="example1_length"
-                    aria-controls="example1"
-                    class="custom-select custom-select-sm form-control form-control-sm"
-                  >
-                    <option value>TẤT CẢ</option>
-                    <option value="0">TẠM DUYỆT</option>
-                    <option value="1">CHỜ DUYỆT</option>
-                    <option value="2">ĐÃ DUYỆT</option>
-                    <option value="3">THÀNH CÔNG</option>
-                    <option value="4">THẤT BẠI</option>
-                    <option value="5">TỪ CHỐI</option>
-                    <option value="6">HOÀN TIỀN</option>
-                  </select>
-                </label>
+              <div class="row">
+                <div class="col-xl-3">
+                  <div class="form-group row">
+                    <div class="col-xl-3 lab">
+                      <label for="loc">Lọc</label>
+                    </div>
+               <div class="col-xl-8">
+                  <select name id="loc" class="form-control" style="margin-bottom: 10px;">
+                  <option value="all">Tất cả</option>
+                  <option value>Chờ duyệt</option>
+                  <option value>Tạm duyệt</option>
+                  <option value>Đã duyệt</option>
+                  <option value>Thành công</option>
+                  <option value>Thất bại</option>
+                </select>
+               </div>
+              </div>
+                </div>
               </div>
               <div class="table-responsive">
                 <table
@@ -157,29 +146,30 @@ export default {
       totalDeposit: Number,
       totalWithdraw: Number,
       totalWithdrawPending: Number,
-      totalWithdrawSuccess: Number
-    }
+      totalWithdrawSuccess: Number,
+    };
   },
   mounted() {
     this.$axios
-    .get('http://192.168.60.69:3000/api/money/history', {
-      headers: {
+      .get("http://192.168.60.69:3000/api/money/history", {
+        headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
-          }
-    })
-    .then((response) => {
-      console.log(response.data.data[0])
-      this.info = response.data
-      this.status = response.data.status
-      this.lastBanlance = response.data.data[0].dataBalance.lastBalance
-      this.totalDeposit = response.data.data[0].dataBalance.totalDeposit
-      this.totalWithdraw = response.data.data[0].dataBalance.totalWithdraw
-      this.totalWithdrawPending = response.data.data[0].dataBalance.totalWithdrawPending
-      this.totalWithdrawSuccess = response.data.data[0].dataBalance.totalWithdrawSuccess
-      
-    })
-  }
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data[0]);
+        this.info = response.data;
+        this.status = response.data.status;
+        this.lastBanlance = response.data.data[0].dataBalance.lastBalance;
+        this.totalDeposit = response.data.data[0].dataBalance.totalDeposit;
+        this.totalWithdraw = response.data.data[0].dataBalance.totalWithdraw;
+        this.totalWithdrawPending =
+          response.data.data[0].dataBalance.totalWithdrawPending;
+        this.totalWithdrawSuccess =
+          response.data.data[0].dataBalance.totalWithdrawSuccess;
+      });
+  },
 };
 </script>
 
@@ -189,10 +179,27 @@ export default {
   left: -1px !important;
 }
 .withdrawal .dropdown-menu {
-    top: -7px !important;
-    left: 129px !important;
+  top: -7px !important;
+  left: 129px !important;
 }
 .table thead th {
   padding: 10px 12px;
 }
+.breadcrumb-header {
+  padding-left: 12px;
+}
+.action {
+  text-align: right;
+}
+.action > a {
+  padding: 12px 20px !important;
+  font-size: 14px !important;
+}
+.lab {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
