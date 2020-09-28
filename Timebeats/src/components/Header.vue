@@ -68,7 +68,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span><img alt src="../assets/vendor/img/photos/user.png" /> Nguyễn Khanh</span>
+                <span><img alt :src="avatar"> {{name}}</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser">
                 <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
@@ -121,6 +121,8 @@
 export default {
   data() {
     return {
+      avatar: 'http://192.168.60.69:3000/' + this.$store.getters.avatar,
+      name: this.$store.getters.name,
       menu: [
         { content: " Trang chủ", link: "/", icon: "fa fa-home" },
         { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
@@ -128,13 +130,8 @@ export default {
         { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
         {
           content: " Thống kê",
-          link: "/thongke",
-          icon: "fas fa-clipboard-list",
-          subIcon: "fas fa-angle-down",
-          sub: [
-            { content: "Thu nhập cá nhân", link: "/personal-income" },
-            { content: "Thu nhập nhóm", link: "/group-income" },
-          ],
+          link: "/Statistical",
+          icon: "fas fa-clipboard-list"
         },
         { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
         {
@@ -150,8 +147,7 @@ export default {
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [
-            { content: "Thông tin cá nhân", link: "/profile" },
-            { content: "Liên kết VNDC", link: "/register-vndc" },
+            { content: "Thông tin cá nhân", link: "/profile" }
           ],
         },
       ],

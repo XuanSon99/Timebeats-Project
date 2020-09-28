@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">
@@ -125,13 +124,44 @@
                             </td>
                           </tr>
                         </tbody>
+<<<<<<< .mine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+                        <tbody >
+                          <tr v-for="(item,index) in info" :key="index" v-show="item.code == selected">
+                            <td scope="row">{{ index + 1 }}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item._id}}</td>
+                            <td>{{item.created_at}}</td>
+                            <td>
+                              <span class="tag tag-danger tag-center">
+                                <a style="color: white" href="#">Xóa</a>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+>>>>>>> .theirs
                       </table>
                       <nav
                         aria-label="Page navigation example"
                         v-show="selected == 'all'"
                       >
                         <ul class="pagination">
-                          <li class="page-item">
+                          <li class="page-item previous">
                             <button
                               type="button"
                               class="page-link"
@@ -155,7 +185,7 @@
                               {{ pageNumber }}
                             </button>
                           </li>
-                          <li class="page-item">
+                          <li class="page-item next">
                             <button
                               type="button"
                               @click="page++"
@@ -304,9 +334,7 @@
     </div>
   </div>
 </template>
-
 <script>
-import Header from "./Header";
 export default {
   data() {
     return {
@@ -415,10 +443,7 @@ export default {
     trimWords(value) {
       return value.split(" ").splice(0, 20).join(" ") + "...";
     },
-  },
-  components: {
-    Header,
-  },
+  }
 };
 </script>
 
@@ -457,11 +482,41 @@ export default {
 .page-item:nth-child(2) {
   display: flex;
 }
+.pagination {
+    height: 30px;
+    overflow: hidden;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
 button.page-link {
-  font-size: 20px;
-  color: #29b3ed;
-  font-weight: 500;
-  width: auto;
-  height: auto;
+    font-size: 14px;
+    color: #22252f;
+    font-weight: 500;
+    border: none;
+    height: 30px;
+    border-radius: 0;
+    outline: none;
+    background: #fff;
+}
+.previous button.page-link {
+    padding: 0 35px;
+}
+.next button.page-link {
+    padding: 0 35px;
+}
+.pagination .page-item:last-child .page-link, .pagination .page-item:first-child .page-link {
+    border-radius: 0;
+}
+.pagination .page-link:hover {
+    background-color: #ecf0fa !important;
+    border: 1px solid #cdd7ef !important;
+    color: #22252f;
+}
+.pagination .page-link {
+    background-color: #fff;
+    border: 1px solid #cdd7ef;
 }
 </style>

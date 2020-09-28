@@ -11,11 +11,20 @@ import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import store from "./store/store";
 import Paginate from 'vuejs-paginate'
+import Toasted from 'vue-toasted';
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+Vue.use(Toast, {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 20,
+  newestOnTop: true
+});
 Vue.component('paginate', Paginate)
 Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.use(Vuex);
+Vue.use(Toasted);
 
 const app = new Vue({
   el: '#app',
