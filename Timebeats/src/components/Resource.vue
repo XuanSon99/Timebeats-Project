@@ -124,37 +124,6 @@
                             </td>
                           </tr>
                         </tbody>
-<<<<<<< .mine
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-                        <tbody >
-                          <tr v-for="(item,index) in info" :key="index" v-show="item.code == selected">
-                            <td scope="row">{{ index + 1 }}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.status}}</td>
-                            <td>{{item._id}}</td>
-                            <td>{{item.created_at}}</td>
-                            <td>
-                              <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
->>>>>>> .theirs
                       </table>
                       <nav
                         aria-label="Page navigation example"
