@@ -72,7 +72,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser">
                 <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
-                <a class="dropdown-item" @click="logOut">Đăng xuất</a>
+                <a class="dropdown-item logoutSysAndETS" @click="logOut">Đăng xuất</a>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
                     </router-link>
                   </li>
                   <li v-if="item.id == 'logout'">
-                    <a class="logout" @click="logOut">
+                    <a class="logout logoutSysAndETS" @click="logOut">
                       <span>&gt;</span> Đăng xuất
                     </a>
                   </li>

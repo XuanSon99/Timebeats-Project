@@ -116,7 +116,11 @@
                             <td>{{ item.date }}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
-                                <a style="color: white" href="#">Xóa</a>
+                                <a
+                                  style="color: white"
+                                  @click="deleteAccountSocial(item.id)"
+                                  >Xóa</a
+                                >
                               </span>
                             </td>
                           </tr>
@@ -376,6 +380,16 @@ export default {
     SetStorage() {
       var jsonListAccount = JSON.stringify(this.data);
       localStorage.setItem("Data", jsonListAccount);
+    },
+    deleteAccountSocial(id) {
+      var txt;
+      var person = prompt("Nhập mật khẩu hiện tại của bạn:", "");
+      if (person == null || person == "") {
+        txt = "User cancelled the prompt.";
+      } else {
+        txt = "Hello " + person + "! How are you today?";
+      }
+      alert(txt)
     },
     addAccountSocial() {
       var addTiktok = new toktok();
