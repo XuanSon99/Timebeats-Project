@@ -18,19 +18,21 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">0đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">280.000đ</h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
                     </div>
                     <span class="float-right my-auto ml-auto">
                       <i class="fas fa-arrow-circle-up text-white"></i>
-                      <span class="text-white op-7">0%</span>
+                      <span class="text-white op-7">32%</span>
                     </span>
                   </div>
                 </div>
               </div>
-              <span id="compositeline1" class="pt-1"></span>
+              <span id="compositeline1" class="pt-1">
+                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+              </span>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
@@ -42,19 +44,21 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">0đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">1.280.000đ</h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
                     </div>
                     <span class="float-right my-auto ml-auto">
                       <i class="fas fa-arrow-circle-up text-white"></i>
-                      <span class="text-white op-7">0%</span>
+                      <span class="text-white op-7">68%</span>
                     </span>
                   </div>
                 </div>
               </div>
-              <span id="compositeline2" class="pt-1"></span>
+              <span id="compositeline2" class="pt-1">
+                <apexchart width="260" type="donut" :options="options" :series="series_2"></apexchart>
+              </span>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
@@ -66,19 +70,21 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">0</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">750.000đ</h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
                     </div>
                     <span class="float-right my-auto ml-auto">
                       <i class="fas fa-arrow-circle-up text-white"></i>
-                      <span class="text-white op-7">0%</span>
+                      <span class="text-white op-7">100%</span>
                     </span>
                   </div>
                 </div>
               </div>
-              <span id="compositeline3" class="pt-1"></span>
+              <span id="compositeline3" class="pt-1">
+                <apexchart width="260" type="donut" :options="options" :series="series_3"></apexchart>
+              </span>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
@@ -90,19 +96,21 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">0đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">690.000đ</h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
                     </div>
                     <span class="float-right my-auto ml-auto">
                       <i class="fas fa-arrow-circle-up text-white"></i>
-                      <span class="text-white op-7">0%</span>
+                      <span class="text-white op-7">12%</span>
                     </span>
                   </div>
                 </div>
               </div>
-              <span id="compositeline4" class="pt-1"></span>
+              <span id="compositeline4" class="pt-1">
+                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+              </span>
             </div>
           </div>
         </div>
@@ -363,11 +371,36 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from "vuex";
+import VueApexCharts from "vue-apexcharts";
+Vue.component("apexchart", VueApexCharts);
+
 export default {
   name: "home",
   data() {
-    return {};
+    return {
+      options: {
+        chart: {
+          id: "vuechart",
+        },
+        xaxis: {
+          categories(){
+            for(let i = 1; i<10; i++){
+              return i;
+            }
+          }
+        },
+      },
+      series_1: [
+        {
+          name: "Chờ duyệt",
+          data: [10, 12, 14, 16, 18, 16, 18, 20, 18, 16, 22, 24, 26, 24, 22, 24, 20, 12],
+        },
+      ],
+      series_2: [10, 12, 14, 16, 18],
+      series_3: [16, 20, 12, 26, 30],
+    };
   },
 };
 </script>
@@ -378,5 +411,10 @@ export default {
   display: block;
   max-width: 50px;
   text-align: center;
+}
+#compositeline, #compositeline2, #compositeline3, #compositeline4 {
+    position: relative;
+    bottom: -1px;
+    min-height: 180px;
 }
 </style>

@@ -4,16 +4,16 @@ import App from './App'
 import router from './router'
 import bootstrap from 'bootstrap'
 import axios from 'axios'
-import vueHeadful from 'vue-headful';
+import vueHeadful from 'vue-headful'
 import './assets/vendor/css/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
-import store from "./store/store";
+import store from "./store/store"
 import Paginate from 'vuejs-paginate'
-import Toasted from 'vue-toasted';
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
+import Toasted from 'vue-toasted'
+import Toast from "vue-toastification"
+import "vue-toastification/dist/index.css"
 
 
 import GoogleAuth from '@/config/google_oAuth.js'
