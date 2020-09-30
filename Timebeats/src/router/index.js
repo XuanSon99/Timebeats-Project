@@ -13,7 +13,7 @@ import Statistical from '@/components/Statistical'
 Vue.use(Router)
 
 var isAuthenticated = false;
-if (localStorage.getItem('LoggedUser')) isAuthenticated = true;
+if (localStorage.getItem('LoggedUser') || localStorage.getItem('user')) isAuthenticated = true;
 else isAuthenticated = false;
 
 const router = new Router({

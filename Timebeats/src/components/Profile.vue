@@ -20,7 +20,12 @@
                   <!-- Tabs -->
                   <ul class="nav nav-tabs profile navtab-custom panel-tabs">
                     <li class>
-                      <a href="#profile" class="active" data-toggle="tab" aria-expanded="false">
+                      <a
+                        href="#profile"
+                        class="active"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
                         <span class="visible-xs">
                           <i class="fas fa-address-card"></i>
                         </span>
@@ -28,7 +33,12 @@
                       </a>
                     </li>
                     <li class>
-                      <a href="#accuracy" data-toggle="tab" aria-expanded="false" class>
+                      <a
+                        href="#accuracy"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                        class
+                      >
                         <span class="visible-xs">
                           <i class="fas fa-user-lock"></i>
                         </span>
@@ -36,7 +46,12 @@
                       </a>
                     </li>
                     <li class>
-                      <a href="#settings" data-toggle="tab" aria-expanded="false" class>
+                      <a
+                        href="#settings"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                        class
+                      >
                         <span class="visible-xs">
                           <i class="fas fa-key"></i>
                         </span>
@@ -45,10 +60,14 @@
                     </li>
                   </ul>
                 </div>
-                <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
+                <div
+                  class="tab-content border-left border-bottom border-right border-top-0 p-4"
+                >
                   <div class="tab-pane active" id="profile">
                     <div class="mb-4 main-content-label">THÔNG TIN CÁ NHÂN</div>
-                    <div class="card card-body pd-20 pd-md-40 border shadow-none">
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
                       <form
                         class="form-horizontal"
                         enctype="multipart/form-data"
@@ -66,10 +85,24 @@
                             <div class="col-md-12">
                               <div
                                 class="main-img-user profile-user"
-                                style="width: 120px; height: 120px; margin-bottom: 20px"
+                                style="
+                                  width: 120px;
+                                  height: 120px;
+                                  margin-bottom: 20px;
+                                "
                               >
-                                <img v-if="url" alt :src="url" id="profileImg" />
-                                <img v-if="!url" alt :src="avatar" id="profileImg" />
+                                <img
+                                  v-if="url"
+                                  alt
+                                  :src="url"
+                                  id="profileImg"
+                                />
+                                <img
+                                  v-if="!url"
+                                  alt
+                                  :src="avatar"
+                                  id="profileImg"
+                                />
                                 <label
                                   for="inputImg"
                                   class="fas fa-camera profile-edit choose-avatar"
@@ -77,7 +110,7 @@
                                 <input
                                   type="file"
                                   id="inputImg"
-                                  style="display: none;"
+                                  style="display: none"
                                   @change="uploadImage($event)"
                                   accept="image/*"
                                 />
@@ -103,13 +136,18 @@
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-12">
-                              <select v-model="gender" class="form-control select2">
+                              <select
+                                v-model="gender"
+                                class="form-control select2"
+                              >
                                 <option
                                   v-for="gender in gender_list"
                                   :key="gender.gender"
                                   :value="gender.value"
                                   :selected="gender.selected"
-                                >{{gender.gender}}</option>
+                                >
+                                  {{ gender.gender }}
+                                </option>
                               </select>
                             </div>
                           </div>
@@ -127,7 +165,9 @@
                             </div>
                           </div>
                         </div>
-                        <div class="mb-4 main-content-label">THÔNG TIN LIÊN LẠC</div>
+                        <div class="mb-4 main-content-label">
+                          THÔNG TIN LIÊN LẠC
+                        </div>
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-12">
@@ -177,28 +217,45 @@
                           :taggable="true"
                           @tag="addTag"
                         ></multiselect>
-                        <p class="text-danger" v-for="item in errors" :key="item">{{item}}</p>
+                        <p
+                          class="text-danger"
+                          v-for="item in errors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
                         <button
                           type="button"
                           class="btn btn-primary waves-effect waves-light"
                           @click="updateProfile"
-                        >Xác nhận</button>
+                        >
+                          Xác nhận
+                        </button>
                       </form>
                     </div>
                   </div>
                   <div class="tab-pane" id="accuracy">
                     <div class="mb-4 main-content-label">Xác thực hai lớp</div>
-                    <div class="card card-body pd-20 pd-md-40 border shadow-none">
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
                       <form class="form-horizontal">
                         <input type="hidden" name="_token" :value="Key_Code" />
-                        <h5 class="card-title mg-b-20">Cài đặt xác thực hai lớp</h5>
-                        <div class="form-group" style="text-align: center;" v-if="!is_verify">
+                        <h5 class="card-title mg-b-20">
+                          Cài đặt xác thực hai lớp
+                        </h5>
+                        <div
+                          class="form-group"
+                          style="text-align: center"
+                          v-if="!is_verify"
+                        >
                           <img :src="QR_Code" />
                         </div>
                         <div class="form-group" v-if="!is_verify">
-                          <label class="main-content-label tx-11 tx-medium tx-gray-600">
-                            MÃ SỐ
-                            BÍ MẬT
+                          <label
+                            class="main-content-label tx-11 tx-medium tx-gray-600"
+                          >
+                            MÃ SỐ BÍ MẬT
                           </label>
                           <input
                             class="form-control"
@@ -209,9 +266,10 @@
                           />
                         </div>
                         <div class="form-group" v-if="!is_verify">
-                          <label class="main-content-label tx-11 tx-medium tx-gray-600">
-                            MÃ XÁC
-                            MINH
+                          <label
+                            class="main-content-label tx-11 tx-medium tx-gray-600"
+                          >
+                            MÃ XÁC MINH
                           </label>
                           <div class="pos-relative">
                             <input
@@ -223,22 +281,34 @@
                             />
                           </div>
                         </div>
-                        <p class="text-danger" v-for="item in errors" :key="item">{{item}}</p>
+                        <p
+                          class="text-danger"
+                          v-for="item in errors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
                         <button
                           @click="checkVerify"
                           type="submit"
                           class="btn btn-primary waves-effect waves-light"
                           v-if="!is_verify"
-                        >Bật</button>
+                        >
+                          Bật
+                        </button>
                         <div class="form-group success" v-if="is_verify">
-                          <div class="p-3 mb-2 bg-success text-white">Đã xác thực !</div>
+                          <div class="p-3 mb-2 bg-success text-white">
+                            Đã xác thực !
+                          </div>
                         </div>
                       </form>
                     </div>
                   </div>
                   <div class="tab-pane" id="settings">
                     <div class="mb-4 main-content-label">Đổi mật khẩu</div>
-                    <div class="card card-body pd-20 pd-md-40 border shadow-none">
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
                       <form class="form-horizontal">
                         <input
                           type="hidden"
@@ -275,14 +345,22 @@
                             v-model="confirm_password"
                           />
                         </div>
-                        <p class="text-danger" v-for="item in wrongUpdate" :key="item">{{item}}</p>
+                        <p
+                          class="text-danger"
+                          v-for="item in wrongUpdate"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
                         <div class="form-group mb-0 mt-3 justify-content-end">
                           <div>
                             <button
                               type="submit"
                               @click="updatePassword"
                               class="btn btn-primary"
-                            >Xác nhận</button>
+                            >
+                              Xác nhận
+                            </button>
                           </div>
                         </div>
                       </form>
@@ -349,7 +427,7 @@ export default {
       checkPassword: [],
     };
   },
-  beforeMount() {
+  mounted() {
     //Get profile
     this.$axios
       .get("http://192.168.60.69:3000/api/user/my-profile", {
@@ -401,6 +479,16 @@ export default {
           this.Key_Code = response.data.data[0].KeyCode;
         }
       });
+    //Get profile when login with google account
+    if(this.$store.getters.getLoginUserInfo){
+      this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK
+      this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad
+      this.email = this.$store.getters.getLoginUserInfo.google.rt.$t
+      this.gender = 'male'
+      this.phone = '0996966966'
+      this.address = 'Hà Nội'
+      this.birthday = '1999-12-10'
+    }
   },
   methods: {
     addTag(newTag) {

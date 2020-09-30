@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
+import { setStore, getStore } from '@/config/utils'
 
 Vue.use(Vuex)
+const user = getStore('user')
 
 export default new Vuex.Store({
   state: {
@@ -11,6 +13,7 @@ export default new Vuex.Store({
     id: null,
     name: null,
     avatar: null,
+    loginUser: user
   },
   getters: {
     token(state) {
@@ -25,6 +28,9 @@ export default new Vuex.Store({
     avatar(state) {
       return state.avatar
     },
+    getLoginUserInfo(state) {
+      return state.loginUser
+    }
   },
   mutations: {
     SET_TOKEN(state, payload) {
@@ -39,6 +45,10 @@ export default new Vuex.Store({
     SET_AVATAR(state, payload) {
       state.avatar = payload
     },
+    setLoginUser(state, user) {
+      state.loginUser = user
+      setStore('user', user)
+    }
   },
   actions: {
     setToken({ commit }, payload) {

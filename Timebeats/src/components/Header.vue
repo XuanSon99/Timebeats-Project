@@ -133,7 +133,7 @@ export default {
           link: "/Statistical",
           icon: "fas fa-clipboard-list"
         },
-        { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
+        { content: " Bạn bè", link: "", icon: "fas fa-users" },
         {
           content: " Tài Nguyên & Tải về",
           link: "/resource",
@@ -143,7 +143,7 @@ export default {
         {
           id: "logout",
           content: " Cài đặt",
-          link: "/#",
+          link: "",
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [
@@ -156,11 +156,18 @@ export default {
   methods: {
     logOut() {
       localStorage.removeItem("LoggedUser");
+      localStorage.removeItem("user");
       localStorage.removeItem("vuex");
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },
   },
+  mounted(){
+    if(this.$store.getters.getLoginUserInfo){
+      this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK
+      this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad
+    }
+  }
 };
 </script>
 

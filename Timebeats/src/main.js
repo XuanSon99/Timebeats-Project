@@ -14,6 +14,16 @@ import Paginate from 'vuejs-paginate'
 import Toasted from 'vue-toasted';
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+
+
+import GoogleAuth from '@/config/google_oAuth.js'
+const gauthOption = {
+  clientId: '54859907240-h5q8nl05vlo77j5pv6u1v663750v26mm.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
+}
+Vue.use(GoogleAuth, gauthOption)
+
 Vue.use(Toast, {
   transition: "Vue-Toastification__bounce",
   maxToasts: 20,
