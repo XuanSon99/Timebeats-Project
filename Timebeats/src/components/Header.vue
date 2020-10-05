@@ -1,5 +1,5 @@
 <template>
-  <header id="header">
+  <header id="header" v-if="$route.meta.header">
     <!-- Banner -->
     <div class="main-header nav nav-item hor-header">
       <div class="container">
@@ -152,7 +152,7 @@ export default {
           link: "/Statistical",
           icon: "fas fa-clipboard-list",
         },
-        { content: " Bạn bè", link: "", icon: "fas fa-users" },
+        { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
         {
           content: " Tài Nguyên & Tải về",
           link: "/resource",
@@ -162,7 +162,7 @@ export default {
         {
           id: "logout",
           content: " Cài đặt",
-          link: "",
+          link: "/#",
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [{ content: "Thông tin cá nhân", link: "/profile" }],
@@ -173,8 +173,8 @@ export default {
   methods: {
     logOut() {
       localStorage.removeItem("LoggedUser");
-      localStorage.removeItem("user");
       localStorage.removeItem("vuex");
+      localStorage.removeItem("user");
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },

@@ -32,18 +32,6 @@
                         <span class="hidden-xs">QUẢN LÝ TÀI NGUYÊN</span>
                       </a>
                     </li>
-                    <li class>
-                      <a
-                        href="#download"
-                        data-toggle="tab"
-                        aria-expanded="false"
-                      >
-                        <span class="visible-xs">
-                          <i class="fas fa-download"></i>
-                        </span>
-                        <span class="hidden-xs">TẢI VỀ</span>
-                      </a>
-                    </li>
                   </ul>
                 </div>
                 <div
@@ -68,15 +56,15 @@
                           :key="item._id"
                           :value="item.code"
                         >
-                          {{ item.code }}
+                          {{ item.name }} {{ selected }}
                         </option>
                       </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group download">
                       <button
                         aria-expanded="false"
                         aria-haspopup="true"
-                        class="btn ripple btn-primary"
+                        class="btn ripple btn-success"
                         id
                         type="button"
                         data-toggle="modal"
@@ -85,8 +73,16 @@
                       >
                         + Thêm tài nguyên
                       </button>
+                      <div class="load btn btn-success" @click="download">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <span>Tải về</span>
+                      </div>
                     </div>
-                    <div class="table-responsive">
+                    <div
+                      class="table-responsive"
+                      v-for="(item, index) in displayedPosts"
+                      :key="index"
+                    >
                       <table
                         class="table text-md-nowrap data-table table-bordered table-hover"
                         id="statistic"
@@ -103,11 +99,8 @@
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
-                        <tbody v-if="selected == 'all'">
-                          <tr
-                            v-for="(item, index) in displayedPosts"
-                            :key="index"
-                          >
+                        <tbody>
+                          <tr v-if="selected == item.name || selected == 'all'">
                             <td scope="row">{{ index + 1 }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.status }}</td>
@@ -116,7 +109,7 @@
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a
-                                  style="color: white"
+                                  style="color: white; cursor: pointer"
                                   @click="deleteAccountSocial(item.id)"
                                   >Xóa</a
                                 >
@@ -125,11 +118,11 @@
                           </tr>
                         </tbody>
                       </table>
-                      <nav
-                        aria-label="Page navigation example"
-                        v-show="selected == 'all'"
-                      >
-                        <ul class="pagination">
+                      <nav aria-label="Page navigation example">
+                        <ul
+                          class="pagination"
+                          v-if="selected == item.name || selected == 'all'"
+                        >
                           <li class="page-item previous">
                             <button
                               type="button"
@@ -167,9 +160,29 @@
                         </ul>
                       </nav>
                     </div>
-                  </div>
-                  <div class="tab-pane" id="download">
-                    <div class="mb-4 main-content-label">TẢI VỀ</div>
+                    <div id="download-table">
+                      <table
+                        class="table text-md-nowrap data-table table-bordered table-hover"
+                        id="statistic"
+                      >
+                        <tr>
+                          <th class="wd-10p border-bottom-0">STT</th>
+                          <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
+                          <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
+                          <th class="wd-10p border-bottom-0">
+                            THÔNG TIN TÀI KHOẢN
+                          </th>
+                          <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
+                        </tr>
+                        <tr v-for="(item, index) in posts" :key="index">
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.status }}</td>
+                          <td v-html="item.user"></td>
+                          <td>{{ item.date }}</td>
+                        </tr>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <!-- Modal -->
@@ -235,48 +248,6 @@
                                 duyệt đang sử dụng (cung cấp thông tin tài khoản
                                 <b class="text-danger">*</b>)
                               </h5>
-                              <!-- <div id="requre_area">
-                                <h6 class="card-title user-pass-show">
-                                  Tài khoản - Mật
-                                  khẩu
-                                  (ex: timebeat@gmail.com-timebit@tinh)
-                                </h6>
-                                <div class="row user-pass-show">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        name="user-pass"
-                                        required
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <h6 class="card-title">Cookie</h6>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <textarea
-                                        name="cookie"
-                                        class="form-control"
-                                        id
-                                        cols="30"
-                                        rows="10"
-                                        required
-                                      ></textarea>
-                                    </div>
-                                  </div>
-                                </div>
-                                <h6 class="card-title">Token</h6>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <input type="text" class="form-control" name="token" required />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>-->
                               <div class="form-actions">
                                 <div class="text-center">
                                   <button
@@ -339,7 +310,6 @@ export default {
       })
       .then((response) => {
         this.info = response.data.data;
-        // this.data = this.info;
         this.SetStorage();
       });
   },
@@ -356,7 +326,6 @@ export default {
           status: item.status,
           id: item._id,
           date: item.created_at,
-          code: item.code,
           user: user,
         });
       }
@@ -372,6 +341,7 @@ export default {
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
+
       return posts.slice(from, to);
     },
     SetStorage() {
@@ -379,14 +349,53 @@ export default {
       localStorage.setItem("Data", jsonListAccount);
     },
     deleteAccountSocial(id) {
-      var txt;
-      var person = prompt("Nhập mật khẩu hiện tại của bạn:", "");
-      if (person == null || person == "") {
-        txt = "User cancelled the prompt.";
-      } else {
-        txt = "Hello " + person + "! How are you today?";
-      }
-      alert(txt)
+      this.$axios
+        .delete(`http://192.168.60.69:3000/api/social/delete-account/${id}`, {
+          headers: {
+            Authorization:
+              this.$store.getters.id + " " + this.$store.getters.token,
+          },
+        })
+        .then((response) => {
+          this.$toast.success("Xóa thành công!", {
+            position: "top-right",
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
+        })
+        .catch((error, response) => {
+          this.$toast.error("Không được phép!", {
+            position: "top-right",
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
+        });
+      // var txt;
+      // var person = prompt("Nhập mật khẩu hiện tại của bạn:", "");
+      // if (person == null || person == "") {
+      //   txt = "User cancelled the prompt.";
+      // } else {
+      //   txt = "Hello " + person + "! How are you today?";
+      // }
+      // alert(txt);
     },
     addAccountSocial() {
       var addTiktok = new toktok();
@@ -394,9 +403,25 @@ export default {
       let social = this.selected_add;
       chrome.console.log({ social });
     },
+    download() {
+      var printWindow = window.open("", "", "height=400,width=1200");
+      printWindow.document.write("<html><head><title>List Account</title>");
+      printWindow.document.write(
+        "<style>table,td,th{border: 1px solid #ddd;text-align: left;}table {border-collapse: collapse;width: 100%;}th, td {padding: 15px;}</style>"
+      );
+      printWindow.document.write("</head><body>");
+      printWindow.document.write(
+        this.$el.querySelector("#download-table").innerHTML
+      );
+      printWindow.document.write("</body></html>");
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    },
   },
   computed: {
     displayedPosts() {
+      // console.log(this.paginate(this.posts))
       return this.paginate(this.posts);
     },
   },
@@ -412,7 +437,7 @@ export default {
     trimWords(value) {
       return value.split(" ").splice(0, 20).join(" ") + "...";
     },
-  }
+  },
 };
 </script>
 
@@ -452,40 +477,66 @@ export default {
   display: flex;
 }
 .pagination {
-    height: 30px;
-    overflow: hidden;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 0;
+  height: 30px;
+  overflow: hidden;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 button.page-link {
-    font-size: 14px;
-    color: #22252f;
-    font-weight: 500;
-    border: none;
-    height: 30px;
-    border-radius: 0;
-    outline: none;
-    background: #fff;
+  font-size: 14px;
+  color: #22252f;
+  font-weight: 500;
+  border: none;
+  height: 30px;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
 }
 .previous button.page-link {
-    padding: 0 35px;
+  padding: 0 35px;
 }
 .next button.page-link {
-    padding: 0 35px;
+  padding: 0 35px;
 }
-.pagination .page-item:last-child .page-link, .pagination .page-item:first-child .page-link {
-    border-radius: 0;
+.pagination .page-item:last-child .page-link,
+.pagination .page-item:first-child .page-link {
+  border-radius: 0;
 }
 .pagination .page-link:hover {
-    background-color: #ecf0fa !important;
-    border: 1px solid #cdd7ef !important;
-    color: #22252f;
+  background-color: #ecf0fa !important;
+  border: 1px solid #cdd7ef !important;
+  color: #22252f;
 }
 .pagination .page-link {
-    background-color: #fff;
-    border: 1px solid #cdd7ef;
+  background-color: #fff;
+  border: 1px solid #cdd7ef;
+}
+.download {
+  display: flex;
+  text-align: right;
+  justify-content: flex-end;
+}
+.download .load {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  cursor: pointer;
+  border-bottom: 0;
+  color: #fff;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+.download .load > * {
+  margin: 0 5px;
+}
+.download .load span {
+  color: #fff;
+}
+#download-table {
+  display: none;
 }
 </style>

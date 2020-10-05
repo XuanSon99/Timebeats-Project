@@ -26,52 +26,82 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         if (to.name == 'Login' && isAuthenticated) next({ name: 'Dashboard' })
         next()
+      },
+      meta: {
+        header: false
       }
     },
     {
       path: '/',
       name: 'Dashboard',
       component: Dashboard,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        header: false
+      }
     },
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/task',
       name: 'Task',
-      component: Task
+      component: Task,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/make-camp',
       name: 'MakeCamp',
-      component: MakeCamp
+      component: MakeCamp,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/wallet',
       name: 'Wallet',
-      component: Wallet
+      component: Wallet,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/resource',
       name: 'Resource',
-      component: Resource
+      component: Resource,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/faq',
       name: 'Faq',
-      component: Faq
+      component: Faq,
+      meta: {
+        header: true
+      }
     },
     {
       path: '/Statistical',
       name: 'Statistical',
-      component: Statistical
+      component: Statistical,
+      meta: {
+        header: true
+      }
     }
   ]
 })

@@ -271,9 +271,6 @@ body {
 .signin-image {
   text-align: center;
 }
-#header {
-  display: none;
-}
 #google-login {
   cursor: pointer;
 }
