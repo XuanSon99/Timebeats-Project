@@ -150,7 +150,7 @@ export default {
       }
 
       this.$axios
-        .post("http://192.168.60.69:3000/api/auth/login", {
+        .post("http://192.168.100.11:3000/api/auth/login", {
           email: this.signin.email,
           password: this.signin.password,
         })

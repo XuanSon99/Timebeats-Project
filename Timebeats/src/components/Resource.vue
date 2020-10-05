@@ -291,7 +291,7 @@ export default {
   },
   beforeMount() {
     this.$axios
-      .get("http://192.168.60.69:3000/api/social/list-account", {
+      .get("http://192.168.100.11/api/social/list-account", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -302,7 +302,7 @@ export default {
         this.data = response.data.data;
       });
     this.$axios
-      .get("http://192.168.60.69:3000/api/social/list", {
+      .get("http://192.168.100.11/api/social/list", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -350,7 +350,7 @@ export default {
     },
     deleteAccountSocial(id) {
       this.$axios
-        .delete(`http://192.168.60.69:3000/api/social/delete-account/${id}`, {
+        .delete(`http://192.168.100.11/api/social/delete-account/${id}`, {
           headers: {
             Authorization:
               this.$store.getters.id + " " + this.$store.getters.token,

@@ -28,7 +28,8 @@ const router = new Router({
         next()
       },
       meta: {
-        header: false
+        header: false,
+        footer: false
       }
     },
     {
@@ -36,7 +37,8 @@ const router = new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -44,7 +46,8 @@ const router = new Router({
       name: 'Register',
       component: Register,
       meta: {
-        header: false
+        header: false,
+        footer: false
       }
     },
     {
@@ -52,7 +55,8 @@ const router = new Router({
       name: 'Profile',
       component: Profile,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -60,7 +64,8 @@ const router = new Router({
       name: 'Task',
       component: Task,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -68,7 +73,8 @@ const router = new Router({
       name: 'MakeCamp',
       component: MakeCamp,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -76,7 +82,8 @@ const router = new Router({
       name: 'Wallet',
       component: Wallet,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -84,7 +91,8 @@ const router = new Router({
       name: 'Resource',
       component: Resource,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -92,7 +100,8 @@ const router = new Router({
       name: 'Faq',
       component: Faq,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     },
     {
@@ -100,7 +109,8 @@ const router = new Router({
       name: 'Statistical',
       component: Statistical,
       meta: {
-        header: true
+        header: true,
+        footer: true
       }
     }
   ]

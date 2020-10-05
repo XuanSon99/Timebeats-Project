@@ -430,7 +430,7 @@ export default {
   mounted() {
     //Get profile
     this.$axios
-      .get("http://192.168.60.69:3000/api/user/my-profile", {
+      .get("http://192.168.100.11:3000/api/user/my-profile", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -455,7 +455,7 @@ export default {
       });
     //Get social network care list
     this.$axios
-      .get("http://192.168.60.69:3000/api/areas-concern", {
+      .get("http://192.168.100.11:3000/api/areas-concern", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -466,7 +466,7 @@ export default {
       });
     //post
     this.$axios
-      .get("http://192.168.60.69:3000/api/setting/2fa", {
+      .get("http://192.168.100.11:3000/api/setting/2fa", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -502,7 +502,7 @@ export default {
     checkVerify(e) {
       this.$axios
         .post(
-          "http://192.168.60.69:3000/api/setting/verify-2fa",
+          "http://192.168.100.11:3000/api/setting/verify-2fa",
           {
             key_code: this.Key_Code,
             verify_code: this.verify_code,
@@ -566,7 +566,7 @@ export default {
         return;
       }
 
-      const URL = "http://192.168.60.69:3000/api/user/update-profile";
+      const URL = "http://192.168.100.11:3000/api/user/update-profile";
 
       for (let item of this.taggingSelected) {
         this.concernSelected.push(item._id);
@@ -631,7 +631,7 @@ export default {
       e.preventDefault();
       this.$axios
         .put(
-          "http://192.168.60.69:3000/api/user/change-password",
+          "http://192.168.100.11:3000/api/user/change-password",
           {
             current_password: this.old_password,
             new_password: this.new_password,
