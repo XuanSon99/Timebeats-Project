@@ -1,0 +1,17 @@
+<template>
+  <div class="main-footer ht-40">
+    <div class="container-fluid pd-t-0-f ht-100p">
+      <span>
+        Copyright © 2020
+        <a href="">TimeBeats</a>
+      </span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style>
+</style>

@@ -9,19 +9,26 @@
           </a>
           <!-- sidebar-toggle-->
           <a class="header-brand" href="#">
-            <img src="../assets/vendor/img/brand/logo-white.png" class="desktop-dark" />
+            <img
+              src="../assets/vendor/img/brand/logo-white.png"
+              class="desktop-dark"
+            />
             <h1>
               <router-link to="/">Timebeat</router-link>
             </h1>
-            <img src="../assets/vendor/img/brand/favicon-white.png" class="desktop-logo-dark" />
+            <img
+              src="../assets/vendor/img/brand/favicon-white.png"
+              class="desktop-logo-dark"
+            />
           </a>
           <div class="main-header-center ml-4">
-            <span id="myInput">https://timebeats.com/ref/y3pwnm</span>
+            <input v-model="codeCopied" id="codeCopied" />
             <span
-              style="cursor: pointer;"
-              onclick="copyToClipboard('#myInput')"
+              style="cursor: pointer"
+              @click="copyToClipboard()"
               class="tag tag-indigo ml-1"
-            >Mời Bạn Bè</span>
+              >Mời Bạn Bè</span
+            >
           </div>
         </div>
         <div class="main-header-right">
@@ -46,13 +53,20 @@
               <div class="dropdown-menu">
                 <div class="menu-header-content bg-primary text-left">
                   <div class="d-flex">
-                    <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Thông báo</h6>
-                    <span class="badge badge-pill badge-warning ml-auto my-auto float-right">
-                      Đánh
-                      dấu tất cả đã đọc
+                    <h6
+                      class="dropdown-title mb-1 tx-15 text-white font-weight-semibold"
+                    >
+                      Thông báo
+                    </h6>
+                    <span
+                      class="badge badge-pill badge-warning ml-auto my-auto float-right"
+                    >
+                      Đánh dấu tất cả đã đọc
                     </span>
                   </div>
-                  <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12"></p>
+                  <p
+                    class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12"
+                  ></p>
                 </div>
 
                 <div class="dropdown-footer">
@@ -68,11 +82,15 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span><img alt :src="avatar"> {{name}}</span>
+                <span><img alt :src="avatar" /> {{ name }}</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser">
-                <router-link tag="a" class="dropdown-item" to="/profile">Thôngtin cá nhân</router-link>
-                <a class="dropdown-item logoutSysAndETS" @click="logOut">Đăng xuất</a>
+                <router-link tag="a" class="dropdown-item" to="/profile"
+                  >Thôngtin cá nhân</router-link
+                >
+                <a class="dropdown-item logoutSysAndETS" @click="logOut"
+                  >Đăng xuất</a
+                >
               </div>
             </div>
           </div>
@@ -80,7 +98,7 @@
       </div>
     </div>
     <!-- Menu -->
-    <div class="sticky sticky-pin" style="margin-bottom: 0px;">
+    <div class="sticky sticky-pin" style="margin-bottom: 0px">
       <div class="horizontal-main hor-menu clearfix side-header">
         <div class="horizontal-mainwrapper container clearfix">
           <!--Nav-->
@@ -90,7 +108,7 @@
               <li aria-haspopup="true" v-for="item in menu" :key="item.index">
                 <router-link class="sub-icon" tag="a" :to="item.link">
                   <div>
-                    <i :class="item.icon">{{item.content}}</i>
+                    <i :class="item.icon">{{ item.content }}</i>
                     <i :class="item.subIcon"></i>
                   </div>
                 </router-link>
@@ -98,7 +116,7 @@
                   <li aria-haspopup="true" v-for="p in item.sub" :key="p.index">
                     <router-link tag="a" :to="p.link">
                       <span>&gt;</span>
-                      {{p.content}}
+                      {{ p.content }}
                     </router-link>
                   </li>
                   <li v-if="item.id == 'logout'">
@@ -121,8 +139,9 @@
 export default {
   data() {
     return {
-      avatar: 'http://192.168.60.69:3000/' + this.$store.getters.avatar,
+      avatar: "http://192.168.60.69:3000/" + this.$store.getters.avatar,
       name: this.$store.getters.name,
+      codeCopied: "https://timebeats.com/ref/y3pwnm",
       menu: [
         { content: " Trang chủ", link: "/", icon: "fa fa-home" },
         { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
@@ -131,7 +150,7 @@ export default {
         {
           content: " Thống kê",
           link: "/Statistical",
-          icon: "fas fa-clipboard-list"
+          icon: "fas fa-clipboard-list",
         },
         { content: " Bạn bè", link: "", icon: "fas fa-users" },
         {
@@ -146,9 +165,7 @@ export default {
           link: "",
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
-          sub: [
-            { content: "Thông tin cá nhân", link: "/profile" }
-          ],
+          sub: [{ content: "Thông tin cá nhân", link: "/profile" }],
         },
       ],
     };
@@ -161,13 +178,33 @@ export default {
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },
+    copyToClipboard() {
+      var copyText = document.getElementById("codeCopied");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      this.$toast.success("Copy thành công!", {
+        position: "top-right",
+        timeout: 3000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.85,
+        showCloseButtonOnHover: true,
+        hideProgressBar: false,
+        closeButton: "button",
+        icon: true,
+        rtl: false,
+      });
+    },
   },
-  mounted(){
-    if(this.$store.getters.getLoginUserInfo){
-      this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK
-      this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad
+  mounted() {
+    if (this.$store.getters.getLoginUserInfo) {
+      this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK;
+      this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad;
     }
-  }
+  },
 };
 </script>
 
@@ -189,23 +226,32 @@ export default {
   font-size: 12px;
   font-weight: 600;
 }
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   display: none;
 }
-.main-header .dropdown-menu:after{
+.main-header .dropdown-menu:after {
   display: none;
 }
-#dropdownUser{
+#dropdownUser {
   display: flex;
   align-items: center;
   cursor: pointer;
   font-weight: 600;
 }
 .main-profile-menu .dropdown-item:last-child {
-    margin-bottom: 0;
-    cursor: pointer;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 .main-profile-menu .dropdown-item:last-child:hover {
-    color: #22c03c;
+  color: #22c03c;
+}
+#codeCopied {
+  border: none;
+  width: 220px;
+  outline: none;
+}
+#codeCopied:disabled {
+  color: #242f48;
+  background: none;
 }
 </style>

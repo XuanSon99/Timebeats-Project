@@ -417,4 +417,7 @@ export default {
     bottom: -1px;
     min-height: 180px;
 }
+.apexcharts-toolbar{
+  display: none;
+}
 </style>

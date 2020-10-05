@@ -14,7 +14,9 @@ import Paginate from 'vuejs-paginate'
 import Toasted from 'vue-toasted'
 import Toast from "vue-toastification"
 import "vue-toastification/dist/index.css"
-
+import VueClipboard from 'vue-clipboard2'
+ 
+Vue.use(VueClipboard)
 
 import GoogleAuth from '@/config/google_oAuth.js'
 const gauthOption = {
