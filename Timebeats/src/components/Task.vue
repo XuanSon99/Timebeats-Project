@@ -57,12 +57,12 @@
                             >
                               <thead>
                                 <tr>
-                                  <th class="wd-10p border-bottom-0">STT</th>
-                                  <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
-                                  <th class="wd-10p border-bottom-0">NỘI DUNG NHIỆM VỤ</th>
-                                  <th class="wd-10p border-bottom-0">PHẦN THƯỞNG</th>
-                                  <th class="wd-10p border-bottom-0">SỐ LƯỢT</th>
-                                  <th class="wd-10p border-bottom-0">CHI TIẾT</th>
+                                  <th class="wd-10p border-bottom-0 task">STT</th>
+                                  <th class="wd-10p border-bottom-0 task">NỀN TẢNG</th>
+                                  <th class="wd-10p border-bottom-0 task">NỘI DUNG NHIỆM VỤ</th>
+                                  <th class="wd-10p border-bottom-0 task">PHẦN THƯỞNG</th>
+                                  <th class="wd-10p border-bottom-0 task">SỐ LƯỢT</th>
+                                  <th class="wd-10p border-bottom-0 task">CHI TIẾT</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -161,7 +161,7 @@ export default {
   max-width: 50px;
   text-align: center;
 }
-th{
+th.task {
   text-align: center;
 }
 </style>

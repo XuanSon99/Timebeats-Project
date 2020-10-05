@@ -49,13 +49,13 @@
             <div class="card-footer">
               <div class="action">
                 <router-link
-                  class="badge badge-success"
+                  class="badge badge-danger"
                   tag="a"
                   to="/Withdrawal"
                   role="button"
                 >Rút tiền</router-link>
                 <router-link class="badge badge-success" tag="a" to="/Deposit">Nạp tiền</router-link>
-                <router-link class="badge badge-success" tag="a" to="/Banking">Chuyển tiền</router-link>
+                <router-link class="badge badge-warning" tag="a" to="/Banking">Chuyển tiền</router-link>
               </div>
             </div>
             <!-- bd -->
@@ -201,5 +201,4 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 </style>
