@@ -36,9 +36,9 @@
                   <tbody>
                     <tr>
                       <td scope="row">VÍ VND</td>
-                      <td>{{lastBanlance}} đ</td>
-                      <td>{{totalWithdrawPending}} đ</td>
-                      <td>{{totalWithdraw}} đ</td>
+                      <td>{{ lastBanlance }} đ</td>
+                      <td>{{ totalWithdrawPending }} đ</td>
+                      <td>{{ totalWithdraw }} đ</td>
                     </tr>
                   </tbody>
                 </table>
@@ -48,14 +48,8 @@
             </div>
             <div class="card-footer">
               <div class="action">
-                <router-link
-                  class="badge badge-danger"
-                  tag="a"
-                  to="/Withdrawal"
-                  role="button"
-                >Rút tiền</router-link>
-                <router-link class="badge badge-success" tag="a" to="/Deposit">Nạp tiền</router-link>
-                <router-link class="badge badge-warning" tag="a" to="/Banking">Chuyển tiền</router-link>
+                <a class="btn btn-danger">Rút tiền</a>
+                <router-link class="btn btn-danger" tag="a" to="/payment">Thanh toán</router-link>
               </div>
             </div>
             <!-- bd -->
@@ -78,17 +72,22 @@
                     <div class="col-xl-3 lab">
                       <label for="loc">Lọc</label>
                     </div>
-               <div class="col-xl-8">
-                  <select name id="loc" class="form-control" style="margin-bottom: 10px;">
-                  <option value="all">Tất cả</option>
-                  <option value>Chờ duyệt</option>
-                  <option value>Tạm duyệt</option>
-                  <option value>Đã duyệt</option>
-                  <option value>Thành công</option>
-                  <option value>Thất bại</option>
-                </select>
-               </div>
-              </div>
+                    <div class="col-xl-8">
+                      <select
+                        name
+                        id="loc"
+                        class="form-control"
+                        style="margin-bottom: 10px"
+                      >
+                        <option value="all">Tất cả</option>
+                        <option value>Chờ duyệt</option>
+                        <option value>Tạm duyệt</option>
+                        <option value>Đã duyệt</option>
+                        <option value>Thành công</option>
+                        <option value>Thất bại</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="table-responsive">
@@ -151,7 +150,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .get("http://192.168.60.69:3000/api/money/history", {
+      .get("http://192.168.100.11:3000/api/money/history", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,

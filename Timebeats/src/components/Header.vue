@@ -22,7 +22,7 @@
             />
           </a>
           <div class="main-header-center ml-4">
-            <input v-model="codeCopied" id="codeCopied" />
+            <input v-model="codeCopied" id="codeCopied" readonly/>
             <span
               style="cursor: pointer"
               @click="copyToClipboard()"
@@ -139,7 +139,7 @@
 export default {
   data() {
     return {
-      avatar: "http://192.168.60.69:3000/" + this.$store.getters.avatar,
+      avatar: "http://192.168.100.11:3000/" + this.$store.getters.avatar,
       name: this.$store.getters.name,
       codeCopied: "https://timebeats.com/ref/y3pwnm",
       menu: [

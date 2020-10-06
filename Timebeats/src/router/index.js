@@ -10,6 +10,7 @@ import Wallet from '@/components/Wallet'
 import Resource from '@/components/Resource'
 import Faq from '@/components/Faq'
 import Statistical from '@/components/Statistical'
+import Payment from '@/components/Payment'
 Vue.use(Router)
 
 var isAuthenticated = false;
@@ -108,6 +109,15 @@ const router = new Router({
       path: '/Statistical',
       name: 'Statistical',
       component: Statistical,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment,
       meta: {
         header: true,
         footer: true

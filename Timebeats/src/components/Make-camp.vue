@@ -498,7 +498,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .get("http://192.168.60.69:3000/api/social/list", {
+      .get("http://192.168.100.11:3000/api/social/list", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
