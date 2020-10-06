@@ -166,7 +166,7 @@
                         <button
                           type="button"
                           class="btn btn-main-primary btn-block"
-                          @click="copyToClipboard()"
+                          @click="copyToClipBoard('addressCopied')"
                         >
                           COPY ĐỊA CHỈ
                         </button>
@@ -215,22 +215,58 @@
                         method="post"
                         action=""
                       >
-                        <h5 class="card-title mg-b-20">NHẬP MÃ VOUCHER</h5>
+                        <h5 class="card-title mg-b-20">Số tiền</h5>
 
                         <div class="form-group">
                           <input
-                            type=""
-                            name="voucher"
-                            class="form-control text-center"
-                            id="voucher"
-                            placeholder="VOUCHER"
-                            required=""
+                            type="number"
+                            class="form-control"
+                            required
+                            v-model="money"
                           />
                         </div>
-
+                        <p
+                          class="text-danger"
+                          v-for="item in errors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
+                        <p
+                          class="text-success"
+                          v-for="item in success"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
+                        <label
+                          v-if="success.length > 0"
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >MÃ VOUCHER</label
+                        >
+                        <div
+                          class="form-group voucherCode"
+                          v-if="success.length > 0"
+                        >
+                          <input
+                            type="text"
+                            class="form-control"
+                            readonly
+                            v-model="voucherCode"
+                            id="voucherCode"
+                          />
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            @click="copyToClipBoard('voucherCode')"
+                          >
+                            COPY MÃ
+                          </button>
+                        </div>
                         <button
-                          type="submit"
+                          type="button"
                           class="btn btn-main-primary btn-block"
+                          @click="makeVoucher"
                         >
                           XÁC NHẬN
                         </button>
@@ -242,8 +278,7 @@
                       class="card card-body pd-20 pd-md-40 border shadow-none"
                     >
                       <h5 class="card-title mg-b-20">Nạp tiền</h5>
-                      - Có 2 phương thức nạp tiền là nạp qua EBC và qua Voucher
-                      nhé
+                      Bạn có thế nạp tiền từ EBC hoặc Voucher. Ok!
                     </div>
                   </div>
                 </div>
@@ -268,6 +303,10 @@ export default {
       walletList: [],
       depositType: "Voucher",
       ecbAddress: "BTC",
+      errors: [],
+      success: [],
+      money: 100000,
+      voucherCode: "",
     };
   },
   mounted() {
@@ -285,8 +324,8 @@ export default {
       });
   },
   methods: {
-    copyToClipboard() {
-      var copyText = document.getElementById("addressCopied");
+    copyToClipBoard(value) {
+      var copyText = document.getElementById(value);
       copyText.select();
       copyText.setSelectionRange(0, 99999);
       document.execCommand("copy");
@@ -304,6 +343,36 @@ export default {
         icon: true,
         rtl: false,
       });
+    },
+    makeVoucher() {
+      this.errors = [];
+      this.success = [];
+      if (this.money < 10000) {
+        this.errors.push("Số tiền tối thiểu là 10.000đ");
+        return;
+      }
+      if (this.money > 1000000) {
+        this.errors.push("Số tiền tối đa là 1.000.000đ");
+        return;
+      }
+      const success =
+        "Đã tạo thành công voucher mệnh giá " +
+        this.formatPrice(this.money) +
+        "đ";
+      this.success.push(success);
+
+      //make random voucher code
+      this.voucherCode = "";
+      var characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (var i = 0; i < 10; i++) {
+        this.voucherCode += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+    },
+    formatPrice(value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };
@@ -323,5 +392,12 @@ export default {
 }
 .tab-content #qr_ebc img {
   width: 200px;
+}
+.voucherCode {
+  display: flex;
+  justify-content: space-between;
+}
+.voucherCode .form-control {
+  width: 77%;
 }
 </style>

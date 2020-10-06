@@ -8,21 +8,11 @@
             <span></span>
           </a>
           <!-- sidebar-toggle-->
-          <a class="header-brand" href="#">
-            <img
-              src="../assets/vendor/img/brand/logo-white.png"
-              class="desktop-dark"
-            />
-            <h1>
-              <router-link to="/">Timebeat</router-link>
-            </h1>
-            <img
-              src="../assets/vendor/img/brand/favicon-white.png"
-              class="desktop-logo-dark"
-            />
-          </a>
+          <router-link tag="a" to="/">
+            <h1 id="logo"><i class="fab fa-tiktok"></i><span>imebeat</span></h1>
+          </router-link>
           <div class="main-header-center ml-4">
-            <input v-model="codeCopied" id="codeCopied" readonly/>
+            <input v-model="codeCopied" id="codeCopied" readonly />
             <span
               style="cursor: pointer"
               @click="copyToClipboard()"
@@ -200,9 +190,13 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.getters.getLoginUserInfo) {
+    if (this.$store.getters.getLoginUserInfo.google.rt) {
       this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK;
       this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad;
+    }
+    if (this.$store.getters.getLoginUserInfo.google.nt) {
+      this.avatar = this.$store.getters.getLoginUserInfo.google.nt.ZJ;
+      this.name = this.$store.getters.getLoginUserInfo.google.nt.Ad;
     }
   },
 };
@@ -249,9 +243,28 @@ export default {
   border: none;
   width: 220px;
   outline: none;
-}
-#codeCopied:disabled {
   color: #242f48;
   background: none;
+}
+#logo {
+  color: #fff;
+  text-shadow: 0 0 5px #22c03c,0 0 10px #22c03c, 0 0 15px #22c03c;
+  font-family: cursive;
+  font-weight: 800;
+}
+#logo:hover span{
+  color: #22c03c;
+  text-shadow: 0 0 30px #22c03c;
+  transition: all 500ms ease;
+}
+#logo:hover i{
+  transform: rotate(363deg);
+  color: #22c03c;
+  text-shadow: 0 0 30px #22c03c;
+  transition: all 600ms ease;
+}
+#logo i{
+  margin-right: 1px;
+  transform: rotate(3deg);
 }
 </style>
