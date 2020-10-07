@@ -50,7 +50,7 @@
             <div class="card-footer">
               <div class="action">
                 <a class="btn btn-danger">Rút tiền</a>
-                <router-link class="btn btn-danger" tag="a" to="/payment">Thanh toán</router-link>
+                <router-link class="btn btn-warning" tag="a" to="/payment">Thanh toán</router-link>
               </div>
             </div>
             <!-- bd -->

@@ -481,7 +481,7 @@ export default {
         }
       });
     //Get profile when login with google account
-    if(this.$store.getters.getLoginUserInfo){
+    if(this.$store.getters.getLoginUserInfo.google.rt){
       this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK
       this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad
       this.email = this.$store.getters.getLoginUserInfo.google.rt.$t
@@ -489,6 +489,15 @@ export default {
       this.phone = '0996966966'
       this.address = 'Hà Nội'
       this.birthday = '1999-12-10'
+    }
+    if(this.$store.getters.getLoginUserInfo.google.nt){
+      this.avatar = this.$store.getters.getLoginUserInfo.google.nt.ZJ
+      this.name = this.$store.getters.getLoginUserInfo.google.nt.Ad
+      this.email = this.$store.getters.getLoginUserInfo.google.nt.Wt
+      this.gender = 'female'
+      this.phone = '0888666888'
+      this.address = 'Lai Châu'
+      this.birthday = '1999-04-12'
     }
   },
   methods: {
