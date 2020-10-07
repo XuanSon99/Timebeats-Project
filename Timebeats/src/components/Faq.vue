@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-headful title="Hỏi đáp" />
     <div class="main-content horizontal-content">
       <div class="container">
         <div class="breadcrumb-header justify-content-between">

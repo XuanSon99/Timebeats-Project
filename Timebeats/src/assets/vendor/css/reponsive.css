@@ -1,0 +1,114 @@
+@media (max-width: 480px) {
+    #logo-header {
+      margin-left: 100px;
+    }
+    .main-content.horizontal-content {
+      margin-top: 84px !important;
+  }
+  .sticky.sticky-pin .horizontal-main.hor-menu {
+      border: none;
+  }
+  .table th, .table td {
+    padding: 10px 5px;
+  }
+  .table thead th, .table thead td {
+    font-size: 10px;
+  }
+  #statistic {
+    text-align: left;
+  }
+  .table thead th, .table thead td {
+      padding: 10px;
+  }
+  .table-bordered th, .table-bordered td {
+      font-size: 12px;
+  }
+  .card-body {
+      padding: 0.6rem;
+  }
+  .card-header, .card-footer {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+  #resource .form-group {
+    width: 100%;
+    }
+    .btn, .sp-container button {
+        font-size: 13px;
+    }
+    .download .load {
+        display: none!important;
+    }
+    .download {
+        justify-content: flex-start!important;
+    }
+    .modal.show .modal-dialog {
+        margin-top: 100px;
+    }
+  }
+  @media(max-width: 380px) {
+    .card-body {
+        padding: 0.5rem;
+    }
+    .card-header, .card-footer {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .table th, .table td {
+        padding: 10px 5px;
+        font-size: 10px;
+    }
+    .table thead th, .table thead td {
+        padding: 10px 5px;
+    }
+    .sticky.sticky-pin .horizontal-main.hor-menu {
+        border: none;
+    }
+    #resource .form-group {
+        width: 100%;
+    }
+    .download .load {
+        display: none!important;
+    }
+    .download {
+        justify-content: flex-start!important;
+    }
+    .modal.show .modal-dialog {
+        margin-top: 100px;
+    }
+  }
+  @media(min-width: 500px) and (max-width: 768px) {
+    .sticky.sticky-pin .horizontal-main.hor-menu {
+        border: none;
+    }
+    .main-header-left {
+        margin-left: 80px;
+    }
+    .download .load {
+        display: none!important;
+    }
+  }
+  @media (max-width: 800px) {
+    .sign-up .content {
+        padding: 30px!important;
+        margin: 0px!important;
+    }
+    .sign-up {
+        margin: 50px 10px!important;
+    }
+    .sign-up .img {
+        display: none;
+    }
+  }
+  .home {
+      position: relative;
+  }
+  #mobile-menu {
+      width: 200px;
+      height: 100%;
+      background-color: red;
+      position: fixed   ;
+      left: -200px;
+      z-index: 9999;
+      top: 64px;
+  }

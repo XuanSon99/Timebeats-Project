@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-headful title="Nhiệm vụ" />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">

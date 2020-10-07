@@ -8,7 +8,7 @@
             <span></span>
           </a>
           <!-- sidebar-toggle-->
-          <a class="header-brand" href="#">
+          <a class="header-brand" id="logo-header" href="#">
             <img
               src="../assets/vendor/img/brand/logo-white.png"
               class="desktop-dark"
@@ -84,14 +84,14 @@
               >
                 <span><img alt :src="avatar" /> {{ name }}</span>
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownUser">
+              <!-- <div class="dropdown-menu" id="menu-sub" aria-labelledby="dropdownUser">
                 <router-link tag="a" class="dropdown-item" to="/profile"
-                  >Thôngtin cá nhân</router-link
+                  >Thông tin cá nhân</router-link
                 >
                 <a class="dropdown-item logoutSysAndETS" @click="logOut"
                   >Đăng xuất</a
                 >
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

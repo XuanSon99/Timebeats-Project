@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <vue-headful title="Đăng kí" />
     <section class="sign-up">
       <div class="container">
         <div class="content">
