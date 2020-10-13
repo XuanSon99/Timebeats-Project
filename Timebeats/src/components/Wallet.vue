@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-headful title="Tài khoản" />
     <div class="main-content horizontal-content">
       <!-- container opened -->
       <div class="container">

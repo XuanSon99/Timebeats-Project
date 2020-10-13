@@ -22,7 +22,9 @@ $(function() {
 	$('.country-flag1').on('click', function(e){
 		$('.main-header .dropdown > a').parent().siblings().removeClass('show');
 	});
-	
+	$('.animated-arrow').on("click", function () {
+		$("#mobile-menu").css('left','0' );
+	});
 	// ______________Full screen
 	$(document).on("click", ".fullscreen-button", function toggleFullScreen() {
 		if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
