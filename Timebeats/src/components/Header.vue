@@ -24,7 +24,14 @@
         <div class="main-header-right">
           <div class="nav nav-item navbar-nav-right ml-auto">
             <div class="dropdown nav-item main-header-notification">
-              <a class="new nav-link" href="#">
+              <a
+                class="new nav-link dropdown-toggle"
+                href="#"
+                id="message"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="header-icon-svgs feather feather-bell"
@@ -38,29 +45,37 @@
                   <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                   <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                 </svg>
-                <span class="pulse"></span>
+                <span v-if="notify_no_read == 0" class="pulse"></span>
+                <span v-else id="count_notify">{{notify_no_read}}</span>
               </a>
-              <div class="dropdown-menu">
-                <div class="menu-header-content bg-primary text-left">
+              <div
+                class="dropdown-menu"
+                aria-labelledby="message"
+                id="dropdown-message"
+              >
+                <div class="menu-header-content text-left">
                   <div class="d-flex">
-                    <h6
-                      class="dropdown-title mb-1 tx-15 text-white font-weight-semibold"
-                    >
+                    <h6 class="dropdown-title mb-1 tx-15 font-weight-semibold">
                       Thông báo
                     </h6>
-                    <span
-                      class="badge badge-pill badge-warning ml-auto my-auto float-right"
-                    >
+                    <span class="badge badge-pill ml-auto my-auto float-right">
                       Đánh dấu tất cả đã đọc
                     </span>
                   </div>
-                  <p
-                    class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12"
-                  ></p>
                 </div>
-
+                <div class="dropdown-body" data-spy="scroll" data-offset="0">
+                  <p v-for="(item, index) in notify" :key="index">
+                    <i class="far fa-comment-dots"></i>
+                    <span>{{ item }}</span>
+                  </p>
+                  <p v-if="!notify[0]" class="noNotify">
+                    Không có thông báo nào
+                  </p>
+                </div>
                 <div class="dropdown-footer">
-                  <a href="#">Xem tất cả</a>
+                  <router-link tag="a" to="/notify"
+                    >Tất cả thông báo</router-link
+                  >
                 </div>
               </div>
             </div>
@@ -142,7 +157,6 @@ export default {
           link: "/Statistical",
           icon: "fas fa-clipboard-list",
         },
-        { content: " Bạn bè", link: "/#", icon: "fas fa-users" },
         {
           content: " Tài Nguyên & Tải về",
           link: "/resource",
@@ -158,6 +172,8 @@ export default {
           sub: [{ content: "Thông tin cá nhân", link: "/profile" }],
         },
       ],
+      notify: [],
+      notify_no_read: null,
     };
   },
   methods: {
@@ -190,14 +206,39 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.getters.getLoginUserInfo.google.rt) {
-      this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK;
-      this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad;
+    //get information when login with google
+    if (this.$store.getters.getLoginUserInfo) {
+      if (this.$store.getters.getLoginUserInfo.google.rt) {
+        this.avatar = this.$store.getters.getLoginUserInfo.google.rt.iK;
+        this.name = this.$store.getters.getLoginUserInfo.google.rt.Ad;
+      }
+      if (this.$store.getters.getLoginUserInfo.google.nt) {
+        this.avatar = this.$store.getters.getLoginUserInfo.google.nt.ZJ;
+        this.name = this.$store.getters.getLoginUserInfo.google.nt.Ad;
+      }
     }
-    if (this.$store.getters.getLoginUserInfo.google.nt) {
-      this.avatar = this.$store.getters.getLoginUserInfo.google.nt.ZJ;
-      this.name = this.$store.getters.getLoginUserInfo.google.nt.Ad;
-    }
+    //get api list notify
+    this.$axios
+      .get("http://192.168.100.11:3000/api/notify?limit=10&page=1", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.notify = response.data.data;
+      });
+    //get notify no read
+    this.$axios
+      .get("http://192.168.100.11:3000/api/notify/count-no-read", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.notify_no_read = response.data.data[0].amount_no_red;
+      });
   },
 };
 </script>
@@ -248,23 +289,96 @@ export default {
 }
 #logo {
   color: #fff;
-  text-shadow: 0 0 5px #22c03c,0 0 10px #22c03c, 0 0 15px #22c03c;
+  text-shadow: 0 0 5px #22c03c, 0 0 10px #22c03c, 0 0 15px #22c03c;
   font-family: cursive;
   font-weight: 800;
 }
-#logo:hover span{
+#logo:hover span {
   color: #22c03c;
   text-shadow: 0 0 30px #22c03c;
   transition: all 500ms ease;
 }
-#logo:hover i{
+#logo:hover i {
   transform: rotate(363deg);
   color: #22c03c;
   text-shadow: 0 0 30px #22c03c;
   transition: all 600ms ease;
 }
-#logo i{
+#logo i {
   margin-right: 1px;
   transform: rotate(3deg);
+}
+#dropdown-message .menu-header-content {
+  padding: 10px;
+  border-radius: 0;
+}
+.dropdown-body .nav .nav-item .dropdown-menu {
+  border-radius: 0;
+}
+#dropdown-message {
+  left: -305px !important;
+}
+.dropdown-body {
+  border-top: 1px solid #dce1ef;
+  max-height: 370px;
+  overflow: scroll;
+}
+.dropdown-body p {
+  padding: 10px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.dropdown-body p:not(:last-child) {
+  border-bottom: 1px solid #dce1ef;
+}
+.dropdown-body p span {
+  font-weight: 500;
+}
+.dropdown-body p:hover {
+  background: #f6f6fb;
+  transition: 100ms all ease;
+}
+.main-header-notification .dropdown-menu {
+  width: 350px;
+}
+.dropdown-body .noNotify:hover {
+  background: #fff;
+  cursor: default;
+}
+.horizontalMenu > .horizontalMenu-list > li > ul.sub-menu {
+  border: none;
+  padding: 0;
+}
+.horizontalMenu > .horizontalMenu-list > li > ul.sub-menu li:first-child {
+  border: 1px solid #ecf0fa;
+  border-bottom: none;
+}
+.horizontalMenu > .horizontalMenu-list > li > ul.sub-menu li:last-child {
+  border: 1px solid #ecf0fa;
+  border-top: none;
+}
+#count_notify {
+    position: absolute;
+    z-index: 999;
+    right: 5px;
+    font-size: 10px;
+    background: #fa3e3e;
+    padding: 5px;
+    height: 18px;
+    line-height: 0.5;
+    color: #fff;
+    border-radius: 2px;
+    display: block;
+    top: 0;
+}
+.header-icon-svgs {
+    width: 24px;
+    height: 24px;
+    color: #5b6e88;
+}
+@media (min-width: 576px) {
+  .main-header-notification.show > a::after {
+    display: none;
+  }
 }
 </style>

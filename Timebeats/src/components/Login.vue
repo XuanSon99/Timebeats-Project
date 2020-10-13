@@ -3,11 +3,11 @@
     <vue-headful title="Đăng nhập" />
     <div class="container">
       <div class="row signin-content">
-        <div class="col-6 signin-image">
+        <div class="col-lg-6 signin-image">
           <img src="../assets/vendor/img/signin-image.jpg" alt />
           <router-link tag="a" to="/register">Tạo tài khoản</router-link>
         </div>
-        <div class="col-6 signin-form">
+        <div class="col-lg-6 signin-form">
           <h2 class="signin-title">Đăng nhập</h2>
           <form>
             <div class="form-group">
@@ -111,6 +111,11 @@
               </svg>
             </a>
           </div>
+          <span class="register"
+            ><router-link tag="a" to="/register"
+              >Tạo tài khoản</router-link
+            ></span
+          >
         </div>
       </div>
     </div>
@@ -273,5 +278,51 @@ body {
 }
 #google-login {
   cursor: pointer;
+}
+.register {
+  display: none;
+}
+@media (max-width: 375px) {
+  .signin-form {
+    padding: 0 30px;
+  }
+  .signin-image {
+    display: none;
+  }
+  .signin-content {
+    padding: 60px 0;
+    margin: 120px auto;
+  }
+  .signin-form form {
+    margin: 30px 0 10px 0;
+  }
+  .register {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .signin-form form #btn-signin {
+    margin-top: 0;
+    padding: 10px 20px;
+  }
+  .signin-form .social-login svg {
+    margin-left: 0px;
+  }
+  .signin-form .signin-title {
+    font-weight: bold;
+    font-size: 30px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+  }
+  .signin-content .form-control {
+    height: 40px;
+  }
+  .social-login {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
 }
 </style>

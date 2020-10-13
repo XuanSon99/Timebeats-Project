@@ -105,7 +105,7 @@
                               <h6>ID TÀI KHOẢN: 1492627900875762</h6>
                             </div>
                             <div class="col-md-12">
-                              <h6>SỐ DƯ: 100.000.000</h6>
+                              <h6>SỐ DƯ: {{ formatMoney(balance) }}₫</h6>
                             </div>
                           </div>
                         </div>
@@ -183,22 +183,42 @@
                         method="post"
                         action=""
                       >
-                        <h5 class="card-title mg-b-20">NHẬP MÃ VOUCHER</h5>
-
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >MÃ 2FA</label
+                        >
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            required="required"
+                            class="form-control"
+                            v-model="verify_2fa_code_useVoucher"
+                          />
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >MÃ Voucher</label
+                        >
                         <div class="form-group">
                           <input
                             type=""
-                            name="voucher"
-                            class="form-control text-center"
+                            v-model="voucher"
+                            class="form-control"
                             id="voucher"
-                            placeholder="VOUCHER"
                             required=""
                           />
                         </div>
-
+                        <p
+                          class="text-danger"
+                          v-for="item in errors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
                         <button
-                          type="submit"
+                          type="button"
                           class="btn btn-main-primary btn-block"
+                          @click="useVoucher"
                         >
                           XÁC NHẬN
                         </button>
@@ -215,8 +235,22 @@
                         method="post"
                         action=""
                       >
-                        <h5 class="card-title mg-b-20">Số tiền</h5>
-
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >MÃ 2FA</label
+                        >
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            class="form-control"
+                            required
+                            v-model="verify_2fa_code_makeVoucher"
+                          />
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Số tiền</label
+                        >
                         <div class="form-group">
                           <input
                             type="number"
@@ -227,42 +261,11 @@
                         </div>
                         <p
                           class="text-danger"
-                          v-for="item in errors"
+                          v-for="item in makeVoucherErrors"
                           :key="item"
                         >
                           {{ item }}
                         </p>
-                        <p
-                          class="text-success"
-                          v-for="item in success"
-                          :key="item"
-                        >
-                          {{ item }}
-                        </p>
-                        <label
-                          v-if="success.length > 0"
-                          class="main-content-label tx-12 tx-medium tx-gray-600"
-                          >MÃ VOUCHER</label
-                        >
-                        <div
-                          class="form-group voucherCode"
-                          v-if="success.length > 0"
-                        >
-                          <input
-                            type="text"
-                            class="form-control"
-                            readonly
-                            v-model="voucherCode"
-                            id="voucherCode"
-                          />
-                          <button
-                            type="button"
-                            class="btn btn-danger"
-                            @click="copyToClipBoard('voucherCode')"
-                          >
-                            COPY MÃ
-                          </button>
-                        </div>
                         <button
                           type="button"
                           class="btn btn-main-primary btn-block"
@@ -272,6 +275,47 @@
                         </button>
                       </form>
                     </div>
+                    <h5 class="card-title mg-b-20">
+                      DANH SÁCH VOUCHER CỦA BẠN
+                    </h5>
+                    <table class="table voucher-table">
+                      <thead>
+                        <tr>
+                          <td>STT</td>
+                          <td scope="col">Trị giá</td>
+                          <td scope="col" colspan="2">Mã Voucher</td>
+                          <td scope="col">Trạng thái</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(voucher, index) in voucherList"
+                          :key="index"
+                        >
+                          <th scope="row">{{ index + 1 }}</th>
+                          <td>{{ formatMoney(voucher.amount) }}₫</td>
+                          <td>
+                            <input
+                              type="text"
+                              readonly="readonly"
+                              :id="voucher._id"
+                              :value="voucher._id"
+                            />
+                          </td>
+                          <td>
+                            <span
+                              class="tag tag-indigo ml-1"
+                              style="cursor: pointer"
+                              @click="copyToClipBoard(voucher._id)"
+                              v-if="!voucher.destination"
+                              >Copy</span
+                            >
+                          </td>
+                          <td v-if="voucher.destination">Đã sử dụng</td>
+                          <td v-if="!voucher.destination">Chưa sử dụng</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <div class="tab-pane" id="tutorial">
                     <div
@@ -304,9 +348,14 @@ export default {
       depositType: "Voucher",
       ecbAddress: "BTC",
       errors: [],
-      success: [],
-      money: 100000,
-      voucherCode: "",
+      money: null,
+      verify_2fa_code_makeVoucher: "",
+      verify_2fa_code_useVoucher: "",
+      statusCode: "",
+      makeVoucherErrors: [],
+      voucherList: [],
+      voucher: "",
+      balance: Number,
     };
   },
   mounted() {
@@ -320,10 +369,32 @@ export default {
       })
       .then((response) => {
         this.walletList = response.data.data;
-        console.log(this.walletList);
+      });
+    //Get api list voucher
+    this.$axios
+      .get("http://192.168.100.11:3000/api/money/voucher", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.voucherList = response.data.data;
+      });
+    //Get api balance
+    this.$axios
+      .get("http://192.168.100.11:3000/api/money/v2/balance", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.balance = response.data.data[0].balance;
       });
   },
   methods: {
+    copy(value) {},
     copyToClipBoard(value) {
       var copyText = document.getElementById(value);
       copyText.select();
@@ -345,33 +416,140 @@ export default {
       });
     },
     makeVoucher() {
-      this.errors = [];
-      this.success = [];
-      if (this.money < 10000) {
-        this.errors.push("Số tiền tối thiểu là 10.000đ");
+      this.makeVoucherErrors = [];
+      if (!this.verify_2fa_code_makeVoucher || !this.money) {
+        this.makeVoucherErrors.push("Vui lòng nhập đủ thông tin");
         return;
       }
-      if (this.money > 1000000) {
-        this.errors.push("Số tiền tối đa là 1.000.000đ");
-        return;
-      }
-      const success =
-        "Đã tạo thành công voucher mệnh giá " +
-        this.formatPrice(this.money) +
-        "đ";
-      this.success.push(success);
+      // if (this.money < 10000) {
+      //   this.makeVoucherErrors.push("Số tiền tối thiểu là 10.000đ");
+      //   return;
+      // }
+      // if (this.money > 1000000) {
+      //   this.makeVoucherErrors.push("Số tiền tối đa là 1.000.000đ");
+      //   return;
+      // }
 
-      //make random voucher code
-      this.voucherCode = "";
-      var characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      for (var i = 0; i < 10; i++) {
-        this.voucherCode += characters.charAt(
-          Math.floor(Math.random() * characters.length)
-        );
-      }
+      this.$axios
+        .post(
+          "http://192.168.100.11:3000/api/money/create-voucher",
+          {
+            verify_2fa_code: this.verify_2fa_code_makeVoucher,
+            amount: this.money,
+          },
+          {
+            headers: {
+              Authorization:
+                this.$store.getters.id + " " + this.$store.getters.token,
+            },
+          }
+        )
+        .then((response) => {
+          this.$toast.success("Tạo thành công!", {
+            position: "top-right",
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
+          this.money = "";
+          this.verify_2fa_code_makeVoucher = "";
+        })
+        .catch((error, response) => {
+          this.statusCode = error.response.data.statusCode;
+          if (this.statusCode == 406) {
+            this.makeVoucherErrors.push("Tài khoản của bạn không đủ");
+            return;
+          }
+          if (this.statusCode == 422) {
+            this.makeVoucherErrors.push("Mã 2FA không đúng");
+            return;
+          }
+        });
+      //Get api list voucher
+      this.$axios
+        .get("http://192.168.100.11:3000/api/money/voucher", {
+          headers: {
+            Authorization:
+              this.$store.getters.id + " " + this.$store.getters.token,
+          },
+        })
+        .then((response) => {
+          this.voucherList = response.data.data;
+        });
+      //Get api balance
+      this.$axios
+        .get("http://192.168.100.11:3000/api/money/v2/balance", {
+          headers: {
+            Authorization:
+              this.$store.getters.id + " " + this.$store.getters.token,
+          },
+        })
+        .then((response) => {
+          this.balance = response.data.data[0].balance;
+        });
     },
-    formatPrice(value) {
+    useVoucher() {
+      this.errors = [];
+      if (!this.voucher || !this.verify_2fa_code_useVoucher) {
+        this.errors.push("Vui lòng nhập đủ thông tin");
+        return;
+      }
+      this.$axios
+        .post(
+          "http://192.168.100.11:3000/api/money/deposit-voucher",
+          {
+            voucher: this.voucher,
+            verify_2fa_code: this.verify_2fa_code_useVoucher,
+          },
+          {
+            headers: {
+              Authorization:
+                this.$store.getters.id + " " + this.$store.getters.token,
+            },
+          }
+        )
+        .then((response) => {
+          this.$toast.success("Nạp tiền thành công!", {
+            position: "top-right",
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.85,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
+          this.voucher = "";
+          this.verify_2fa_code_useVoucher = "";
+        })
+        .catch((error, response) => {
+          if (error.response.data.error == "Invalid 2fa code!") {
+            this.errors.push("Mã 2FA không đúng");
+            return;
+          }
+          if (error.response.data.message == "Invalid Input!") {
+            this.errors.push("Mã voucher không đúng");
+            return;
+          }
+          if (error.response.data.statusCode == 500) {
+            this.errors.push("Không thể sử dụng voucher của bạn");
+            return;
+          }
+        });
+    },
+    formatMoney(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
@@ -399,5 +577,38 @@ export default {
 }
 .voucherCode .form-control {
   width: 77%;
+}
+.voucher-table thead td {
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+}
+.voucher-table thead {
+  background: #22c03c;
+}
+.voucher-table input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+@media (max-width: 375px) {
+  #depositByEBC .card,
+  #depositByVoucher .card,
+  #makeVoucher .card,
+  #tutorial .card {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .voucherCode {
+    display: block;
+  }
+  .voucherCode .form-control {
+    width: 100%;
+  }
+  .voucherCode button {
+    width: 100%;
+    margin-top: 16px;
+  }
 }
 </style>

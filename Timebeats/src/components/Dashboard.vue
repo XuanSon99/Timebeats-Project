@@ -57,7 +57,7 @@
                 </div>
               </div>
               <span id="compositeline2" class="pt-1">
-                <apexchart width="260" type="donut" :options="options" :series="series_2"></apexchart>
+                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
               </span>
             </div>
           </div>
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <span id="compositeline3" class="pt-1">
-                <apexchart width="260" type="donut" :options="options" :series="series_3"></apexchart>
+                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
               </span>
             </div>
           </div>
@@ -398,8 +398,6 @@ export default {
           data: [10, 12, 14, 16, 18, 16, 18, 20, 18, 16, 22, 24, 26, 24, 22, 24, 20, 12],
         },
       ],
-      series_2: [10, 12, 14, 16, 18],
-      series_3: [16, 20, 12, 26, 30],
     };
   },
 };
