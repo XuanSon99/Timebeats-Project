@@ -1,8 +1,6 @@
 <template>
   <div class="home">
     <vue-headful title="Trang chủ" />
-    <div class="mobile-menu" id="mobile-menu">
-    </div>
     <div class="main-content horizontal-content">
       <div id="dasboardMobile" style="display: none">
         <br />

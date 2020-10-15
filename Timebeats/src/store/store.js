@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
 import { setStore, getStore } from '@/config/utils'
-
 Vue.use(Vuex)
 const user = getStore('user')
 

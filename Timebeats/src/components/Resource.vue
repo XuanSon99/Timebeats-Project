@@ -57,7 +57,7 @@
                           :key="item._id"
                           :value="item.code"
                         >
-                          {{ item.name }} {{ selected }}
+                          {{ item.name }}
                         </option>
                       </select>
                     </div>
@@ -292,7 +292,7 @@ export default {
   },
   beforeMount() {
     this.$axios
-      .get("http://192.168.100.11/api/social/list-account", {
+      .get("http://192.168.100.11:3000/api/social/list-account", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -303,7 +303,7 @@ export default {
         this.data = response.data.data;
       });
     this.$axios
-      .get("http://192.168.100.11/api/social/list", {
+      .get("http://192.168.100.11:3000/api/social/list", {
         headers: {
           Authorization:
             this.$store.getters.id + " " + this.$store.getters.token,
@@ -351,14 +351,14 @@ export default {
     },
     deleteAccountSocial(id) {
       this.$axios
-        .delete(`http://192.168.100.11/api/social/delete-account/${id}`, {
+        .delete(`http://192.168.100.11:3000/api/social/delete-account/${id}`, {
           headers: {
             Authorization:
               this.$store.getters.id + " " + this.$store.getters.token,
           },
         })
         .then((response) => {
-          this.$toast.success("Xóa thành công!", {
+          this.$toast.success("Xóa thành công !", {
             position: "top-right",
             timeout: 5000,
             closeOnClick: true,
@@ -374,7 +374,7 @@ export default {
           });
         })
         .catch((error, response) => {
-          this.$toast.error("Không được phép!", {
+          this.$toast.error("Không được phép !", {
             position: "top-right",
             timeout: 5000,
             closeOnClick: true,

@@ -1,10 +1,10 @@
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
 $(function() {
 	'use strict'
-	
 	// ______________LOADER
 	$("#global-loader").fadeOut("slow");
-	
-	
 	// This template is mobile first so active menu in navbar
 	// has submenu displayed by default but not in desktop
 	// so the code below will hide the active menu if it's in desktop
@@ -23,7 +23,12 @@ $(function() {
 		$('.main-header .dropdown > a').parent().siblings().removeClass('show');
 	});
 	$('.animated-arrow').on("click", function () {
-		$("#mobile-menu").css('left','0' );
+		if($("#mobile-menu").css('left') == 0 + 'px') {
+			$("#mobile-menu").css('left','-200px' );
+		}
+		else {
+			$("#mobile-menu").css('left','0px' );
+		}
 	});
 	// ______________Full screen
 	$(document).on("click", ".fullscreen-button", function toggleFullScreen() {
@@ -61,7 +66,7 @@ $(function() {
 			targetFormElementSelector: '.rating-value'
 		}
 	};
-	$(".rating-stars").ratingStars(ratingOptions);
+	// $(".rating-stars").ratingStars(ratingOptions);
 	
 	
 	// ______________Cover Image
@@ -252,7 +257,7 @@ $(function() {
 	});
 	
 	// Enable Eva-icons with SVG markup
-	eva.replace();
+	// eva.replace();
 	
 	
 	// ______________Horizontal-menu Active Class

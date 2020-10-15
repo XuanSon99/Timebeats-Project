@@ -16,6 +16,7 @@ import Toast from "vue-toastification"
 import "vue-toastification/dist/index.css"
 import VueClipboard from 'vue-clipboard2'
 import './assets/vendor/css/reponsive.css'
+import './assets/vendor/js/custom'
 Vue.use(VueClipboard)
 
 import GoogleAuth from '@/config/google_oAuth.js'
@@ -48,5 +49,4 @@ const app = new Vue({
   Paginate,
   render: h => h(App)
 })
-
 export default app

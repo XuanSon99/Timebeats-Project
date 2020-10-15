@@ -1,7 +1,7 @@
 <template>
   <div class="signin">
     <vue-headful title="Đăng nhập" />
-    <vue-headful title="Đăng nhập" />
+
     <div class="container">
       <div class="row signin-content">
         <div class="col-6 signin-image">

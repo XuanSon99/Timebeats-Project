@@ -117,4 +117,5 @@
       left: -200px;
       z-index: 9999;
       top: 64px;
+      transition: all ease-in-out 0.3s;
   }

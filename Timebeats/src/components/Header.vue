@@ -122,6 +122,13 @@
         </div>
       </div>
     </div>
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+          <li>
+            <router-link tag="a" to="/Daboard"></router-link>
+          </li>
+        </ul>
+    </div>
   </header>
 </template>
 
