@@ -11,6 +11,8 @@ import Resource from '@/components/Resource'
 import Faq from '@/components/Faq'
 import Statistical from '@/components/Statistical'
 import Payment from '@/components/Payment'
+import Notify from '@/components/Notify'
+
 Vue.use(Router)
 
 var isAuthenticated = false;
@@ -118,6 +120,15 @@ const router = new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/notify',
+      name: 'Notify',
+      component: Notify,
       meta: {
         header: true,
         footer: true

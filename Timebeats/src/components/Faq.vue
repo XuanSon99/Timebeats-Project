@@ -66,123 +66,246 @@
                   </div>
                   <div id="feedback" class="tab-pane">
                     <div class="mb-4 main-content-label">PHẢN HỒI</div>
-                  </div>
-                  <div
-                    id="modal-resource"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                    class="modal fade"
-                  >
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 id class="modal-title">THÊM MỚI TÀI NGUYÊN</h5>
-                          <button
-                            type="button"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                            class="close"
-                          >
-                            <span aria-hidden="true">×</span>
-                          </button>
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
+                      <form class="form-horizontal">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Tiêu đề</label
+                        >
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            placeholder="Tiêu đề"
+                            class="form-control"
+                            v-model="title"
+                          />
                         </div>
-                        <div class="modal-body">
-                          <div class="card-body">
-                            <form
-                              action="/social/add-account-social"
-                              method="post"
-                            >
-                              <p class="text-danger"></p>
-                              <input
-                                type="hidden"
-                                name="_token"
-                                value="NUsQFF66-HgOai8bOxrFrGkWgHwMqN9FNOwk"
-                              />
-                              <div class="form-body">
-                                <h6 class="card-title">Mạng xã hội</h6>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <select
-                                        required="required"
-                                        name="social_code"
-                                        class="form-control"
+                        <div class="form-group">
+                          <label
+                            class="main-content-label tx-12 tx-medium tx-gray-600"
+                            >Nội dung</label
+                          >
+                          <textarea
+                            class="form-control"
+                            v-model="content"
+                          ></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label
+                            class="main-content-label tx-12 tx-medium tx-gray-600"
+                            for="img-inputed"
+                            >Chọn ảnh</label
+                          >
+                          <input
+                            type="file"
+                            @change="uploadImage($event)"
+                            id="img-inputed"
+                          />
+                          <div class="form-control img-feedback">
+                            <img
+                              v-for="src in url"
+                              :key="src"
+                              :src="src"
+                              data-toggle="modal"
+                              data-target="#show-img-modal"
+                            />
+                            <i
+                              v-if="url[0]"
+                              class="fas fa-times"
+                              @click="deleteImg"
+                            ></i>
+                          </div>
+                          <div
+                            class="modal fade"
+                            id="show-img-modal"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">ẢNH PHẢN HỒI</h5>
+                                  <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div
+                                    id="carouselExampleIndicators"
+                                    class="carousel slide"
+                                    data-ride="carousel"
+                                  >
+                                    <div class="carousel-inner">
+                                      <div class="carousel-item active">
+                                        <img
+                                          :src="url[0]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <div
+                                        class="carousel-item"
+                                        v-for="src in url"
+                                        :key="src"
                                       >
-                                        <option value>Tất cả</option>
-                                        <option value>Facebook</option>
-                                        <option value>Youtube</option>
-                                        <option value>TikTok</option>
-                                        <option value>ZingMp3</option>
-                                        <option value>NhacCuaTui</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <h5>
-                                  Yêu cầu (cung cấp thông tin tài khoản
-                                  <b class="text-danger">*</b>)
-                                </h5>
-                                <div id="requre_area">
-                                  <h6 class="card-title user-pass-show">
-                                    Tài khoản - Mật khẩu (ex:
-                                    timebeat@gmail.com-timebit@tinh)
-                                  </h6>
-                                  <div class="row user-pass-show">
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        <input
-                                          type="text"
-                                          name="user-pass"
-                                          required="required"
-                                          class="form-control"
-                                        />
+                                        <img :src="src" class="d-block w-100" />
                                       </div>
                                     </div>
-                                  </div>
-                                  <h6 class="card-title">Cookie</h6>
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        <textarea
-                                          name="cookie"
-                                          id
-                                          cols="30"
-                                          rows="10"
-                                          required="required"
-                                          class="form-control"
-                                        ></textarea>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <h6 class="card-title">Token</h6>
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        <input
-                                          type="text"
-                                          name="token"
-                                          required="required"
-                                          class="form-control"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-actions">
-                                  <div class="text-center">
-                                    <button type="submit" class="btn btn-info">
-                                      Lưu
-                                    </button>
+                                    <a
+                                      class="carousel-control-prev"
+                                      href="#carouselExampleIndicators"
+                                      role="button"
+                                      data-slide="prev"
+                                    >
+                                      <span
+                                        class="carousel-control-prev-icon"
+                                        aria-hidden="true"
+                                        ><i class="fas fa-chevron-left"></i
+                                      ></span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a
+                                      class="carousel-control-next"
+                                      href="#carouselExampleIndicators"
+                                      role="button"
+                                      data-slide="next"
+                                    >
+                                      <span
+                                        class="carousel-control-next-icon"
+                                        aria-hidden="true"
+                                        ><i class="fas fa-chevron-right"></i
+                                      ></span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
                                   </div>
                                 </div>
                               </div>
-                            </form>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                        <p
+                          class="text-danger"
+                          v-for="item in errors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
+                        <div class="form-group mb-0 mt-3 justify-content-end">
+                          <div>
+                            <button
+                              type="submit"
+                              class="btn btn-primary"
+                              @click="feedbackHandle"
+                            >
+                              Xác nhận
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
+                    <div class="mb-4 main-content-label pad-top-20">
+                      DANH SÁCH PHẢN HỒI CỦA BẠN
+                    </div>
+                    <!-- <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    > -->
+                    <table class="table feedback-table" v-if="active">
+                      <thead>
+                        <tr>
+                          <td>STT</td>
+                          <td scope="col">Tiêu đề</td>
+                          <td scope="col">Trạng thái</td>
+                          <td scope="col">Thời gian</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in listFeedback"
+                          :key="item._id"
+                          @click="detailFeedback(item._id)"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ item.title }}</td>
+                          <td v-if="item.status == 'answer'">Đã trả lời</td>
+                          <td v-else>Đang chờ</td>
+                          <td>{{ formatDate(item.created_at) }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="table detail-feedback" v-if="!active">
+                      <tbody>
+                        <tr>
+                          <td class="td-img">
+                            <span
+                              v-if="!active"
+                              id="return-list"
+                              @click="returnList"
+                              ><i class="fas fa-arrow-left"></i
+                            ></span>
+                          </td>
+                          <td>
+                            <h5
+                              class="card-title mg-b-20 pad-top-20 tx-gray-600"
+                              v-if="!active"
+                            >
+                              {{ listDetailFeedback.title }}
+                            </h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td rowspan="2" class="td-img pad-top-20">
+                            <img alt :src="avatar" />
+                          </td>
+                          <td class="pad-top-20">
+                            <b>{{ name }}</b
+                            ><br /><label
+                              class="main-content-label tx-12 tx-medium tx-gray-600"
+                              >{{
+                                formatDate(listDetailFeedback.created_at)
+                              }}</label
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="content">
+                            {{ listDetailFeedback.content }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td rowspan="10" class="pad-top-20 td-img">
+                            <img
+                              alt
+                              src="https://cf.shopee.vn/file/01566b94a0243a192eae029c72fc4503_tn"
+                            />
+                          </td>
+                          <td class="pad-top-20">
+                            <b>Admin</b><br /><label
+                              class="tx-12 tx-medium tx-gray-600"
+                              >
+                              <span v-if="listDetailFeedback.status == 'answer'">Đã trả lời</span>
+                              <span v-else>Đang chờ...</span>
+                              </label
+                            >
+                          </td>
+                        </tr>
+                        <tr
+                          v-for="item in listDetailFeedback.activity"
+                          :key="item._id"
+                        >
+                          <td>{{ item.content }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
+                  <!-- </div> -->
                 </div>
               </div>
             </div>
@@ -197,10 +320,32 @@
 export default {
   data() {
     return {
+      avatar: "http://192.168.100.11:3000/" + this.$store.getters.avatar,
+      name: this.$store.getters.name,
+      title: "",
+      content: "",
+      srcImg: {},
+      listSrcImg: [],
+      url: [],
+      errors: [],
+      listFeedback: [],
+      active: true,
+      listDetailFeedback: [],
       faq: [],
     };
   },
-  beforeMount() {
+  mounted() {
+    this.$axios
+      .get("http://192.168.100.11:3000/api/faq/feedback", {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      })
+      .then((response) => {
+        this.listFeedback = response.data.data;
+        console.log(this.listFeedback);
+      })
     this.$axios
       .get("http://192.168.100.11:3000/api/faq", {
         headers: {
@@ -212,8 +357,213 @@ export default {
         this.faq = response.data.data;
       })
   },
+  methods: {
+    uploadImage(event) {
+      this.srcImg = event.target.files[0];
+      this.listSrcImg.push(this.srcImg);
+      this.url.push(URL.createObjectURL(this.srcImg));
+    },
+    feedbackHandle(e) {
+      e.preventDefault();
+      console.log(this.listSrcImg);
+      this.errors = [];
+      if (!this.title || !this.content) {
+        this.errors.push("Vui lòng nhập đủ thông tin !");
+        return;
+      }
+
+      const URL = "http://192.168.100.11:3000/api/faq/feedback";
+
+      let data = new FormData();
+      data.append("title", this.title);
+      data.append("content", this.content);
+      data.append("image", this.srcImg);
+
+      let config = {
+        headers: {
+          Authorization:
+            this.$store.getters.id + " " + this.$store.getters.token,
+        },
+      };
+
+      this.$axios
+        .post(URL, data, config)
+        .then((response) => {
+          this.$toast.success("Gửi phản hồi thành công!", {
+            position: "top-right",
+            timeout: 3000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.82,
+            showCloseButtonOnHover: true,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
+          this.title = "";
+          this.content = "";
+          this.url = [];
+
+          this.$axios
+            .get("http://192.168.100.11:3000/api/faq/feedback", {
+              headers: {
+                Authorization:
+                  this.$store.getters.id + " " + this.$store.getters.token,
+              },
+            })
+            .then((response) => {
+              this.listFeedback = response.data.data;
+              console.log(this.listFeedback);
+            });
+        })
+        .catch(() => {});
+    },
+    deleteImg() {
+      this.url = [];
+    },
+    formatDate(value) {
+      return value.slice(0, 10);
+    },
+    detailFeedback(id) {
+      this.active = false;
+      this.$axios
+        .get(`http://192.168.100.11:3000/api/faq/feedback-detail/${id}`, {
+          headers: {
+            Authorization:
+              this.$store.getters.id + " " + this.$store.getters.token,
+          },
+        })
+        .then((response) => {
+          this.listDetailFeedback = response.data.data[0];
+          console.log(this.listDetailFeedback);
+        });
+    },
+    returnList() {
+      this.active = true;
+    },
+  },
 };
 </script>
 
 <style>
+#feedback textarea {
+  height: 100px;
+}
+#feedback .card {
+  width: 52%;
+  margin: 0 auto;
+}
+#list-feedback i {
+  font-size: 15px;
+  margin-right: 5px;
+}
+#list-feedback p {
+  margin-left: 20px;
+  font-size: 12px;
+}
+.img-feedback {
+  height: auto;
+  min-height: 50px;
+}
+.img-feedback img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.img-feedback i:hover {
+  opacity: 0.8;
+  transition: all 100ms ease;
+}
+.img-feedback i {
+  float: right;
+  cursor: pointer;
+}
+#img-inputed {
+  display: none;
+}
+#show-img-modal img {
+  max-width: 500px;
+  max-height: 500px;
+  display: block;
+  margin: 0 auto;
+}
+.carousel-control-next-icon i,
+.carousel-control-prev-icon i {
+  font-size: 40px;
+  color: #333;
+}
+.feedback-table thead td {
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+}
+.feedback-table thead {
+  background: #22c03c;
+}
+.feedback-table tbody tr:hover {
+  cursor: pointer;
+  border: none;
+  box-shadow: inset 0 1px 0 0 #dadce0, inset 0 -1px 0 0 #dadce0,
+    0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+.feedback-table tbody tr td:not(:nth-child(2)) {
+  text-align: center;
+}
+#return-list {
+  display: block;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #666;
+  transition: 200ms all ease;
+  font-size: 18px;
+  margin-top: 8px;
+}
+#return-list:hover {
+  color: rgb(80, 80, 80);
+}
+.detail-feedback img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.detail-feedback tr:not(:nth-child(4)) td {
+  border: none;
+}
+.detail-feedback tr:nth-child(1) td {
+  border-top: 1px solid #dde2ef;
+}
+.detail-feedback tr:nth-child(2) td {
+  border-top: 1px solid #dde2ef;
+}
+.detail-feedback td {
+  padding: 5px 20px;
+}
+.detail-feedback .td-img {
+  width: 40px;
+  padding: 5px 0;
+  border-top: 1px solid #dde2ef;
+}
+.detail-feedback .content {
+  padding-bottom: 20px;
+}
+.pad-top-20 {
+  padding-top: 20px;
+}
+.detail-feedback .pad-top-20 {
+  padding-top: 20px;
+}
+@media (min-width: 576px) {
+  #show-img-modal .modal-dialog {
+    max-width: 55%;
+  }
+}
 </style>
