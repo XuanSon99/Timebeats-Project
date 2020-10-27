@@ -12,7 +12,9 @@ export default new Vuex.Store({
     id: null,
     name: null,
     avatar: null,
-    loginUser: user
+    loginUser: user,
+    idNotify: null,
+    type_key: null,
   },
   getters: {
     token(state) {
@@ -29,6 +31,12 @@ export default new Vuex.Store({
     },
     getLoginUserInfo(state) {
       return state.loginUser
+    },
+    idNotify(state){
+      return state.idNotify
+    },
+    type_key(state){
+      return state.type_key
     }
   },
   mutations: {
@@ -47,6 +55,12 @@ export default new Vuex.Store({
     setLoginUser(state, user) {
       state.loginUser = user
       setStore('user', user)
+    },
+    SET_ID_NOTIFY(state, payload){
+      state.idNotify = payload
+    },
+    SET_TYPE_KEY(state, payload){
+      state.type_key = payload
     }
   },
   actions: {
@@ -61,6 +75,12 @@ export default new Vuex.Store({
     },
     setAvatar({ commit }, payload) {
       commit('SET_AVATAR', payload)
+    },
+    setIdNotify({ commit }, payload) {
+      commit('SET_ID_NOTIFY', payload)
+    },
+    setTypeKey({ commit }, payload) {
+      commit('SET_TYPE_KEY', payload)
     },
   },
   plugins: [

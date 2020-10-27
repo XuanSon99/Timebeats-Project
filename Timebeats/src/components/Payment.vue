@@ -308,12 +308,12 @@
                               class="tag tag-indigo ml-1"
                               style="cursor: pointer"
                               @click="copyToClipBoard(voucher._id)"
-                              v-if="!voucher.destination"
+                              v-if="voucher.count == 1"
                               >Copy</span
                             >
                           </td>
-                          <td v-if="voucher.destination">Đã sử dụng</td>
-                          <td v-if="!voucher.destination">Chưa sử dụng</td>
+                          <td v-if="voucher.count == 2">Đã sử dụng</td>
+                          <td v-else>Chưa sử dụng</td>
                         </tr>
                       </tbody>
                     </table>
@@ -361,38 +361,17 @@ export default {
   },
   mounted() {
     //Get api list wallet ebc system
-    this.$axios
-      .get("http://192.168.100.11:3000/api/money/list-wallet-system", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.walletList = response.data.data;
-      });
+    this.CallAPI("get", "money/list-wallet-system", {}, (response) => {
+      this.walletList = response.data.data;
+    });
     //Get api list voucher
-    this.$axios
-      .get("http://192.168.100.11:3000/api/money/voucher", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.voucherList = response.data.data;
-      });
+    this.CallAPI("get", "money/voucher", {}, (response) => {
+      this.voucherList = response.data.data;
+    });
     //Get api balance
-    this.$axios
-      .get("http://192.168.100.11:3000/api/money/v2/balance", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.balance = response.data.data[0].balance;
-      });
+    this.CallAPI("get", "money/v2/balance", {}, (response) => {
+      this.balance = response.data.data[0].balance;
+    });
   },
   methods: {
     copy(value) {},
@@ -401,20 +380,7 @@ export default {
       copyText.select();
       copyText.setSelectionRange(0, 99999);
       document.execCommand("copy");
-      this.$toast.success("Copy thành công!", {
-        position: "top-right",
-        timeout: 3000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.85,
-        showCloseButtonOnHover: true,
-        hideProgressBar: false,
-        closeButton: "button",
-        icon: true,
-        rtl: false,
-      });
+      this.$toast.success("Copy thành công!");
     },
     makeVoucher() {
       this.makeVoucherErrors = [];
@@ -430,40 +396,22 @@ export default {
       //   this.makeVoucherErrors.push("Số tiền tối đa là 1.000.000đ");
       //   return;
       // }
-
-      this.$axios
-        .post(
-          "http://192.168.100.11:3000/api/money/create-voucher",
-          {
-            verify_2fa_code: this.verify_2fa_code_makeVoucher,
-            amount: this.money,
-          },
-          {
-            headers: {
-              Authorization:
-                this.$store.getters.id + " " + this.$store.getters.token,
-            },
-          }
-        )
-        .then((response) => {
-          this.$toast.success("Tạo thành công!", {
-            position: "top-right",
-            timeout: 2000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
+      this.CallAPI(
+        "post",
+        "money/create-voucher",
+        {
+          verify_2fa_code: this.verify_2fa_code_makeVoucher,
+          amount: this.money,
+        },
+        (response) => {
+          this.CallAPI("get", "money/voucher", {}, (response) => {
+            this.voucherList = response.data.data;
           });
+          this.$toast.success("Tạo thành công!");
           this.money = "";
           this.verify_2fa_code_makeVoucher = "";
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
           this.statusCode = error.response.data.statusCode;
           if (this.statusCode == 406) {
             this.makeVoucherErrors.push("Tài khoản của bạn không đủ");
@@ -473,29 +421,16 @@ export default {
             this.makeVoucherErrors.push("Mã 2FA không đúng");
             return;
           }
-        });
+        }
+      );
       //Get api list voucher
-      this.$axios
-        .get("http://192.168.100.11:3000/api/money/voucher", {
-          headers: {
-            Authorization:
-              this.$store.getters.id + " " + this.$store.getters.token,
-          },
-        })
-        .then((response) => {
-          this.voucherList = response.data.data;
-        });
+      this.CallAPI("get", "money/voucher", {}, (response) => {
+        this.voucherList = response.data.data;
+      });
       //Get api balance
-      this.$axios
-        .get("http://192.168.100.11:3000/api/money/v2/balance", {
-          headers: {
-            Authorization:
-              this.$store.getters.id + " " + this.$store.getters.token,
-          },
-        })
-        .then((response) => {
-          this.balance = response.data.data[0].balance;
-        });
+      this.CallAPI("get", "money/v2/balance", {}, (response) => {
+        this.balance = response.data.data[0].balance;
+      });
     },
     useVoucher() {
       this.errors = [];
@@ -503,39 +438,19 @@ export default {
         this.errors.push("Vui lòng nhập đủ thông tin");
         return;
       }
-      this.$axios
-        .post(
-          "http://192.168.100.11:3000/api/money/deposit-voucher",
-          {
-            voucher: this.voucher,
-            verify_2fa_code: this.verify_2fa_code_useVoucher,
-          },
-          {
-            headers: {
-              Authorization:
-                this.$store.getters.id + " " + this.$store.getters.token,
-            },
-          }
-        )
-        .then((response) => {
-          this.$toast.success("Nạp tiền thành công!", {
-            position: "top-right",
-            timeout: 2000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
+      this.CallAPI(
+        "post",
+        "money/deposit-voucher",
+        {
+          voucher: this.voucher,
+          verify_2fa_code: this.verify_2fa_code_useVoucher,
+        },
+        (response) => {
+          this.$toast.success("Nạp tiền thành công!");
           this.voucher = "";
           this.verify_2fa_code_useVoucher = "";
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
           if (error.response.data.error == "Invalid 2fa code!") {
             this.errors.push("Mã 2FA không đúng");
             return;
@@ -548,7 +463,8 @@ export default {
             this.errors.push("Không thể sử dụng voucher của bạn");
             return;
           }
-        });
+        }
+      );
     },
     formatMoney(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

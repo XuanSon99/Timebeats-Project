@@ -18,7 +18,9 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">280.000đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">
+                        280.000đ
+                      </h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
@@ -31,7 +33,12 @@
                 </div>
               </div>
               <span id="compositeline1" class="pt-1">
-                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+                <apexchart
+                  width="260"
+                  type="line"
+                  :options="options"
+                  :series="series_1"
+                ></apexchart>
               </span>
             </div>
           </div>
@@ -44,7 +51,9 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">1.280.000đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">
+                        1.280.000đ
+                      </h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
@@ -57,7 +66,12 @@
                 </div>
               </div>
               <span id="compositeline2" class="pt-1">
-                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+                <apexchart
+                  width="260"
+                  type="line"
+                  :options="options"
+                  :series="series_1"
+                ></apexchart>
               </span>
             </div>
           </div>
@@ -70,7 +84,9 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">750.000đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">
+                        750.000đ
+                      </h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
@@ -83,7 +99,12 @@
                 </div>
               </div>
               <span id="compositeline3" class="pt-1">
-                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+                <apexchart
+                  width="260"
+                  type="line"
+                  :options="options"
+                  :series="series_1"
+                ></apexchart>
               </span>
             </div>
           </div>
@@ -96,7 +117,9 @@
                 <div class="pb-0 mt-0">
                   <div class="d-flex">
                     <div class>
-                      <h4 class="tx-20 font-weight-bold mb-1 text-white">690.000đ</h4>
+                      <h4 class="tx-20 font-weight-bold mb-1 text-white">
+                        690.000đ
+                      </h4>
                       <p class="mb-0 tx-12 text-white op-7">
                         So sánh với tuần trước
                       </p>
@@ -109,7 +132,12 @@
                 </div>
               </div>
               <span id="compositeline4" class="pt-1">
-                <apexchart width="260" type="line" :options="options" :series="series_1"></apexchart>
+                <apexchart
+                  width="260"
+                  type="line"
+                  :options="options"
+                  :series="series_1"
+                ></apexchart>
               </span>
             </div>
           </div>
@@ -130,78 +158,74 @@
                 </p>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table
-                    class="table text-md-nowrap data-table table-bordered table-hover"
-                    id="statistic"
-                  >
-                    <thead>
-                      <tr>
-                        <th>STT</th>
-                        <th>Mô Tả</th>
-                        <th>Phần Thưởng</th>
-                        <th>Còn Lại</th>
-                        <th>Chi Tiết</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Follow TikTok</td>
-                        <td>10 $</td>
-                        <td>999 Lượt</td>
-                        <td>
-                          <span class="tag tag-indigo tag-center">
-                            <a style="color: white" href>Nhận</a>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Follow TikTok</td>
-                        <td>10 $</td>
-                        <td>999 Lượt</td>
-                        <td>
-                          <span class="tag tag-indigo tag-center">
-                            <a style="color: white" href>Nhận</a>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Follow TikTok</td>
-                        <td>10 $</td>
-                        <td>999 Lượt</td>
-                        <td>
-                          <span class="tag tag-indigo tag-center">
-                            <a style="color: white" href>Nhận</a>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Follow TikTok</td>
-                        <td>10 $</td>
-                        <td>999 Lượt</td>
-                        <td>
-                          <span class="tag tag-indigo tag-center">
-                            <a style="color: white" href>Nhận</a>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Follow TikTok</td>
-                        <td>10 $</td>
-                        <td>999 Lượt</td>
-                        <td>
-                          <span class="tag tag-indigo tag-center">
-                            <a style="color: white" href>Nhận</a>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="row task">
+                  <div class="col-xl-12">
+                    <div class="table-responsive">
+                      <table
+                        class="table text-md-nowrap data-table table-bordered table-hover"
+                        id="statistic"
+                      >
+                        <thead>
+                          <tr>
+                            <th class="wd-10p border-bottom-0 task">STT</th>
+                            <th class="wd-10p border-bottom-0 task">
+                              NỀN TẢNG
+                            </th>
+                            <th class="wd-10p border-bottom-0 task">
+                              NỘI DUNG NHIỆM VỤ
+                            </th>
+                            <th class="wd-10p border-bottom-0 task">
+                              PHẦN THƯỞNG
+                            </th>
+                            <th class="wd-10p border-bottom-0 task">SỐ LƯỢT</th>
+                            <th class="wd-10p border-bottom-0 task">
+                              CHI TIẾT
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- <tr
+                                  v-for="(item, index) in taskList"
+                                  :key="index"
+                                  @click="taskDetail(item._id)"
+                                > -->
+                          <tr v-for="(item, index) in taskList" :key="index">
+                            <td @click="taskDetail(item._id)" scope="row">
+                              {{ index + 1 }}
+                            </td>
+                            <td @click="taskDetail(item._id)">
+                              {{ item.social_id.name }}
+                            </td>
+                            <td @click="taskDetail(item._id)">
+                              <span
+                                class="require"
+                                v-for="req in item.require"
+                                :key="req.key"
+                                >{{ req.key }}</span
+                              >
+                            </td>
+                            <td @click="taskDetail(item._id)">
+                              {{ item.total_price }} $
+                            </td>
+                            <td @click="taskDetail(item._id)">
+                              {{ item.amount }} Lượt
+                            </td>
+                            <td>
+                              <span class="tag tag-indigo tag-center">
+                                <a
+                                  class="text-white receive-task"
+                                  @click="
+                                    receive_task(item._id, item.social_id._id)
+                                  "
+                                  >Nhận</a
+                                >
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -371,7 +395,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 import { mapGetters } from "vuex";
 import VueApexCharts from "vue-apexcharts";
 Vue.component("apexchart", VueApexCharts);
@@ -380,25 +404,89 @@ export default {
   name: "home",
   data() {
     return {
+      taskList: [],
+      accountList: [],
+      social_account_id: "",
       options: {
         chart: {
           id: "vuechart",
         },
         xaxis: {
-          categories(){
-            for(let i = 1; i<10; i++){
+          categories() {
+            for (let i = 1; i < 10; i++) {
               return i;
             }
-          }
+          },
         },
       },
       series_1: [
         {
           name: "Chờ duyệt",
-          data: [10, 12, 14, 16, 18, 16, 18, 20, 18, 16, 22, 24, 26, 24, 22, 24, 20, 12],
+          data: [
+            10,
+            12,
+            14,
+            16,
+            18,
+            16,
+            18,
+            20,
+            18,
+            16,
+            22,
+            24,
+            26,
+            24,
+            22,
+            24,
+            20,
+            12,
+          ],
         },
       ],
     };
+  },
+  methods: {
+    taskDetail(id) {
+      this.$store.dispatch("setTypeKey", id);
+      this.$router.push("/detail-task").catch((error) => {});
+    },
+    receive_task(id, social_id) {
+      for (let acc of this.accountList) {
+        if (acc.social_id == social_id) {
+          this.social_account_id = acc._id;
+        }
+      }
+      this.CallAPI(
+        "post",
+        "task/receive-task",
+        {
+          task_id: id,
+          social_account_id: this.social_account_id,
+        },
+        (response) => {
+          this.$toast.success("Nhận nhiệm vụ thành công!");
+        },
+        (error) => {
+          const statusCode = error.response.data.statusCode;
+          if (statusCode == 409) {
+            this.$toast.warning("Bạn đã nhận nhiệm vụ này rồi!");
+          }
+          if (statusCode == 422) {
+            this.$toast.warning("Bạn vui lòng thêm tài nguyên");
+          }
+        }
+      );
+    },
+  },
+  mounted() {
+    this.CallAPI("get", "task", {}, (response) => {
+      this.taskList = response.data.data;
+    });
+    this.CallAPI("get", "social/list-account", {}, (response) => {
+      this.accountList = response.data.data;
+      console.log(this.accountList);
+    });
   },
 };
 </script>
@@ -410,12 +498,40 @@ export default {
   max-width: 50px;
   text-align: center;
 }
-#compositeline, #compositeline2, #compositeline3, #compositeline4 {
-    position: relative;
-    bottom: -1px;
-    min-height: 180px;
+#compositeline,
+#compositeline2,
+#compositeline3,
+#compositeline4 {
+  position: relative;
+  bottom: -1px;
+  min-height: 180px;
 }
-.apexcharts-toolbar{
+.apexcharts-toolbar {
   display: none;
+}
+#status {
+  height: 40px;
+}
+.tag-center {
+  margin: 0 auto;
+  display: block;
+  max-width: 50px;
+  text-align: center;
+}
+th.task {
+  text-align: center;
+}
+.task table .require {
+  background: #fbbc0b;
+  margin-left: 5px;
+  padding: 2px 10px;
+  border-radius: 3px;
+  color: #fff;
+}
+.task table tbody tr {
+  cursor: pointer;
+}
+.receive-task {
+  cursor: pointer;
 }
 </style>

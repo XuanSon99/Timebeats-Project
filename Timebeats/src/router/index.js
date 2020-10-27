@@ -12,6 +12,8 @@ import Faq from '@/components/Faq'
 import Statistical from '@/components/Statistical'
 import Payment from '@/components/Payment'
 import Notify from '@/components/Notify'
+import DetailNotify from '@/components/Detail-Notify'
+import DetailTask from '@/components/Detail-Task'
 
 Vue.use(Router)
 
@@ -129,6 +131,24 @@ const router = new Router({
       path: '/notify',
       name: 'Notify',
       component: Notify,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/Detail-Notify',
+      name: 'DetailNotify',
+      component: DetailNotify,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/Detail-Task',
+      name: 'DetailTask',
+      component: DetailTask,
       meta: {
         header: true,
         footer: true

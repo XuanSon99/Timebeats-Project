@@ -37,9 +37,9 @@
                   <tbody>
                     <tr>
                       <td scope="row">VÍ VND</td>
-                      <td>{{ lastBanlance }} đ</td>
-                      <td>{{ totalWithdrawPending }} đ</td>
-                      <td>{{ totalWithdraw }} đ</td>
+                      <td>{{ formatMoney(balance) }} ₫</td>
+                      <td>800.000 ₫</td>
+                      <td>6.000.000 ₫</td>
                     </tr>
                   </tbody>
                 </table>
@@ -50,7 +50,9 @@
             <div class="card-footer">
               <div class="action">
                 <a class="btn btn-danger">Rút tiền</a>
-                <router-link class="btn btn-warning" tag="a" to="/payment">Thanh toán</router-link>
+                <router-link class="btn btn-warning" tag="a" to="/payment"
+                  >Thanh toán</router-link
+                >
               </div>
             </div>
             <!-- bd -->
@@ -62,12 +64,12 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex justify-content-between">
-                <h4 class="card-title mg-b-0">LỊCH SỬ RÚT TIỀN</h4>
+                <h4 class="card-title mg-b-0">LỊCH SỬ GIAO DỊCH</h4>
                 <i class="mdi mdi-dots-horizontal text-gray"></i>
               </div>
             </div>
             <div class="card-body">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-xl-3">
                   <div class="form-group row">
                     <div class="col-xl-3 lab">
@@ -90,47 +92,47 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="table-responsive">
                 <table
                   class="table text-md-nowrap data-table table-bordered table-hover"
                   id="withdrawal"
                 >
-                  <thead>
+                  <thead class="text-center">
                     <tr>
                       <th>ID</th>
                       <th>NGÀY</th>
-                      <th>TỔNG CỘNG</th>
-                      <th>PHƯƠNG THỨC RÚT TIỀN</th>
-                      <th>TRẠNG THÁI</th>
-                      <th>MỔ TẢ</th>
-                      <th>TIỀN TỆ</th>
-                      <th>HÀNH ĐỘNG</th>
+                      <th>THỜI GIAN</th>
+                      <th>TÀI KHOẢN</th>
+                      <th>PHƯƠNG THỨC</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>0</td>
-                      <td>NGÀY</td>
-                      <td>TỔNG CỘNG</td>
-                      <td>PHƯƠNG THỨC RÚT TIỀN</td>
-                      <td>TRẠNG THÁI</td>
-                      <td>MỔ TẢ</td>
-                      <td>TIỀN TỆ</td>
-                      <td>HÀNH ĐỘNG</td>
+                    <tr v-for="(item, index) in withdrawalHistory" :key="index">
+                      <td class="text-center">{{ index + 1 }}</td>
+                      <td class="text-center">
+                        {{ formatDate(item.updated_at) }}
+                      </td>
+                      <td class="text-center">
+                        {{ formatTime(item.updated_at) }}
+                      </td>
+                      <td class="text-center">
+                        <span v-if="item.method == 'deposit'">+</span>
+                        <span v-if="item.method == 'voucher' || item.method == 'task'">- </span
+                        >{{ formatMoney(item.amount) }}₫
+                      </td>
+                      <td>
+                        <span v-if="item.method == 'deposit'">- Nạp tiền</span>
+                        <span v-if="item.method == 'voucher' || item.method == 'task'">- Tạo {{ item.method }}</span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <!-- bd -->
             </div>
-            <!-- bd -->
           </div>
-          <!-- bd -->
         </div>
-        <!-- /row -->
       </div>
-      <!-- Container closed -->
     </div>
   </div>
 </template>
@@ -139,36 +141,28 @@
 export default {
   data() {
     return {
-      info: {},
-      status: Boolean,
-      message: null,
-      lastBanlance: Number,
-      totalDeposit: Number,
-      totalWithdraw: Number,
-      totalWithdrawPending: Number,
-      totalWithdrawSuccess: Number,
+      withdrawalHistory: [],
+      balance: [],
     };
   },
   mounted() {
-    this.$axios
-      .get("http://192.168.100.11:3000/api/money/history", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data[0]);
-        this.info = response.data;
-        this.status = response.data.status;
-        this.lastBanlance = response.data.data[0].dataBalance.lastBalance;
-        this.totalDeposit = response.data.data[0].dataBalance.totalDeposit;
-        this.totalWithdraw = response.data.data[0].dataBalance.totalWithdraw;
-        this.totalWithdrawPending =
-          response.data.data[0].dataBalance.totalWithdrawPending;
-        this.totalWithdrawSuccess =
-          response.data.data[0].dataBalance.totalWithdrawSuccess;
+    this.CallAPI("get", "money/v2/history", {}, (response) => {
+        this.withdrawalHistory = response.data.data;
       });
+    this.CallAPI("get", "money/v2/balance", {}, (response) => {
+        this.balance = response.data.data[0].balance;
+      });
+  },
+  methods: {
+    formatDate(date) {
+      return new Date(date).toLocaleDateString();
+    },
+    formatTime(date) {
+      return new Date(date).toLocaleTimeString();
+    },
+    formatMoney(value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
 };
 </script>

@@ -108,7 +108,7 @@
                     placeholder="Nhập lại mật khẩu"
                   />
                 </div>
-                
+
                 <div class="form-group">
                   <div class="icon">
                     <svg
@@ -162,7 +162,12 @@
                   <li v-for="error in errors" :key="error">{{ error }}</li>
                 </ul>
                 <div class="form-check">
-                  <input type="checkbox" v-model="check" class="form-check-input" id="check" />
+                  <input
+                    type="checkbox"
+                    v-model="check"
+                    class="form-check-input"
+                    id="check"
+                  />
                   <label class="form-check-label" for="check">
                     Đồng ý với tất cả
                     <a href="#">Chính sách</a> của chúng tôi
@@ -176,9 +181,14 @@
             <div class="col-xl-6">
               <div class="img">
                 <figure>
-                  <img src="../assets/vendor/img/signup-image.jpg" alt="sing up image" />
+                  <img
+                    src="../assets/vendor/img/signup-image.jpg"
+                    alt="sing up image"
+                  />
                 </figure>
-                <router-link class tag="a" to="/login">Đăng nhập ngay</router-link>
+                <router-link class tag="a" to="/login"
+                  >Đăng nhập ngay</router-link
+                >
               </div>
             </div>
           </div>
@@ -239,29 +249,18 @@ export default {
         this.errors.push("Trường điều khoản thỏa thuận là bắt buộc");
         return;
       }
-      this.$axios
-        .post("http://192.168.60.69:3000/api/user/register", {
+      this.CallAPI(
+        "post",
+        "user/register",
+        {
           display_name: this.username,
           email: this.email,
           gender: this.gender,
           password: this.password,
           phone: this.phone,
-        })
-        .then((response) => {
-          this.$toast.success("Đăng kí thành công !", {
-            position: "top-right",
-            timeout: 5000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
+        },
+        (response) => {
+          this.$toast.success("Đăng kí thành công !");
           this.username = "";
           this.email = "";
           this.gender = "";
@@ -269,11 +268,13 @@ export default {
           this.confirm_password = "";
           this.phone = "";
           this.check = false;
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
+          console.log(error.response);
           this.errors.push("Email đã tồn tại");
           return;
-        });
+        }
+      );
     },
     validEmail: function (email) {
       const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

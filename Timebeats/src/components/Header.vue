@@ -46,7 +46,7 @@
                   <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                 </svg>
                 <span v-if="notify_no_read == 0" class="pulse"></span>
-                <span v-else id="count_notify">{{notify_no_read}}</span>
+                <span v-else id="count_notify">{{ notify_no_read }}</span>
               </a>
               <div
                 class="dropdown-menu"
@@ -58,16 +58,39 @@
                     <h6 class="dropdown-title mb-1 tx-15 font-weight-semibold">
                       Thông báo
                     </h6>
-                    <span class="badge badge-pill ml-auto my-auto float-right">
+                    <span
+                      class="badge badge-pill ml-auto my-auto float-right read-all"
+                      @click="readAll"
+                    >
                       Đánh dấu tất cả đã đọc
                     </span>
                   </div>
                 </div>
                 <div class="dropdown-body" data-spy="scroll" data-offset="0">
-                  <p v-for="(item, index) in notify" :key="index">
-                    <i class="far fa-comment-dots"></i>
-                    <span>{{ item }}</span>
-                  </p>
+                  <span v-for="(item, index) in notify" :key="index">
+                    <p
+                      @click="readNotify(item._id, item.type_key)"
+                      v-if="item.is_readed"
+                      style="background: #fff"
+                    >
+                      <i class="far fa-comment-dots"></i>
+                      <span>{{ item.title.slice(0, 29) }}...</span><br />
+                      <span style="padding-left: 44px"
+                        >{{ item.content.slice(0, 29) }}...</span
+                      >
+                    </p>
+                    <p
+                      @click="readNotify(item._id, item.type_key)"
+                      v-if="!item.is_readed"
+                      style="background: #f6f6fb"
+                    >
+                      <i class="far fa-comment-dots"></i>
+                      <span>{{ item.title.slice(0, 29) }}...</span><br />
+                      <span style="padding-left: 44px"
+                        >{{ item.content.slice(0, 29) }}...</span
+                      >
+                    </p>
+                  </span>
                   <p v-if="!notify[0]" class="noNotify">
                     Không có thông báo nào
                   </p>
@@ -89,14 +112,6 @@
               >
                 <span><img alt :src="avatar" /> {{ name }}</span>
               </a>
-              <!-- <div class="dropdown-menu" id="menu-sub" aria-labelledby="dropdownUser">
-                <router-link tag="a" class="dropdown-item" to="/profile"
-                  >Thông tin cá nhân</router-link
-                >
-                <a class="dropdown-item logoutSysAndETS" @click="logOut"
-                  >Đăng xuất</a
-                >
-              </div> -->
             </div>
           </div>
         </div>
@@ -138,11 +153,11 @@
       </div>
     </div>
     <div class="mobile-menu" id="mobile-menu">
-        <ul>
-          <li>
-            <router-link tag="a" to="/Daboard"></router-link>
-          </li>
-        </ul>
+      <ul>
+        <li>
+          <router-link tag="a" to="/Daboard"></router-link>
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -173,7 +188,7 @@ export default {
         {
           id: "logout",
           content: " Cài đặt",
-          link: "/#",
+          link: "",
           icon: "fas fa-sliders-h",
           subIcon: "fas fa-angle-down",
           sub: [{ content: "Thông tin cá nhân", link: "/profile" }],
@@ -185,9 +200,7 @@ export default {
   },
   methods: {
     logOut() {
-      localStorage.removeItem("LoggedUser");
-      localStorage.removeItem("vuex");
-      localStorage.removeItem("user");
+      localStorage.clear();
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },
@@ -196,23 +209,61 @@ export default {
       copyText.select();
       copyText.setSelectionRange(0, 99999);
       document.execCommand("copy");
-      this.$toast.success("Copy thành công!", {
-        position: "top-right",
-        timeout: 3000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.85,
-        showCloseButtonOnHover: true,
-        hideProgressBar: false,
-        closeButton: "button",
-        icon: true,
-        rtl: false,
+      this.$toast.success("Copy thành công!");
+    },
+    readNotify(id, type_key) {
+      this.$store.dispatch("setIdNotify", id);
+      this.$store.dispatch("setTypeKey", type_key);
+      this.CallAPI("post", "notify/read", { notify_id: id }, (response) => {
+        //get count notify is not readed
+        this.CallAPI("get", "notify/count-no-read", {}, (response) => {
+          this.notify_no_read = response.data.data[0].amount_no_red;
+        });
+        //get notify list
+        this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
+          this.notify = response.data.data;
+        });
       });
+      for (let item of this.notify) {
+        if (item._id == id) {
+          if (item.type == "normal") {
+            this.$router.push("/detail-notify").catch((error) => {});
+            this.$root.$emit("getDetailNotify", id);
+          }
+          if (item.type == "new_task") {
+            this.$router.push("/detail-task").catch((error) => {});
+            this.$root.$emit("getDetailTask", type_key);
+          }
+        }
+      }
+    },
+    readAll() {
+      for (let item of this.notify) {
+        this.CallAPI(
+          "post",
+          "notify/read",
+          { notify_id: item._id },
+          (response) => {
+            this.CallAPI("get", "notify/count-no-read", {}, (response) => {
+              this.notify_no_read = response.data.data[0].amount_no_red;
+              this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
+                this.notify = response.data.data;
+              });
+            });
+          }
+        );
+      }
     },
   },
   mounted() {
+    //get api list notify
+    this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
+      this.notify = response.data.data;
+    });
+    //get notify no read
+    this.CallAPI("get", "notify/count-no-read", {}, (response) => {
+      this.notify_no_read = response.data.data[0].amount_no_red;
+    });
     //get information when login with google
     if (this.$store.getters.getLoginUserInfo) {
       if (this.$store.getters.getLoginUserInfo.google.rt) {
@@ -224,28 +275,6 @@ export default {
         this.name = this.$store.getters.getLoginUserInfo.google.nt.Ad;
       }
     }
-    //get api list notify
-    this.$axios
-      .get("http://192.168.100.11:3000/api/notify?limit=10&page=1", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.notify = response.data.data;
-      });
-    //get notify no read
-    this.$axios
-      .get("http://192.168.100.11:3000/api/notify/count-no-read", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.notify_no_read = response.data.data[0].amount_no_red;
-      });
   },
 };
 </script>
@@ -335,14 +364,14 @@ export default {
   margin-bottom: 0;
   cursor: pointer;
 }
-.dropdown-body p:not(:last-child) {
+.dropdown-body span:not(:last-child) p {
   border-bottom: 1px solid #dce1ef;
 }
 .dropdown-body p span {
   font-weight: 500;
 }
 .dropdown-body p:hover {
-  background: #f6f6fb;
+  background: #f6f6fb !important;
   transition: 100ms all ease;
 }
 .main-header-notification .dropdown-menu {
@@ -365,23 +394,27 @@ export default {
   border-top: none;
 }
 #count_notify {
-    position: absolute;
-    z-index: 999;
-    right: 5px;
-    font-size: 10px;
-    background: #fa3e3e;
-    padding: 5px;
-    height: 18px;
-    line-height: 0.5;
-    color: #fff;
-    border-radius: 2px;
-    display: block;
-    top: 0;
+  position: absolute;
+  z-index: 999;
+  right: 5px;
+  font-size: 10px;
+  background: #fa3e3e;
+  padding: 5px;
+  height: 18px;
+  line-height: 0.5;
+  color: #fff;
+  border-radius: 2px;
+  display: block;
+  top: 0;
 }
 .header-icon-svgs {
-    width: 24px;
-    height: 24px;
-    color: #5b6e88;
+  width: 24px;
+  height: 24px;
+  color: #5b6e88;
+}
+.read-all:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 @media (min-width: 576px) {
   .main-header-notification.show > a::after {

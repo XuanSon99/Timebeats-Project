@@ -20,7 +20,7 @@
                 <div class="tabs-menu">
                   <!-- Tabs -->
                   <ul class="nav nav-tabs profile navtab-custom panel-tabs">
-                    <li class>
+                    <li>
                       <a
                         href="#profile"
                         class="active"
@@ -33,7 +33,7 @@
                         <span class="hidden-xs">THÔNG TIN CÁ NHÂN</span>
                       </a>
                     </li>
-                    <li class>
+                    <li>
                       <a
                         href="#accuracy"
                         data-toggle="tab"
@@ -46,17 +46,28 @@
                         <span class="hidden-xs">XÁC THỰC HAI LỚP</span>
                       </a>
                     </li>
-                    <li class>
+                    <li>
                       <a
                         href="#settings"
                         data-toggle="tab"
                         aria-expanded="false"
-                        class
                       >
                         <span class="visible-xs">
                           <i class="fas fa-key"></i>
                         </span>
                         <span class="hidden-xs">ĐỔI MẬT KHẨU</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#creator"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
+                        <span class="visible-xs">
+                          <i class="fas fa-key"></i>
+                        </span>
+                        <span class="hidden-xs">YÊU CẦU CREATER</span>
                       </a>
                     </li>
                   </ul>
@@ -222,6 +233,7 @@
                           class="text-danger"
                           v-for="item in errors"
                           :key="item"
+                          style="text-align: left; display: block"
                         >
                           {{ item }}
                         </p>
@@ -284,7 +296,7 @@
                         </div>
                         <p
                           class="text-danger"
-                          v-for="item in errors"
+                          v-for="item in error2FA"
                           :key="item"
                         >
                           {{ item }}
@@ -367,6 +379,42 @@
                       </form>
                     </div>
                   </div>
+                  <div id="creator" class="tab-pane">
+                    <div class="mb-4 main-content-label">
+                      Yêu cầu
+                    </div>
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
+                      <form class="form-horizontal">
+                        <div class="form-group">
+                          <label
+                            class="main-content-label tx-12 tx-medium tx-gray-600" style="text-align: left; display: block"
+                            >Lý do</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="reason"
+                            required
+                          />
+                        </div>
+                        <p
+                          class="text-danger"
+                          v-for="item in errorCreator"
+                          :key="item"
+                          style="text-align: left; display: block"
+                        >
+                          {{ item }}
+                        </p>
+                        <div class="form-group mb-0 mt-3 justify-content-end">
+                          <button type="submit" class="btn btn-primary" @click="requestCreator">
+                            Gửi yêu cầu
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -426,61 +474,40 @@ export default {
       srcImg: {},
       concernSelected: [],
       checkPassword: [],
+      reason: "",
+      errorCreator: [],
+      error2FA: []
     };
   },
   mounted() {
     //Get profile
-    this.$axios
-      .get("http://192.168.100.11:3000/api/user/my-profile", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        console.log(response)
-        this.name = response.data.data[0].display_name;
-        this.email = response.data.data[0].email;
-        this.birthday = response.data.data[0].birthday;
-        this.avatar = response.data.data[0].avatar;
-        this.gender = response.data.data[0].gender;
-        this.phone = response.data.data[0].phone;
-        this.address = response.data.data[0].address;
-        this.taggingSelected = response.data.data[0].concern;
+    this.CallAPI("get", "user/my-profile", {}, (response) => {
+      this.name = response.data.data[0].display_name;
+      this.email = response.data.data[0].email;
+      this.birthday = response.data.data[0].birthday;
+      this.avatar = response.data.data[0].avatar;
+      this.gender = response.data.data[0].gender;
+      this.phone = response.data.data[0].phone;
+      this.address = response.data.data[0].address;
+      this.taggingSelected = response.data.data[0].concern;
 
-        if (this.gender == "male") {
-          this.gender_list[0].selected = true;
-        }
-        if (this.gender == "female") {
-          this.gender_list[1].selected = true;
-        }
-      });
-    //Get social network care list
-    this.$axios
-      .get("http://192.168.100.11:3000/api/areas-concern", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.taggingOptions = response.data.data[0];
-      });
-    //post
-    this.$axios
-      .get("http://192.168.100.11:3000/api/setting/2fa", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.is_verify = response.data.data[0].is_verify;
-        if (!this.is_verify) {
-          this.QR_Code = response.data.data[0].QRCode;
-          this.Key_Code = response.data.data[0].KeyCode;
-        }
-      });
+      if (this.gender == "male") {
+        this.gender_list[0].selected = true;
+      }
+      if (this.gender == "female") {
+        this.gender_list[1].selected = true;
+      }
+    });
+    this.CallAPI("get", "areas-concern", {}, (response) => {
+      this.taggingOptions = response.data.data[0];
+    });
+    this.CallAPI("get", "setting/2fa", {}, (response) => {
+      this.is_verify = response.data.data[0].is_verify;
+      if (!this.is_verify) {
+        this.QR_Code = response.data.data[0].QRCode;
+        this.Key_Code = response.data.data[0].KeyCode;
+      }
+    });
     //Get profile when login with google account
     if (this.$store.getters.getLoginUserInfo) {
       if (this.$store.getters.getLoginUserInfo.google.rt) {
@@ -513,45 +540,23 @@ export default {
       this.taggingSelected.push(tag);
     },
     checkVerify(e) {
-      this.$axios
-        .post(
-          "http://192.168.100.11:3000/api/setting/verify-2fa",
-          {
-            key_code: this.Key_Code,
-            verify_code: this.verify_code,
-          },
-          {
-            headers: {
-              Authorization:
-                this.$store.getters.id + " " + this.$store.getters.token,
-            },
-          }
-        )
-        .then((response) => {
-          this.$toast.success("Đổi mật khẩu thành công!", {
-            position: "top-right",
-            timeout: 5000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
+      e.preventDefault();
+      this.CallAPI(
+        "post",
+        "setting/verify-2fa",
+        { key_code: this.Key_Code, verify_code: this.verify_code },
+        (response) => {
+          this.$toast.success("Thành công!");
           location.reload();
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
           this.status = error.response.data.status;
           if (!this.status) {
-            this.errors.push("Mã xác thực không chính xác !");
+            this.error2FA.push("Mã xác thực không chính xác !");
             return false;
           }
-        });
-      e.preventDefault();
+        }
+      );
     },
     uploadImage(event) {
       this.srcImg = event.target.files[0];
@@ -579,8 +584,6 @@ export default {
         return;
       }
 
-      const URL = "http://192.168.100.11:3000/api/user/update-profile";
-
       for (let item of this.taggingSelected) {
         this.concernSelected.push(item._id);
       }
@@ -594,32 +597,9 @@ export default {
       data.append("phone", this.phone);
       data.append("concern", JSON.stringify(this.concernSelected));
 
-      let config = {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      };
-
-      this.$axios
-        .put(URL, data, config)
-        .then((response) => {
-          this.$toast.info("Cập nhật thông tin thành công !", {
-            position: "top-right",
-            timeout: 5232,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.82,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
-        })
-        .catch(() => {});
+      this.CallAPI("put", "user/update-profile", data, (response) => {
+        this.$toast.success("Cập nhật thông tin thành công !");
+      });
     },
     validEmail(email) {
       const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -642,41 +622,21 @@ export default {
       this.user = JSON.parse(localStorage.getItem("LoggedUser")) || [];
       this.wrongUpdate = [];
       e.preventDefault();
-      this.$axios
-        .put(
-          "http://192.168.100.11:3000/api/user/change-password",
-          {
-            current_password: this.old_password,
-            new_password: this.new_password,
-            re_new_password: this.confirm_password,
-          },
-          {
-            headers: {
-              Authorization:
-                this.$store.getters.id + " " + this.$store.getters.token,
-            },
-          }
-        )
-        .then((response) => {
-          this.$toast.success("Đổi mật khẩu thành công!", {
-            position: "top-right",
-            timeout: 5000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
+      this.CallAPI(
+        "put",
+        "user/change-password",
+        {
+          current_password: this.old_password,
+          new_password: this.new_password,
+          re_new_password: this.confirm_password,
+        },
+        (response) => {
+          this.$toast.success("Đổi mật khẩu thành công!");
           this.old_password = null;
           this.new_password = null;
           this.confirm_password = null;
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
           this.statusCode = error.response.data.statusCode;
           if (this.statusCode == 405) {
             this.wrongUpdate.push("Mật khẩu chưa chính xác !");
@@ -699,15 +659,32 @@ export default {
               return;
             }
           }
-        });
+        }
+      );
     },
+    requestCreator(e){
+      e.preventDefault()
+      this.errorCreator = []
+      if(!this.reason){
+        this.errorCreator.push("Vui lòng nhập lý do")
+        return;
+      }
+      this.CallAPI("post", "setting/request-to-creator", {reason: this.reason}, (response) => {
+        this.$toast.success("Gửi yêu cầu thành công")
+      }, (error) => {
+        if(error.response.data.error == "have previously requested!"){
+          this.errorCreator.push("Yêu cầu đã được gửi")
+        }
+      })
+    }
   },
 };
 </script>
 
 <style>
 #profile .card,
-#settings .card {
+#settings .card,
+#creator .card {
   text-align: center;
 }
 .btn-primary:hover {
@@ -758,5 +735,9 @@ export default {
 }
 .form-control:disabled {
   background: none;
+}
+#creator .card {
+  width: 52%;
+  margin: 0 auto;
 }
 </style>

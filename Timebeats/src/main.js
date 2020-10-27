@@ -39,6 +39,59 @@ Vue.prototype.$axios = axios
 Vue.use(Vuex);
 Vue.use(Toasted);
 
+Vue.prototype.$urlAPI = 'http://192.168.100.11:3000/api/'
+Vue.prototype.$config = {
+  headers: {
+    Authorization:
+      localStorage.getItem("token")
+  },
+}
+
+Vue.prototype.CallAPI = function (method, url, data, callResponse, callError) {
+  switch (method) {
+    case "post":
+      axios.post(this.$urlAPI + url, data, this.$config).then((response) => {
+        if (response.data.statusCode === 401) {
+          localStorage.clear();
+          location.reload();
+        }
+        callResponse(response)
+      }).catch((error) => callError(error))
+      break;
+    case "get":
+      axios.get(this.$urlAPI + url, this.$config)
+        .then((response) => {
+          if (response.data.statusCode === 401) {
+            localStorage.clear();
+            location.reload();
+          }
+          callResponse(response)
+        })
+        .catch((error) => callError(error))
+      break;
+    case "put":
+      axios.put(this.$urlAPI + url, data, this.$config).then((response) => {
+        if (response.data.statusCode === 401) {
+          localStorage.clear();
+          location.reload();
+        }
+        callResponse(response)
+      })
+        .catch((error) => callError(error))
+      break;
+    case "delete":
+      axios.delete(this.$urlAPI + url, this.$config, data).then((response) => {
+        if (response.data.statusCode === 401) {
+          localStorage.clear();
+          location.reload();
+        }
+        callResponse(response)
+      })
+        .catch((error) => callError(error))
+      break;
+  }
+}
+
 const app = new Vue({
   el: '#app',
   axios,

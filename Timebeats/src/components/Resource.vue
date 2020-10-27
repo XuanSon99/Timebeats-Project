@@ -20,7 +20,7 @@
                 <div class="tabs-menu">
                   <!-- Tabs -->
                   <ul class="nav nav-tabs profile navtab-custom panel-tabs">
-                    <li class>
+                    <li>
                       <a
                         href="#resource"
                         class="active"
@@ -31,6 +31,18 @@
                           <i class="fas fa-code"></i>
                         </span>
                         <span class="hidden-xs">QUẢN LÝ TÀI NGUYÊN</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#downExtension"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
+                        <span class="visible-xs">
+                          <i class="fas fa-cloud-download-alt"></i>
+                        </span>
+                        <span class="hidden-xs">TẢI VỀ</span>
                       </a>
                     </li>
                   </ul>
@@ -81,11 +93,11 @@
                     </div>
                     <div
                       class="table-responsive"
-                      v-for="(item, index) in displayedPosts"
+                      v-for="(item, index) in data"
                       :key="index"
                     >
                       <table
-                        class="table text-md-nowrap data-table table-bordered table-hover"
+                        class="table text-md-nowrap data-table table-bordered table-hover resource-table"
                         id="statistic"
                       >
                         <thead>
@@ -93,25 +105,26 @@
                             <th class="wd-10p border-bottom-0">STT</th>
                             <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
                             <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
-                            <th class="wd-10p border-bottom-0">
-                              THÔNG TIN TÀI KHOẢN
-                            </th>
+                            <th class="wd-10p border-bottom-0">TÀI KHOẢN</th>
                             <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
                             <th class="wd-10p border-bottom-0">CÔNG CỤ</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-if="selected == item.name || selected == 'all'">
+                          <tr v-if="selected == item.social_code || selected == 'all'">
                             <td scope="row">{{ index + 1 }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.status }}</td>
-                            <td v-html="item.user"></td>
-                            <td>{{ item.date }}</td>
+                            <td>{{ item.social_code }}</td>
+                            <td><span v-if="item.status = 'available'">Sẵn sàng</span></td>
+                            <td>
+                              <img :src="item.account_profile.avatarUri[0]" alt="" class="avatar-social">
+                              <span class="name-social">{{item.account_profile.uniqueId}}</span>
+                            </td>
+                            <td>{{ formatDate(item.updated_at) }}</td>
                             <td>
                               <span class="tag tag-danger tag-center">
                                 <a
                                   style="color: white; cursor: pointer"
-                                  @click="deleteAccountSocial(item.id)"
+                                  @click="deleteAccountSocial(item._id)"
                                   >Xóa</a
                                 >
                               </span>
@@ -122,7 +135,7 @@
                       <nav aria-label="Page navigation example">
                         <ul
                           class="pagination"
-                          v-if="selected == item.name || selected == 'all'"
+                          v-if="selected == item.social_code || selected == 'all'"
                         >
                           <li class="page-item previous">
                             <button
@@ -170,9 +183,7 @@
                           <th class="wd-10p border-bottom-0">STT</th>
                           <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
                           <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
-                          <th class="wd-10p border-bottom-0">
-                            THÔNG TIN TÀI KHOẢN
-                          </th>
+                          <th class="wd-10p border-bottom-0">TÀI KHOẢN</th>
                           <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
                         </tr>
                         <tr v-for="(item, index) in posts" :key="index">
@@ -180,10 +191,13 @@
                           <td>{{ item.name }}</td>
                           <td>{{ item.status }}</td>
                           <td v-html="item.user"></td>
-                          <td>{{ item.date }}</td>
+                          <td>{{ formatDate(item.date) }}</td>
                         </tr>
                       </table>
                     </div>
+                  </div>
+                  <div class="tab-pane" id="downExtension">
+                    <div class="mb-4 main-content-label">CÀI ĐẶT EXTENSION</div>
                   </div>
                 </div>
                 <!-- Modal -->
@@ -291,28 +305,14 @@ export default {
     };
   },
   beforeMount() {
-    this.$axios
-      .get("http://192.168.100.11:3000/api/social/list-account", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.account = response.data.data;
-        this.data = response.data.data;
-      });
-    this.$axios
-      .get("http://192.168.100.11:3000/api/social/list", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.info = response.data.data;
-        this.SetStorage();
-      });
+    this.CallAPI("get", "social/list-account", {}, (response) => {
+      this.account = response.data.data;
+      this.data = response.data.data;
+    });
+    this.CallAPI("get", "social/list", {}, (response) => {
+      this.info = response.data.data;
+      this.SetStorage();
+    });
   },
   methods: {
     getPosts() {
@@ -350,53 +350,17 @@ export default {
       localStorage.setItem("Data", jsonListAccount);
     },
     deleteAccountSocial(id) {
-      this.$axios
-        .delete(`http://192.168.100.11:3000/api/social/delete-account/${id}`, {
-          headers: {
-            Authorization:
-              this.$store.getters.id + " " + this.$store.getters.token,
-          },
-        })
-        .then((response) => {
-          this.$toast.success("Xóa thành công !", {
-            position: "top-right",
-            timeout: 5000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.85,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
-        })
-        .catch((error, response) => {
-          this.$toast.error("Không được phép !", {
-            position: "top-right",
-            timeout: 5000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
-        });
-      // var txt;
-      // var person = prompt("Nhập mật khẩu hiện tại của bạn:", "");
-      // if (person == null || person == "") {
-      //   txt = "User cancelled the prompt.";
-      // } else {
-      //   txt = "Hello " + person + "! How are you today?";
-      // }
-      // alert(txt);
+      this.CallAPI(
+        "delete",
+        `social/delete-account/${id}`,
+        {},
+        (response) => {
+          this.$toast.success("Xóa thành công !");
+        },
+        (error) => {
+          this.$toast.error("Không được phép !");
+        }
+      );
     },
     addAccountSocial() {
       var addTiktok = new toktok();
@@ -419,10 +383,12 @@ export default {
       printWindow.print();
       printWindow.close();
     },
+    formatDate(value){
+      return new Date(value).toLocaleDateString()
+    },
   },
   computed: {
     displayedPosts() {
-      // console.log(this.paginate(this.posts))
       return this.paginate(this.posts);
     },
   },
@@ -539,5 +505,21 @@ button.page-link {
 }
 #download-table {
   display: none;
+}
+.avatar-social{
+  max-width: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.name-social{
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.resource-table th{
+  text-align: center;
+}
+.resource-table tbody td{
+  line-height: 35px;
+  text-align: center;
 }
 </style>

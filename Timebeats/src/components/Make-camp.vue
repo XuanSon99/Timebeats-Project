@@ -14,364 +14,25 @@
         </div>
         <!-- breadcrumb -->
 
-        <!-- row opened -->
         <div class="row row-sm">
           <div class="col-lg-12 col-md-12">
             <div class="card" id="basic-alert">
               <div class="text-wrap">
                 <div class="example">
-                  <div class="panel panel-primary tabs-style-1">
+                  <div class="panel panel-primary tabs-style-1" v-if="isActive">
                     <div class="tab-menu-heading">
                       <div class="tabs-menu1">
                         <!-- Tabs -->
                         <ul class="nav panel-tabs main-nav-line">
                           <li class="nav-item">
                             <a href="#" class="nav-link active">
-                              Lịch Sử
-                              Chiến Dịch
+                              Lịch Sử Chiến Dịch
                             </a>
                           </li>
                           <li class="nav-item">
-                            <button
-                              aria-expanded="false"
-                              aria-haspopup="true"
-                              class="btn ripple btn-primary"
-                              id
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#modal-make-camp"
-                            >
-                              + Tạo
-                              Chiến Dịch
-                              <i class></i>
+                            <button @click="toMakeCamp" class="btn btn-success">
+                              + Tạo Chiến Dịch
                             </button>
-                            <!-- Modal -->
-                            <div
-                              class="modal fade"
-                              id="modal-make-camp"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id>Tạo chiến dịch</h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body" style="font-size: 14px;">
-                                    <form>
-                                      <div class="form-group">
-                                        <label for="link">Chọn nền tảng</label>
-                                        <select
-                                          class="form-control"
-                                          v-model="social"
-                                          style="margin-bottom: 10px;"
-                                        >
-                                          <option disabled value>Chọn mạng xã hội cần chạy</option>
-                                          <option
-                                            v-for="list in socialList"
-                                            :key="list._id"
-                                          >{{list.name}}</option>
-                                        </select>
-                                      </div>
-
-                                      <div
-                                        class="socialList"
-                                        v-for="list in socialList"
-                                        :key="list._id"
-                                      >
-                                        <div class="card" v-if="social == list.name">
-                                          <div class="card-body">
-                                            <h4 class="card-title append-social-function">
-                                              Chức năng của
-                                              <b class="social_name">{{list.name}}</b>
-                                            </h4>
-                                            <div class="area_functoin_social">
-                                              <div
-                                                class="custom-control custom-checkbox"
-                                                v-for="func in list.function"
-                                                :key="func.key"
-                                              >
-                                                <input
-                                                  type="checkbox"
-                                                  :id="func.key"
-                                                  class="custom-control-input"
-                                                  v-model="checkedFunction"
-                                                  :value="func.key"
-                                                  @change="changeZui"
-                                                />
-                                                <label
-                                                  class="custom-control-label"
-                                                  :for="func.key"
-                                                >{{func.key}}</label>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                        <label for="link">
-                                          Nhập
-                                          Link
-                                        </label>
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          v-model="link"
-                                          id="link"
-                                        />
-                                        <p
-                                          class="alert text-danger"
-                                          style="background: #fef1f3; margin-bottom: 10px;"
-                                        >
-                                          <b>
-                                            - Lưu ý: Hiện tại tính năng này
-                                            đang
-                                            thử nghiệm nên chưa ổn đinh, có
-                                            thể
-                                            lên không đủ hoặc lên chậm, vui
-                                            lòng
-                                            buff dư thêm 30 - 50% trên tổng
-                                            số
-                                            lượng để tránh tụt hoặc chọn gói
-                                            bảo
-                                            hành để được hoàn tiền nếu
-                                            tụt.
-                                          </b>
-                                          <br />
-                                          <span class="text-body">
-                                            Mfb
-                                            <b>KHÔNG BẢO HÀNH</b> dịch
-                                            vụ này, vui
-                                            lòng cài đặt số lượng nhỏ để
-                                            test
-                                            trước, tránh không tăng được mất
-                                            tiền !
-                                          </span>
-                                        </p>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="number">
-                                          Số Lượng
-                                          Cần Tăng
-                                        </label>
-                                        <input
-                                          type="number"
-                                          class="form-control"
-                                          id="number"
-                                          min="0"
-                                          value="100"
-                                          v-model="amount"
-                                        />
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="time">
-                                          Thời
-                                          Gian Xem
-                                        </label>
-                                        <select
-                                          name
-                                          id="time"
-                                          class="form-control"
-                                          style="margin-bottom: 10px;"
-                                        >
-                                          <option value="1" style="display: none;">1 Giây</option>
-                                          <option value="2" style="display: none;">2 Giây</option>
-                                          <option value="3" style="display: none;">3 Giây</option>
-                                          <option value="4" style="display: none;">4 Giây</option>
-                                          <option value="5">5 Giây</option>
-                                          <option value="6">6 Giây</option>
-                                          <option value="7">7 Giây</option>
-                                          <option value="8">8 Giây</option>
-                                          <option value="9">9 Giây</option>
-                                          <option value="10">10 Giây</option>
-                                          <option value="11">11 Giây</option>
-                                          <option value="12">12 Giây</option>
-                                          <option value="13">13 Giây</option>
-                                          <option value="14">14 Giây</option>
-                                          <option value="15">15 Giây</option>
-                                          <option value="16">16 Giây</option>
-                                          <option value="17">17 Giây</option>
-                                          <option value="18">18 Giây</option>
-                                          <option value="19">19 Giây</option>
-                                          <option value="20">20 Giây</option>
-                                          <option value="21">21 Giây</option>
-                                          <option value="22">22 Giây</option>
-                                          <option value="23">23 Giây</option>
-                                          <option value="24">24 Giây</option>
-                                          <option value="25">25 Giây</option>
-                                          <option value="26">26 Giây</option>
-                                          <option value="27">27 Giây</option>
-                                          <option value="28">28 Giây</option>
-                                          <option value="29">29 Giây</option>
-                                          <option value="30">30 Giây</option>
-                                          <option value="31">31 Giây</option>
-                                          <option value="32">32 Giây</option>
-                                          <option value="33">33 Giây</option>
-                                          <option value="34">34 Giây</option>
-                                          <option value="35">35 Giây</option>
-                                          <option value="36">36 Giây</option>
-                                          <option value="37">37 Giây</option>
-                                          <option value="38">38 Giây</option>
-                                          <option value="39">39 Giây</option>
-                                          <option value="40">40 Giây</option>
-                                          <option value="41">41 Giây</option>
-                                          <option value="42">42 Giây</option>
-                                          <option value="43">43 Giây</option>
-                                          <option value="44">44 Giây</option>
-                                          <option value="45">45 Giây</option>
-                                          <option value="46">46 Giây</option>
-                                          <option value="47">47 Giây</option>
-                                          <option value="48">48 Giây</option>
-                                          <option value="49">49 Giây</option>
-                                          <option value="50">50 Giây</option>
-                                          <option value="51">51 Giây</option>
-                                          <option value="52">52 Giây</option>
-                                          <option value="53">53 Giây</option>
-                                          <option value="54">54 Giây</option>
-                                          <option value="55">55 Giây</option>
-                                          <option value="56">56 Giây</option>
-                                          <option value="57">57 Giây</option>
-                                          <option value="58">58 Giây</option>
-                                          <option value="59">59 Giây</option>
-                                          <option value="60">60 Giây</option>
-                                          <option value="61">61 Giây</option>
-                                          <option value="62">62 Giây</option>
-                                          <option value="63">63 Giây</option>
-                                          <option value="64">64 Giây</option>
-                                          <option value="65">65 Giây</option>
-                                          <option value="66">66 Giây</option>
-                                          <option value="67">67 Giây</option>
-                                          <option value="68">68 Giây</option>
-                                          <option value="69">69 Giây</option>
-                                          <option value="70">70 Giây</option>
-                                          <option value="71">71 Giây</option>
-                                          <option value="72">72 Giây</option>
-                                          <option value="73">73 Giây</option>
-                                          <option value="74">74 Giây</option>
-                                          <option value="75">75 Giây</option>
-                                          <option value="76">76 Giây</option>
-                                          <option value="77">77 Giây</option>
-                                          <option value="78">78 Giây</option>
-                                          <option value="79">79 Giây</option>
-                                          <option value="80">80 Giây</option>
-                                          <option value="81">81 Giây</option>
-                                          <option value="82">82 Giây</option>
-                                          <option value="83">83 Giây</option>
-                                          <option value="84">84 Giây</option>
-                                          <option value="85">85 Giây</option>
-                                          <option value="86">86 Giây</option>
-                                          <option value="87">87 Giây</option>
-                                          <option value="88">88 Giây</option>
-                                          <option value="89">89 Giây</option>
-                                          <option value="90">90 Giây</option>
-                                          <option value="91">91 Giây</option>
-                                          <option value="92">92 Giây</option>
-                                          <option value="93">93 Giây</option>
-                                          <option value="94">94 Giây</option>
-                                          <option value="95">95 Giây</option>
-                                          <option value="96">96 Giây</option>
-                                          <option value="97">97 Giây</option>
-                                          <option value="98">98 Giây</option>
-                                          <option value="99">99 Giây</option>
-                                          <option value="100">100 Giây</option>
-                                          <option value="101">101 Giây</option>
-                                          <option value="102">102 Giây</option>
-                                          <option value="103">103 Giây</option>
-                                          <option value="104">104 Giây</option>
-                                          <option value="105">105 Giây</option>
-                                          <option value="106">106 Giây</option>
-                                          <option value="107">107 Giây</option>
-                                          <option value="108">108 Giây</option>
-                                          <option value="109">109 Giây</option>
-                                          <option value="110">110 Giây</option>
-                                          <option value="111">111 Giây</option>
-                                          <option value="112">112 Giây</option>
-                                          <option value="113">113 Giây</option>
-                                          <option value="114">114 Giây</option>
-                                          <option value="115">115 Giây</option>
-                                          <option value="116">116 Giây</option>
-                                          <option value="117">117 Giây</option>
-                                          <option value="118">118 Giây</option>
-                                          <option value="119">119 Giây</option>
-                                          <option value="120">120 Giây</option>
-                                        </select>
-                                        <p class="alert text-danger" style="background: #fef1f3">
-                                          <b>
-                                            Giá
-                                            tiền
-                                            1 view = 1 mCoin x (thời
-                                            gian xem video)
-                                          </b>
-                                          <br />
-                                          <span class="text-body">
-                                            Mẹo nhỏ: Thời gian xem càng dài
-                                            thì
-                                            View càng chất lượng, vui lòng
-                                            tùy
-                                            chỉnh cho phù hợp với mục đích
-                                            của
-                                            bạn!
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </form>
-                                    <div class="text-danger note">
-                                      <b>
-                                        Lưu ý
-                                        <br />- Ngiêm cấm Buff các ID Seeding có nội
-                                        dung
-                                        vi phạm pháp luật, chính trị, đồ trụy...
-                                        Nếu
-                                        cố tình buff bạn sẽ bị trừ hết tiền và
-                                        band
-                                        khỏi hệ thống mfb vĩnh viễn, và phải
-                                        chịu
-                                        hoàn toàn trách nhiệm trước pháp luật.
-                                        <br />
-                                      </b>
-                                      - Hệ thống sử dụng 99% tài khoản người VN,
-                                      fb thật để tương tác.
-                                      <br />- Thời gian làm việc (tăng seeding) và bảo
-                                      hành tính từ ngày bắt đầu cho đến ngày kết
-                                      thúc job, tối đa là 1 tuần
-                                      <br />- Hết thời gian của job đã order nếu không
-                                      đủ số lượng mfb sẽ tự động hoàn lại số tiền
-                                      seeding chưa tăng cho bạn trong vòng 1 đến 3
-                                      ngày
-                                      <br />- Vui lòng lấy đúng id bài viết, công khai
-                                      và check kỹ job tránh tạo nhầm, tính năng
-                                      đang trong giai đoạn thử nghiệm nên sẽ không
-                                      hoàn tiền nếu bạn tạo nhầm
-                                      <br />- Nhập id lỗi hoặc trong thời gian chạy die
-                                      id thì hệ thống không hoàn lại tiền.
-                                      <br />- Mỗi id có thể Buff tối đa 10 lần trên hệ
-                                      thống để tránh Spam, max 10k trong ngày
-                                      (hoặc hơn nếu order giá cao), trên 1k thời
-                                      gian lên chậm hơn trong vòng 7 ngày
-                                      <br />
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary"
-                                      style="padding: 9px 30px;"
-                                      @click="makeCampClick"
-                                    >Xác nhận</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
                           </li>
                         </ul>
                       </div>
@@ -381,79 +42,60 @@
                     >
                       <div class="row">
                         <div class="col-xl-12">
-                          <div class="table-responsive">
+                          <div class="table-responsive table-camp">
                             <table
                               class="table text-md-nowrap data-table table-bordered table-hover"
                               id="statistic"
                             >
                               <thead>
                                 <tr>
-                                  <th class="wd-5p border-bottom-0">STT</th>
-                                  <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
-                                  <th class="wd-55p border-bottom-0">NỘI DUNG NHIỆM VỤ</th>
-                                  <th class="wd-10p border-bottom-0">KINH PHÍ</th>
-                                  <th class="wd-10p border-bottom-0">SỐ LƯỢT</th>
-                                  <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
+                                  <th class="border-bottom-0">STT</th>
+                                  <th class="border-bottom-0">NỀN TẢNG</th>
+                                  <th class="border-bottom-0">
+                                    NỘI DUNG NHIỆM VỤ
+                                  </th>
+                                  <th class="border-bottom-0">KINH PHÍ</th>
+                                  <th class="border-bottom-0">SỐ LƯỢT</th>
+                                  <th class="border-bottom-0">TRẠNG THÁI</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>TikTok</td>
-                                  <td>Follow TikTok</td>
-                                  <td>10 $</td>
-                                  <td>999 Lượt</td>
-                                  <td>
-                                    <span class="tag tag-indigo tag-center">
-                                      <a style="color: white" href="#">Nhận</a>
-                                    </span>
+                                <tr
+                                  v-for="(item, index) in myTaskList"
+                                  :key="index"
+                                >
+                                  <th scope="row" @click="taskDetail(item._id)">
+                                    {{ index + 1 }}
+                                  </th>
+                                  <td @click="taskDetail(item._id)">
+                                    <span
+                                      v-for="(social, index) in socialList"
+                                      :key="index"
+                                      ><span
+                                        v-if="social._id == item.social_id"
+                                        >{{ social.name }}</span
+                                      ></span
+                                    >
                                   </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>TikTok</td>
-                                  <td>Follow TikTok</td>
-                                  <td>10 $</td>
-                                  <td>999 Lượt</td>
-                                  <td>
-                                    <span class="tag tag-indigo tag-center">
-                                      <a style="color: white" href="#">Nhận</a>
-                                    </span>
+                                  <td @click="taskDetail(item._id)">
+                                    <span
+                                      class="require"
+                                      v-for="(req, index) in item.require"
+                                      :key="index"
+                                      >{{ req.key }}</span
+                                    >
                                   </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>TikTok</td>
-                                  <td>Follow TikTok</td>
-                                  <td>10 $</td>
-                                  <td>999 Lượt</td>
-                                  <td>
-                                    <span class="tag tag-indigo tag-center">
-                                      <a style="color: white" href="#">Nhận</a>
-                                    </span>
+                                  <td @click="taskDetail(item._id)">
+                                    {{ item.total_price }} $
                                   </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>TikTok</td>
-                                  <td>Follow TikTok</td>
-                                  <td>10 $</td>
-                                  <td>999 Lượt</td>
-                                  <td>
-                                    <span class="tag tag-indigo tag-center">
-                                      <a style="color: white" href="#">Nhận</a>
-                                    </span>
+                                  <td @click="taskDetail(item._id)">
+                                    {{ item.amount }} Lượt
                                   </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>TikTok</td>
-                                  <td>Follow TikTok</td>
-                                  <td>10 $</td>
-                                  <td>999 Lượt</td>
                                   <td>
-                                    <span class="tag tag-indigo tag-center">
-                                      <a style="color: white" href="#">Nhận</a>
+                                    <span
+                                      class="tag tag-indigo tag-center edit-task"
+                                    >
+                                      <a class="text-white">Sửa</a>
                                     </span>
                                   </td>
                                 </tr>
@@ -464,24 +106,187 @@
                       </div>
                     </div>
                   </div>
+                  <div
+                    v-if="!isActive"
+                    class="make-camp card card-body pd-20 pd-md-40 border shadow-none"
+                  >
+                    <form>
+                      <div class="form-group">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Chọn nền tảng</label
+                        >
+                        <select
+                          class="form-control"
+                          v-model="social"
+                          style="margin-bottom: 10px"
+                        >
+                          <option disabled value>
+                            Chọn mạng xã hội cần chạy
+                          </option>
+                          <option v-for="list in socialList" :key="list._id">
+                            {{ list.code }}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div
+                        class="socialList"
+                        v-for="list in socialList"
+                        :key="list._id"
+                      >
+                        <div class="card" v-if="social == list.code">
+                          <div class="card-body">
+                            <h4 class="card-title append-social-function">
+                              Chức năng của
+                              <b class="social_name">{{ list.name }}</b>
+                            </h4>
+                            <div class="area_functoin_social">
+                              <div
+                                class="custom-control custom-checkbox"
+                                v-for="func in list.function"
+                                :key="func.key"
+                              >
+                                <input
+                                  type="checkbox"
+                                  :id="func.key"
+                                  class="custom-control-input"
+                                  v-model="checkedFunction"
+                                  :value="func.key"
+                                  @change="calculatedHandle"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  :for="func.key"
+                                  >{{ func.key }}
+                                  <span
+                                    v-for="item in requires"
+                                    :key="item.key"
+                                  >
+                                    <span
+                                      v-if="
+                                        item.key == func.key &&
+                                        item.option.total_price != 0
+                                      "
+                                    >
+                                      - Giá: {{ item.option.total_price }}
+                                    </span>
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Nhập link</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="link"
+                          id="link"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Số lượng</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="number"
+                          min="0"
+                          v-model="amount"
+                          @input="calculatedHandle"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Mô tả</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="description"
+                        />
+                      </div>
+                      <label
+                        class="main-content-label tx-12 tx-medium tx-gray-600"
+                        >Thời gian bắt đầu</label
+                      >
+                      <div class="form-group">
+                        <Datepicker
+                          v-model="start_date"
+                          class="birthday-box"
+                          :format="customFormatter"
+                          @closed="changeBirthday"
+                        ></Datepicker>
+                      </div>
+                      <label
+                        class="main-content-label tx-12 tx-medium tx-gray-600"
+                        >Lĩnh vực</label
+                      >
+                      <multiselect
+                        v-model="taggingSelected"
+                        tag-placeholder="Lĩnh vực quan tâm"
+                        placeholder="Lĩnh vực quan tâm"
+                        label="name"
+                        track-by="_id"
+                        :options="taggingOptions"
+                        :multiple="true"
+                        :taggable="true"
+                        @tag="addTag"
+                      ></multiselect>
+                      <p
+                        class="text-danger"
+                        v-for="item in makeCampErrors"
+                        :key="item"
+                      >
+                        {{ item }}
+                      </p>
+                      <div class="form-group">
+                        <button
+                          class="btn btn-success btn-makecamp"
+                          @click="makeCamp"
+                        >
+                          Xác nhận
+                        </button>
+                      </div>
+                    </form>
+                    <span v-if="!isActive" id="return-list" @click="returnList"
+                      ><i class="fas fa-arrow-left"></i
+                    ></span>
+                  </div>
                 </div>
               </div>
             </div>
-            <!--/div-->
           </div>
-          <!-- /row -->
         </div>
-        <!-- Container closed -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Paginate from 'vuejs-paginate'
+import Vue from "vue";
+import VueMoment from "vue-moment";
+import moment from "moment-timezone";
+Vue.use(VueMoment, {
+  moment,
+});
+import Paginate from "vuejs-paginate";
+import Multiselect from "vue-multiselect";
+import Datepicker from "vuejs-datepicker";
 export default {
   components: {
-    Paginate
+    Paginate,
+    Multiselect,
+    Datepicker,
   },
   data() {
     return {
@@ -495,84 +300,161 @@ export default {
       price: 0,
       priceTotal: 0,
       start_date: "",
+      description: "",
+      isActive: true,
+      calculated: null,
+      isChecked: false,
+      makeCampErrors: [],
+      taggingSelected: [],
+      taggingOptions: [],
+      concernSelected: [],
+      myTaskList: [],
     };
   },
   mounted() {
-    this.$axios
-      .get("http://192.168.100.11:3000/api/social/list", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.socialList = response.data.data;
-        console.log(this.socialList);
-      });
+    this.CallAPI("get", "social/list", {}, (response) => {
+      this.socialList = response.data.data;
+    });
+    this.CallAPI("get", "areas-concern", {}, (response) => {
+      this.taggingOptions = response.data.data[0];
+    });
+    this.CallAPI("get", "task/my-task", {}, (response) => {
+      this.myTaskList = response.data.data[0];
+    });
   },
   methods: {
-    makeCampClick() {
-      //check price and key_option
-      if (this.amount <= 1000) {
-        this.key_option = "option_1";
-        this.price = 1;
-      } else {
-        this.key_option = "option_2";
-        this.price = 2;
+    makeCamp(e) {
+      e.preventDefault();
+      this.makeCampErrors = [];
+      if (!this.link) {
+        this.makeCampErrors.push("Vui lòng nhập link");
+        return;
       }
-      //push requires
-      for (let item of this.checkedFunction) {
-        this.requires.push({
-          key: item,
-          option: {
-            key_option: this.key_option,
-            price: this.price,
-            total_price: this.price * this.amount,
-          },
-        });
+      if (!this.amount) {
+        this.makeCampErrors.push("Vui lòng nhập số lượng cần tăng");
+        return;
       }
-      //total price
+      if (!this.description) {
+        this.makeCampErrors.push("Vui lòng nhập mô tả");
+        return;
+      }
+      if (!this.start_date) {
+        this.makeCampErrors.push("Vui lòng chọn ngày bắt đầu");
+        return;
+      }
+      for (let item of this.taggingSelected) {
+        this.concernSelected.push(item._id);
+      }
+      if (!this.concernSelected[0]) {
+        this.makeCampErrors.push("Vui lòng chọn lĩnh vực quan tâm");
+        return;
+      }
+      this.priceTotal = 0;
       for (let item of this.requires) {
         this.priceTotal += item.option.total_price;
       }
-      //get current time
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, "0");
-      var mm = String(today.getMonth() + 1).padStart(2, "0");
-      var yyyy = today.getFullYear();
-      today = yyyy + "-" + mm + "-" + dd;
-      this.start_date = today;
-      this.requires = [];
-      this.priceTotal = 0;
-      // this.$axios
-      //   .post(
-      //     "http://192.168.60.69:3000/api/task/create",
-      //     {
-      //       social_code: this.social,
-      //       require: this.requires,
-      //       amount: this.amount,
-      //       total_price: this.priceTotal,
-      //       link: this.link,
-      //       is_now: 0,
-      //       start_date: this.start_date,
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization:
-      //           this.$store.getters.id + " " + this.$store.getters.token,
-      //       },
-      //     }
-      //   )
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error, response) => {
-      //     console.log(this.requires);
-      //     console.log(this.priceTotal);
-      //   });
+
+      this.CallAPI(
+        "post",
+        "task/create",
+        {
+          social_code: this.social,
+          require: this.requires,
+          amount: Number(this.amount),
+          total_price: Number(this.priceTotal),
+          link: this.link,
+          description: this.description,
+          start_date: this.start_date,
+          field: this.concernSelected,
+        },
+        (response) => {
+          this.CallAPI("get", "task/my-task", {}, (response) => {
+            this.myTaskList = response.data.data[0];
+          });
+          this.$toast.success("Tạo chiến dịch thành công!");
+          this.concernSelected = [];
+          this.checkedFunction = [];
+          this.link = null;
+          this.description = null;
+          this.start_date = null;
+          this.amount = null;
+        },
+        (error) => {
+          const msg = error.response.data.message;
+          if (error.response.data.error == "Invalid Start Date!") {
+            this.makeCampErrors.push("Vui lòng chọn lại ngày");
+            return;
+          }
+          if (msg.link.message == "The link format is invalid.") {
+            this.makeCampErrors.push("Link không đúng");
+            return;
+          }
+          if (msg.social_code) {
+            this.makeCampErrors.push("Vui lòng chọn mạng xã hội");
+            return;
+          }
+          if (msg.require) {
+            this.makeCampErrors.push("Vui lòng chọn chức năng cần tăng");
+            return;
+          }
+          if (error.response.data.error == "Not enough money!") {
+            this.makeCampErrors.push("Tài khoản của bạn không đủ");
+            return;
+          }
+        }
+      );
     },
-    changeZui() {
-      console.log(this.checkedFunction);
+    toMakeCamp() {
+      this.isActive = false;
+    },
+    calculatedHandle() {
+      this.requires = [];
+      for (let social of this.socialList) {
+        if (this.social == social.code) {
+          for (let func of social.function) {
+            for (let opt of func.option) {
+              for (let check of this.checkedFunction) {
+                if (check == func.key) {
+                  if (this.amount > opt.from && this.amount <= opt.to) {
+                    this.requires.push({
+                      key: check,
+                      option: {
+                        key_option: opt.key_option,
+                        price: opt.price,
+                        total_price: this.amount * opt.price,
+                      },
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        _id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+      };
+      this.taggingOptions.push(tag);
+      this.taggingSelected.push(tag);
+    },
+    customFormatter() {
+      return moment(this.start_date).format("DD/MM/YYYY");
+    },
+    changeBirthday() {
+      var dd = String(this.start_date.getDate()).padStart(2, "0");
+      var mm = String(this.start_date.getMonth() + 1).padStart(2, "0");
+      var yyyy = this.start_date.getFullYear();
+      this.start_date = yyyy + "-" + mm + "-" + dd;
+    },
+    returnList() {
+      this.isActive = true;
+    },
+    taskDetail(id) {
+      this.$store.dispatch("setTypeKey", id);
+      this.$router.push("/detail-task").catch((error) => {});
     },
   },
 };
@@ -588,5 +470,75 @@ button {
 }
 .socialList .card {
   border-radius: 5px;
+}
+.make-camp {
+  width: 52%;
+  margin: 30px auto;
+}
+.form-group {
+  margin-bottom: 1rem !important;
+}
+.btn-makecamp {
+  margin: 0 auto;
+  display: block;
+  margin-top: 1rem !important;
+}
+.birthday-box input {
+  height: 40px;
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4d5875;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.make-camp .multiselect {
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.make-camp .form-group input,
+.make-camp .form-group select {
+  height: 40px;
+}
+#return-list {
+  display: block;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #666;
+  transition: 200ms all ease;
+  font-size: 18px;
+  margin-top: 8px;
+}
+#return-list:hover {
+  color: rgb(80, 80, 80);
+}
+table .require {
+  background: #fbbc0b;
+  margin-left: 5px;
+  padding: 2px 10px;
+  border-radius: 3px;
+  color: #fff;
+}
+.table-camp.table-responsive {
+  overflow: scroll;
+  max-height: 500px;
+}
+.edit-task {
+  cursor: pointer;
+}
+.table-camp td {
+  cursor: pointer;
 }
 </style>

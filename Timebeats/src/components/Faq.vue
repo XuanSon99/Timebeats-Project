@@ -95,13 +95,15 @@
                         <div class="form-group">
                           <label
                             class="main-content-label tx-12 tx-medium tx-gray-600"
-                            for="img-inputed"
+                            >Ảnh phản hồi</label
+                          ><label for="img-inputed" class="label-chooseImg"
                             >Chọn ảnh</label
                           >
                           <input
                             type="file"
                             @change="uploadImage($event)"
                             id="img-inputed"
+                            accept="image/*"
                           />
                           <div class="form-control img-feedback">
                             <img
@@ -150,13 +152,43 @@
                                           class="d-block w-100"
                                         />
                                       </div>
-                                      <div
+                                      <div class="carousel-item" v-if="url[1]">
+                                        <img
+                                          :src="url[1]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <div class="carousel-item" v-if="url[2]">
+                                        <img
+                                          :src="url[2]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <div class="carousel-item" v-if="url[3]">
+                                        <img
+                                          :src="url[3]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <div class="carousel-item" v-if="url[4]">
+                                        <img
+                                          :src="url[4]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <div class="carousel-item" v-if="url[5]">
+                                        <img
+                                          :src="url[5]"
+                                          class="d-block w-100"
+                                        />
+                                      </div>
+                                      <!-- <div
                                         class="carousel-item"
                                         v-for="src in url"
                                         :key="src"
                                       >
                                         <img :src="src" class="d-block w-100" />
-                                      </div>
+                                      </div> -->
                                     </div>
                                     <a
                                       class="carousel-control-prev"
@@ -201,7 +233,7 @@
                           <div>
                             <button
                               type="submit"
-                              class="btn btn-primary"
+                              class="btn btn-success btn-feedback"
                               @click="feedbackHandle"
                             >
                               Xác nhận
@@ -280,7 +312,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td rowspan="10" class="pad-top-20 td-img">
+                          <td rowspan="20" class="pad-top-20 td-img">
                             <img
                               alt
                               src="https://cf.shopee.vn/file/01566b94a0243a192eae029c72fc4503_tn"
@@ -289,18 +321,19 @@
                           <td class="pad-top-20">
                             <b>Admin</b><br /><label
                               class="tx-12 tx-medium tx-gray-600"
-                              >
-                              <span v-if="listDetailFeedback.status == 'answer'">Đã trả lời</span>
-                              <span v-else>Đang chờ...</span>
-                              </label
                             >
+                              <span v-if="listDetailFeedback.status == 'answer'"
+                                >Đã trả lời</span
+                              >
+                              <span v-else>Đang chờ...</span>
+                            </label>
                           </td>
                         </tr>
                         <tr
                           v-for="item in listDetailFeedback.activity"
                           :key="item._id"
                         >
-                          <td>{{ item.content }}</td>
+                          <td v-html="item.content"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -335,27 +368,12 @@ export default {
     };
   },
   mounted() {
-    this.$axios
-      .get("http://192.168.100.11:3000/api/faq/feedback", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.listFeedback = response.data.data;
-        console.log(this.listFeedback);
-      })
-    this.$axios
-      .get("http://192.168.100.11:3000/api/faq", {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      })
-      .then((response) => {
-        this.faq = response.data.data;
-      })
+    this.CallAPI("get", "faq/feedback", {}, (response) => {
+      this.listFeedback = response.data.data;
+    }, (error) => {})
+    this.CallAPI("get", "faq", {}, (response) => {
+      this.faq = response.data.data;
+    }, (error) => {})
   },
   methods: {
     uploadImage(event) {
@@ -372,54 +390,26 @@ export default {
         return;
       }
 
-      const URL = "http://192.168.100.11:3000/api/faq/feedback";
-
       let data = new FormData();
       data.append("title", this.title);
       data.append("content", this.content);
       data.append("image", this.srcImg);
 
-      let config = {
-        headers: {
-          Authorization:
-            this.$store.getters.id + " " + this.$store.getters.token,
-        },
-      };
-
-      this.$axios
-        .post(URL, data, config)
-        .then((response) => {
-          this.$toast.success("Gửi phản hồi thành công!", {
-            position: "top-right",
-            timeout: 3000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.82,
-            showCloseButtonOnHover: true,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false,
-          });
+      this.CallAPI(
+        "post",
+        "faq/feedback",
+        data,
+        (response) => {
+          this.$toast.success("Gửi phản hồi thành công!");
           this.title = "";
           this.content = "";
           this.url = [];
-
-          this.$axios
-            .get("http://192.168.100.11:3000/api/faq/feedback", {
-              headers: {
-                Authorization:
-                  this.$store.getters.id + " " + this.$store.getters.token,
-              },
-            })
-            .then((response) => {
-              this.listFeedback = response.data.data;
-              console.log(this.listFeedback);
-            });
-        })
-        .catch(() => {});
+          this.CallAPI("get", "faq/feedback", {}, (response) => {
+            this.listFeedback = response.data.data;
+          });
+        },
+        (error) => {}
+      );
     },
     deleteImg() {
       this.url = [];
@@ -429,17 +419,9 @@ export default {
     },
     detailFeedback(id) {
       this.active = false;
-      this.$axios
-        .get(`http://192.168.100.11:3000/api/faq/feedback-detail/${id}`, {
-          headers: {
-            Authorization:
-              this.$store.getters.id + " " + this.$store.getters.token,
-          },
-        })
-        .then((response) => {
-          this.listDetailFeedback = response.data.data[0];
-          console.log(this.listDetailFeedback);
-        });
+      this.CallAPI("get", `faq/feedback-detail/${id}`, {}, (response) => {
+        this.listDetailFeedback = response.data.data[0];
+      }, (error) => {})
     },
     returnList() {
       this.active = true;
@@ -560,6 +542,18 @@ export default {
 }
 .detail-feedback .pad-top-20 {
   padding-top: 20px;
+}
+.btn-feedback {
+  margin: 0 auto;
+  display: block;
+}
+.label-chooseImg {
+  margin-left: 10px;
+  background: dimgrey;
+  cursor: pointer;
+  padding: 4px 10px;
+  color: #fff;
+  border-radius: 3px;
 }
 @media (min-width: 576px) {
   #show-img-modal .modal-dialog {

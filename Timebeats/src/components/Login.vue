@@ -154,17 +154,19 @@ export default {
         this.errors.push("Email không đúng định dạng");
         return;
       }
-
-      this.$axios
-        .post("http://192.168.100.11:3000/api/auth/login", {
+      this.CallAPI(
+        "post",
+        "auth/login",
+        {
           email: this.signin.email,
           password: this.signin.password,
-        })
-        .then((response) => {
+        },
+        (response) => {
           this.status = response.data.status;
           this.token = response.data.data[0].access_token;
           this.id = response.data.data[0]._id;
           this.$store.dispatch("setToken", this.token);
+          localStorage.setItem("token", this.id + " " + this.token);
           this.$store.dispatch("setID", this.id);
           this.$store.dispatch("setName", response.data.data[0].display_name);
           this.$store.dispatch("setAvatar", response.data.data[0].avatar);
@@ -178,14 +180,15 @@ export default {
           this.SetStorage();
           this.$router.push({ name: "Dashboard" }).catch((error) => {});
           location.reload();
-        })
-        .catch((error, response) => {
+        },
+        (error) => {
           this.status = error.response.data.status;
           if (!this.status) {
             this.errors.push("Tài khoản hoặc mật khẩu không đúng");
             return false;
           }
-        });
+        }
+      );
     },
     validEmail(email) {
       const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
