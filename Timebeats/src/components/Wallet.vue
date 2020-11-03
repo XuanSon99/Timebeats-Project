@@ -118,12 +118,25 @@
                       </td>
                       <td class="text-center">
                         <span v-if="item.method == 'deposit'">+</span>
-                        <span v-if="item.method == 'voucher' || item.method == 'task'">- </span
-                        >{{ formatMoney(item.amount) }}₫
+                        <span
+                          v-if="
+                            item.method == 'voucher' ||
+                            item.method == 'task' ||
+                            item.method == 'withdraw'
+                          "
+                          >-
+                        </span>
+                        {{ formatMoney(item.amount) }}₫
                       </td>
                       <td>
                         <span v-if="item.method == 'deposit'">- Nạp tiền</span>
-                        <span v-if="item.method == 'voucher' || item.method == 'task'">- Tạo {{ item.method }}</span>
+                        <span
+                          v-if="
+                            item.method == 'voucher' || item.method == 'task'
+                          "
+                          >- Tạo {{ item.method }}</span
+                        >
+                        <span v-if="item.method == 'withdraw'">- Yêu cầu rút tiền</span>
                       </td>
                     </tr>
                   </tbody>
@@ -142,16 +155,16 @@ export default {
   data() {
     return {
       withdrawalHistory: [],
-      balance: [],
+      balance: "",
     };
   },
   mounted() {
     this.CallAPI("get", "money/v2/history", {}, (response) => {
-        this.withdrawalHistory = response.data.data;
-      });
+      this.withdrawalHistory = response.data.data;
+    });
     this.CallAPI("get", "money/v2/balance", {}, (response) => {
-        this.balance = response.data.data[0].balance;
-      });
+      this.balance = response.data.data[0].balance;
+    });
   },
   methods: {
     formatDate(date) {

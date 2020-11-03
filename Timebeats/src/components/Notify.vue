@@ -64,7 +64,7 @@ export default {
     };
   },
   mounted() {
-    this.CallAPI("get", "notify?limit=10&page=1", (response) => {
+    this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
       this.notify = response.data.data;
     }, (error) => {});
   },

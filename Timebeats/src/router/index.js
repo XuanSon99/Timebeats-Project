@@ -80,7 +80,11 @@ const router = new Router({
       meta: {
         header: true,
         footer: true
-      }
+      },
+      beforeEnter: (to, from, next) => {
+        if (to.name == 'MakeCamp' && localStorage.getItem("group") != 'creator') next({ name: 'Dashboard' })
+        next()
+      },
     },
     {
       path: '/wallet',

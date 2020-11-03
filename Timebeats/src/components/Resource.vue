@@ -78,7 +78,6 @@
                         aria-expanded="false"
                         aria-haspopup="true"
                         class="btn ripple btn-success"
-                        id
                         type="button"
                         data-toggle="modal"
                         data-target="#modal-resource"
@@ -111,13 +110,27 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-if="selected == item.social_code || selected == 'all'">
+                          <tr
+                            v-if="
+                              selected == item.social_code || selected == 'all'
+                            "
+                          >
                             <td scope="row">{{ index + 1 }}</td>
                             <td>{{ item.social_code }}</td>
-                            <td><span v-if="item.status = 'available'">Sẵn sàng</span></td>
                             <td>
-                              <img :src="item.account_profile.avatarUri[0]" alt="" class="avatar-social">
-                              <span class="name-social">{{item.account_profile.uniqueId}}</span>
+                              <span v-if="(item.status = 'available')"
+                                >Sẵn sàng</span
+                              >
+                            </td>
+                            <td>
+                              <img
+                                :src="item.account_profile.avatarUri[0]"
+                                alt=""
+                                class="avatar-social"
+                              />
+                              <span class="name-social">{{
+                                item.account_profile.uniqueId
+                              }}</span>
                             </td>
                             <td>{{ formatDate(item.updated_at) }}</td>
                             <td>
@@ -135,7 +148,9 @@
                       <nav aria-label="Page navigation example">
                         <ul
                           class="pagination"
-                          v-if="selected == item.social_code || selected == 'all'"
+                          v-if="
+                            selected == item.social_code || selected == 'all'
+                          "
                         >
                           <li class="page-item previous">
                             <button
@@ -304,7 +319,7 @@ export default {
       selected_add: "all",
     };
   },
-  beforeMount() {
+  mounted() {
     this.CallAPI("get", "social/list-account", {}, (response) => {
       this.account = response.data.data;
       this.data = response.data.data;
@@ -350,23 +365,30 @@ export default {
       localStorage.setItem("Data", jsonListAccount);
     },
     deleteAccountSocial(id) {
-      this.CallAPI(
-        "delete",
-        `social/delete-account/${id}`,
-        {},
-        (response) => {
-          this.$toast.success("Xóa thành công !");
-        },
-        (error) => {
-          this.$toast.error("Không được phép !");
-        }
-      );
+      if (confirm("Bạn chắc chắn muốn xóa?")) {
+        this.CallAPI(
+          "delete",
+          `social/delete-account/${id}`,
+          {},
+          (response) => {
+            this.$toast.success("Xóa thành công !");
+            this.CallAPI("get", "social/list-account", {}, (response) => {
+              this.account = response.data.data;
+              this.data = response.data.data;
+            });
+          },
+          (error) => {
+            this.$toast.error("Không được phép !");
+          }
+        );
+      }
     },
     addAccountSocial() {
       var addTiktok = new toktok();
       addTiktok.init();
       let social = this.selected_add;
       chrome.console.log({ social });
+      location.reload()
     },
     download() {
       var printWindow = window.open("", "", "height=400,width=1200");
@@ -383,8 +405,8 @@ export default {
       printWindow.print();
       printWindow.close();
     },
-    formatDate(value){
-      return new Date(value).toLocaleDateString()
+    formatDate(value) {
+      return new Date(value).toLocaleDateString();
     },
   },
   computed: {
@@ -506,19 +528,19 @@ button.page-link {
 #download-table {
   display: none;
 }
-.avatar-social{
+.avatar-social {
   max-width: 40px;
   border-radius: 50%;
   margin-right: 5px;
 }
-.name-social{
+.name-social {
   font-weight: 500;
   text-transform: uppercase;
 }
-.resource-table th{
+.resource-table th {
   text-align: center;
 }
-.resource-table tbody td{
+.resource-table tbody td {
   line-height: 35px;
   text-align: center;
 }

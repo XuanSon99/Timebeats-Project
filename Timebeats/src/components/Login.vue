@@ -168,8 +168,7 @@ export default {
           this.$store.dispatch("setToken", this.token);
           localStorage.setItem("token", this.id + " " + this.token);
           this.$store.dispatch("setID", this.id);
-          this.$store.dispatch("setName", response.data.data[0].display_name);
-          this.$store.dispatch("setAvatar", response.data.data[0].avatar);
+          localStorage.setItem("group", response.data.data[0].group)
 
           if (!this.status) {
             this.errors.push("Tài khoản hoặc mật khẩu không đúng");

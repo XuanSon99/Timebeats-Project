@@ -39,7 +39,7 @@ Vue.prototype.$axios = axios
 Vue.use(Vuex);
 Vue.use(Toasted);
 
-Vue.prototype.$urlAPI = 'http://192.168.100.11:3000/api/'
+Vue.prototype.$urlAPI = 'http://192.168.100.211:3000/api/'
 Vue.prototype.$config = {
   headers: {
     Authorization:

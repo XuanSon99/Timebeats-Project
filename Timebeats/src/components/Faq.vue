@@ -104,6 +104,7 @@
                             @change="uploadImage($event)"
                             id="img-inputed"
                             accept="image/*"
+                            multiple
                           />
                           <div class="form-control img-feedback">
                             <img
@@ -294,7 +295,7 @@
                         </tr>
                         <tr>
                           <td rowspan="2" class="td-img pad-top-20">
-                            <img alt :src="avatar" />
+                            <img class="avatar" alt :src="avatar" />
                           </td>
                           <td class="pad-top-20">
                             <b>{{ name }}</b
@@ -308,7 +309,13 @@
                         </tr>
                         <tr>
                           <td class="content">
-                            {{ listDetailFeedback.content }}
+                            {{ listDetailFeedback.content }}<br />
+                            <img
+                              class="feedback-img"
+                              v-for="img in listDetailFeedback.image"
+                              :key="img"
+                              :src="img"
+                            />
                           </td>
                         </tr>
                         <tr>
@@ -353,8 +360,8 @@
 export default {
   data() {
     return {
-      avatar: "http://192.168.100.11:3000/" + this.$store.getters.avatar,
-      name: this.$store.getters.name,
+      avatar: "",
+      name: "",
       title: "",
       content: "",
       srcImg: {},
@@ -368,12 +375,30 @@ export default {
     };
   },
   mounted() {
-    this.CallAPI("get", "faq/feedback", {}, (response) => {
-      this.listFeedback = response.data.data;
-    }, (error) => {})
-    this.CallAPI("get", "faq", {}, (response) => {
-      this.faq = response.data.data;
-    }, (error) => {})
+    this.CallAPI(
+      "get",
+      "faq/feedback",
+      {},
+      (response) => {
+        this.listFeedback = response.data.data;
+        console.log(this.listFeedback);
+      },
+      (error) => {}
+    );
+    this.CallAPI(
+      "get",
+      "faq",
+      {},
+      (response) => {
+        this.faq = response.data.data;
+      },
+      (error) => {}
+    );
+    this.CallAPI("get", "user/my-profile", {}, (response) => {
+      const profile = response.data.data[0];
+      this.avatar = profile.avatar;
+      this.name = profile.display_name;
+    });
   },
   methods: {
     uploadImage(event) {
@@ -383,17 +408,19 @@ export default {
     },
     feedbackHandle(e) {
       e.preventDefault();
-      console.log(this.listSrcImg);
       this.errors = [];
       if (!this.title || !this.content) {
         this.errors.push("Vui lòng nhập đủ thông tin !");
         return;
       }
 
+      console.log(this.listSrcImg);
       let data = new FormData();
       data.append("title", this.title);
       data.append("content", this.content);
-      data.append("image", this.srcImg);
+      for (let image of this.listSrcImg) {
+        data.append("image", image);
+      }
 
       this.CallAPI(
         "post",
@@ -415,13 +442,19 @@ export default {
       this.url = [];
     },
     formatDate(value) {
-      return value.slice(0, 10);
+      return new Date(value).toLocaleDateString();
     },
     detailFeedback(id) {
       this.active = false;
-      this.CallAPI("get", `faq/feedback-detail/${id}`, {}, (response) => {
-        this.listDetailFeedback = response.data.data[0];
-      }, (error) => {})
+      this.CallAPI(
+        "get",
+        `faq/feedback-detail/${id}`,
+        {},
+        (response) => {
+          this.listDetailFeedback = response.data.data[0];
+        },
+        (error) => {}
+      );
     },
     returnList() {
       this.active = true;
@@ -512,7 +545,7 @@ export default {
 #return-list:hover {
   color: rgb(80, 80, 80);
 }
-.detail-feedback img {
+.detail-feedback img.avatar {
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -554,6 +587,13 @@ export default {
   padding: 4px 10px;
   color: #fff;
   border-radius: 3px;
+}
+.detail-feedback .feedback-img {
+  border-radius: 0;
+  margin: 10px;
+  height: 100px;
+  max-width: 100px;
+  margin-left: 0px;
 }
 @media (min-width: 576px) {
   #show-img-modal .modal-dialog {

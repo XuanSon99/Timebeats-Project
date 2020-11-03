@@ -89,16 +89,19 @@
                                     @click="taskDetail(item._id)"
                                     scope="row"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
                                     {{ index + 1 }}
                                   </td>
                                   <td
+                                    class="text-center"
                                     @click="taskDetail(item._id)"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
@@ -107,7 +110,8 @@
                                   <td
                                     @click="taskDetail(item._id)"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
@@ -121,25 +125,29 @@
                                   <td
                                     @click="taskDetail(item._id)"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
-                                    {{ item.total_price }} $
+                                    {{ item.total_price / item.amount }}₫
                                   </td>
                                   <td
                                     @click="taskDetail(item._id)"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
                                     {{ item.amount }} Lượt
                                   </td>
                                   <td
+                                    class="text-center"
                                     @click="taskDetail(item._id)"
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
@@ -147,7 +155,8 @@
                                   </td>
                                   <td
                                     v-if="
-                                      formatText(item.social_id.name) == formatText(selected) ||
+                                      formatText(item.social_id.name) ==
+                                        formatText(selected) ||
                                       selected == 'Tất cả'
                                     "
                                   >
@@ -242,9 +251,9 @@ export default {
     formatDate(value) {
       return new Date(value).toLocaleDateString();
     },
-    formatText(value){
-      return value.toLowerCase()
-    }
+    formatText(value) {
+      return value.toLowerCase();
+    },
   },
 };
 </script>
@@ -274,5 +283,8 @@ th.task {
 }
 .receive-task {
   cursor: pointer;
+}
+.example {
+  border: none;
 }
 </style>

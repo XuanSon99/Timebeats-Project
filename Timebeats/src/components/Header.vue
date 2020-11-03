@@ -11,7 +11,7 @@
           <router-link tag="a" to="/">
             <h1 id="logo"><i class="fab fa-tiktok"></i><span>imebeat</span></h1>
           </router-link>
-          <div class="main-header-center ml-4">
+          <!-- <div class="main-header-center ml-4">
             <input v-model="codeCopied" id="codeCopied" readonly />
             <span
               style="cursor: pointer"
@@ -19,7 +19,7 @@
               class="tag tag-indigo ml-1"
               >Mời Bạn Bè</span
             >
-          </div>
+          </div> -->
         </div>
         <div class="main-header-right">
           <div class="nav nav-item navbar-nav-right ml-auto">
@@ -125,6 +125,27 @@
           <nav class="horizontalMenu clearfix">
             <div class="horizontal-overlapbg active"></div>
             <ul class="horizontalMenu-list">
+              <li>
+                <router-link class="sub-icon" tag="a" to="/">
+                  <div>
+                    <i class="fa fa-home"> Trang chủ</i>
+                  </div>
+                </router-link>
+              </li>
+              <li>
+                <router-link class="sub-icon" tag="a" to="/task">
+                  <div>
+                    <i class="fas fa-book-open"> Nhận nhiệm vụ</i>
+                  </div>
+                </router-link>
+              </li>
+              <li v-if="group == 'creator'">
+                <router-link class="sub-icon" tag="a" to="/make-camp">
+                  <div>
+                    <i class="fas fa-ad"> Tạo chiến dịch</i>
+                  </div>
+                </router-link>
+              </li>
               <li aria-haspopup="true" v-for="item in menu" :key="item.index">
                 <router-link class="sub-icon" tag="a" :to="item.link">
                   <div>
@@ -166,14 +187,11 @@
 export default {
   data() {
     return {
-      avatar: "http://192.168.100.11:3000/" + this.$store.getters.avatar,
-      name: this.$store.getters.name,
+      avatar: "",
+      name: "",
       codeCopied: "https://timebeats.com/ref/y3pwnm",
       menu: [
-        { content: " Trang chủ", link: "/", icon: "fa fa-home" },
-        { content: " Nhận nhiệm vụ", link: "/task", icon: "fas fa-book-open" },
-        { content: " Tạo chiến dịch", link: "/make-camp", icon: "fas fa-ad" },
-        { content: " Số dư tài khoản", link: "/wallet", icon: "fas fa-wallet" },
+        { content: " Tài khoản", link: "/payment", icon: "fas fa-wallet" },
         {
           content: " Thống kê",
           link: "/Statistical",
@@ -196,6 +214,7 @@ export default {
       ],
       notify: [],
       notify_no_read: null,
+      group: localStorage.getItem("group"),
     };
   },
   methods: {
@@ -256,6 +275,11 @@ export default {
     },
   },
   mounted() {
+    this.CallAPI("get", "user/my-profile", {}, (response) => {
+      const profile = response.data.data[0];
+      this.avatar = profile.avatar;
+      this.name = profile.display_name;
+    });
     //get api list notify
     this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
       this.notify = response.data.data;

@@ -205,7 +205,7 @@
                               >
                             </td>
                             <td @click="taskDetail(item._id)">
-                              {{ item.total_price }} $
+                              {{ item.total_price / item.amount }}₫
                             </td>
                             <td @click="taskDetail(item._id)">
                               {{ item.amount }} Lượt
@@ -474,6 +474,9 @@ export default {
           }
           if (statusCode == 422) {
             this.$toast.warning("Bạn vui lòng thêm tài nguyên");
+          }
+          if (statusCode == 403) {
+            this.$toast.warning("Nhiệm vụ chưa bắt đầu");
           }
         }
       );

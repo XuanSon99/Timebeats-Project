@@ -56,7 +56,6 @@
                                   </th>
                                   <th class="border-bottom-0">KINH PHÍ</th>
                                   <th class="border-bottom-0">SỐ LƯỢT</th>
-                                  <th class="border-bottom-0">TRẠNG THÁI</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -64,10 +63,10 @@
                                   v-for="(item, index) in myTaskList"
                                   :key="index"
                                 >
-                                  <th scope="row" @click="taskDetail(item._id)">
+                                  <th scope="row">
                                     {{ index + 1 }}
                                   </th>
-                                  <td @click="taskDetail(item._id)">
+                                  <td>
                                     <span
                                       v-for="(social, index) in socialList"
                                       :key="index"
@@ -77,7 +76,7 @@
                                       ></span
                                     >
                                   </td>
-                                  <td @click="taskDetail(item._id)">
+                                  <td>
                                     <span
                                       class="require"
                                       v-for="(req, index) in item.require"
@@ -85,18 +84,11 @@
                                       >{{ req.key }}</span
                                     >
                                   </td>
-                                  <td @click="taskDetail(item._id)">
-                                    {{ item.total_price }} $
-                                  </td>
-                                  <td @click="taskDetail(item._id)">
-                                    {{ item.amount }} Lượt
+                                  <td>
+                                    {{ item.total_price }}₫
                                   </td>
                                   <td>
-                                    <span
-                                      class="tag tag-indigo tag-center edit-task"
-                                    >
-                                      <a class="text-white">Sửa</a>
-                                    </span>
+                                    {{ item.amount }} Lượt
                                   </td>
                                 </tr>
                               </tbody>
@@ -233,8 +225,8 @@
                       >
                       <multiselect
                         v-model="taggingSelected"
-                        tag-placeholder="Lĩnh vực quan tâm"
-                        placeholder="Lĩnh vực quan tâm"
+                        tag-placeholder="Lĩnh vực"
+                        placeholder="Lĩnh vực"
                         label="name"
                         track-by="_id"
                         :options="taggingOptions"
@@ -540,5 +532,8 @@ table .require {
 }
 .table-camp td {
   cursor: pointer;
+}
+.example {
+  border: none;
 }
 </style>

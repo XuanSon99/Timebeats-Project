@@ -8,7 +8,7 @@
         <div class="breadcrumb-header justify-content-between">
           <div class="my-auto">
             <div class="d-flex">
-              <h4 class="content-title mb-0 my-auto">Cài đặt tài khoản</h4>
+              <h4 class="content-title mb-0 my-auto">Tài khoản của bạn</h4>
             </div>
           </div>
         </div>
@@ -35,6 +35,30 @@
                     </li>
                     <li class="">
                       <a
+                        href="#history"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
+                        <span class="visible-xs"
+                          ><i class="fas fa-history"></i
+                        ></span>
+                        <span class="hidden-xs">LỊCH SỬ GIAO DỊCH</span>
+                      </a>
+                    </li>
+                    <li class="">
+                      <a
+                        href="#withdraw"
+                        data-toggle="tab"
+                        aria-expanded="false"
+                      >
+                        <span class="visible-xs"
+                          ><i class="fas fa-coins"></i
+                        ></span>
+                        <span class="hidden-xs">RÚT TIỀN</span>
+                      </a>
+                    </li>
+                    <li class="">
+                      <a
                         href="#depositByEBC"
                         data-toggle="tab"
                         aria-expanded="false"
@@ -42,7 +66,7 @@
                         <span class="visible-xs"
                           ><i class="fas fa-money-check-alt"></i
                         ></span>
-                        <span class="hidden-xs">NẠP TIỀN TỪ EBC</span>
+                        <span class="hidden-xs">NẠP TIỀN EBC</span>
                       </a>
                     </li>
                     <li class="">
@@ -54,7 +78,7 @@
                         <span class="visible-xs"
                           ><i class="fas fa-gifts"></i
                         ></span>
-                        <span class="hidden-xs">NẠP TIỀN TỪ VOUCHER</span>
+                        <span class="hidden-xs">NẠP VOUCHER</span>
                       </a>
                     </li>
                     <li class="">
@@ -100,18 +124,125 @@
                         <div class="form-group">
                           <div class="row">
                             <div class="col-md-12">
-                              <h6>CHỦ TÀI KHOẢN: ANONYMOUS</h6>
+                              <h6>
+                                <i class="fas fa-user-tie"></i> CHỦ TÀI KHOẢN:
+                                ANONYMOUS
+                              </h6>
                             </div>
                             <div class="col-md-12">
-                              <h6>ID TÀI KHOẢN: 1492627900875762</h6>
+                              <h6>
+                                <i class="far fa-id-badge"></i> ID TÀI KHOẢN:
+                                1492627900875762
+                              </h6>
                             </div>
                             <div class="col-md-12">
-                              <h6>SỐ DƯ: {{ formatMoney(balance) }}₫</h6>
+                              <h6>
+                                <i class="fas fa-coins"></i> SỐ DƯ:
+                                {{ formatMoney(balance) }}₫
+                              </h6>
                             </div>
                           </div>
                         </div>
                       </form>
                     </div>
+                  </div>
+                  <div class="tab-pane" id="withdraw">
+                    <div
+                      class="card card-body pd-20 pd-md-40 border shadow-none"
+                    >
+                      <form class="form-horizontal" role="form">
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Số tiền</label
+                        >
+                        <div class="form-group">
+                          <input
+                            type="number"
+                            class="form-control"
+                            required
+                            v-model="amount"
+                          />
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Thông tin tài khoản</label
+                        >
+                        <div class="form-group">
+                          <textarea
+                            class="form-control"
+                            v-model="info"
+                            cols="30"
+                            rows="5"
+                          ></textarea>
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Mã 2FA</label
+                        >
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            class="form-control"
+                            required
+                            v-model="code_2fa"
+                          />
+                        </div>
+                        <p
+                          class="text-danger"
+                          v-for="item in withdrawErrors"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
+                        <button
+                          type="button"
+                          class="btn btn-main-primary btn-block"
+                          @click="withdrawRequest"
+                        >
+                          XÁC NHẬN
+                        </button>
+                      </form>
+                    </div>
+                    <h5 class="card-title mg-b-20">Lịch sử yêu cầu rút tiền</h5>
+                    <table class="table voucher-table">
+                      <thead>
+                        <tr>
+                          <td>STT</td>
+                          <td scope="col">Số tiền</td>
+                          <td scope="col">Ngày</td>
+                          <td scope="col">Trạng thái</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in withdrawHistory"
+                          :key="index"
+                        >
+                          <td class="text-center">{{ index + 1 }}</td>
+                          <td class="text-center">
+                            {{ formatMoney(item.amount) }}
+                          </td>
+                          <td class="text-center">
+                            {{ formatDate(item.created_at) }}
+                          </td>
+                          <td
+                            class="text-center"
+                            v-if="item.status == 'pending'"
+                          >
+                            Đang chờ
+                          </td>
+                          <td class="text-center" v-if="item.status == 'fail'">
+                            Thất Bại
+                          </td>
+                          <td
+                            class="text-center"
+                            v-if="item.status == 'success'"
+                          >
+                            Thành công
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <div class="tab-pane" id="depositByEBC">
                     <div
@@ -326,6 +457,104 @@
                       Bạn có thế nạp tiền từ EBC hoặc Voucher. Ok!
                     </div>
                   </div>
+                  <div class="tab-pane" id="history">
+                    <div class="card-header pb-0">
+                      <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">LỊCH SỬ GIAO DỊCH</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <!-- <div class="row">
+                <div class="col-xl-3">
+                  <div class="form-group row">
+                    <div class="col-xl-3 lab">
+                      <label for="loc">Lọc</label>
+                    </div>
+                    <div class="col-xl-8">
+                      <select
+                        name
+                        id="loc"
+                        class="form-control"
+                        style="margin-bottom: 10px"
+                      >
+                        <option value="all">Tất cả</option>
+                        <option value>Chờ duyệt</option>
+                        <option value>Tạm duyệt</option>
+                        <option value>Đã duyệt</option>
+                        <option value>Thành công</option>
+                        <option value>Thất bại</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+                      <div class="table-responsive">
+                        <table
+                          class="table text-md-nowrap data-table table-bordered table-hover"
+                          id="withdrawal"
+                        >
+                          <thead class="text-center">
+                            <tr>
+                              <th>ID</th>
+                              <th>NGÀY</th>
+                              <th>THỜI GIAN</th>
+                              <th>TÀI KHOẢN</th>
+                              <th>PHƯƠNG THỨC</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in history" :key="index">
+                              <td class="text-center">{{ index + 1 }}</td>
+                              <td class="text-center">
+                                {{ formatDate(item.updated_at) }}
+                              </td>
+                              <td class="text-center">
+                                {{ formatTime(item.updated_at) }}
+                              </td>
+                              <td class="text-center">
+                                <span v-if="uid == item.destination">+</span>
+                                <span v-if="uid == item.source">-</span>
+                                {{ formatMoney(item.amount) }}₫
+                              </td>
+                              <td>
+                                <span
+                                  v-if="
+                                    uid == item.destination &&
+                                    item.method == 'deposit'
+                                  "
+                                  >- Nạp tiền</span
+                                >
+                                <span
+                                  v-if="
+                                    uid == item.destination &&
+                                    item.method == 'task'
+                                  "
+                                  >- Nhận nhiệm vụ</span
+                                >
+                                <span
+                                  v-if="
+                                    uid == item.source && item.method == 'task'
+                                  "
+                                  >- Tạo nhiệm vụ</span
+                                >
+                                <span v-if="item.method == 'withdraw'"
+                                  >- Rút tiền</span
+                                >
+                                <span
+                                  v-if="
+                                    uid == item.source &&
+                                    item.method == 'voucher'
+                                  "
+                                  >- Tạo Voucher</span
+                                >
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -352,25 +581,34 @@ export default {
       money: null,
       verify_2fa_code_makeVoucher: "",
       verify_2fa_code_useVoucher: "",
-      statusCode: "",
       makeVoucherErrors: [],
       voucherList: [],
       voucher: "",
       balance: Number,
+      code_2fa: "",
+      info: "",
+      amount: "",
+      withdrawErrors: [],
+      withdrawHistory: [],
+      history: [],
+      uid: this.$store.getters.id,
     };
   },
   mounted() {
-    //Get api list wallet ebc system
     this.CallAPI("get", "money/list-wallet-system", {}, (response) => {
       this.walletList = response.data.data;
     });
-    //Get api list voucher
     this.CallAPI("get", "money/voucher", {}, (response) => {
       this.voucherList = response.data.data;
     });
-    //Get api balance
     this.CallAPI("get", "money/v2/balance", {}, (response) => {
       this.balance = response.data.data[0].balance;
+    });
+    this.CallAPI("get", "money/my-request-withdraw", {}, (response) => {
+      this.withdrawHistory = response.data.data;
+    });
+    this.CallAPI("get", "money/v2/history", {}, (response) => {
+      this.history = response.data.data;
     });
   },
   methods: {
@@ -407,18 +645,28 @@ export default {
           this.CallAPI("get", "money/voucher", {}, (response) => {
             this.voucherList = response.data.data;
           });
+          this.CallAPI("get", "money/v2/balance", {}, (response) => {
+            this.balance = response.data.data[0].balance;
+          });
+          this.CallAPI("get", "money/v2/history", {}, (response) => {
+            this.history = response.data.data;
+          });
           this.$toast.success("Tạo thành công!");
           this.money = "";
           this.verify_2fa_code_makeVoucher = "";
         },
         (error) => {
-          this.statusCode = error.response.data.statusCode;
-          if (this.statusCode == 406) {
+          const statusCode = error.response.data.statusCode;
+          if (statusCode == 406) {
             this.makeVoucherErrors.push("Tài khoản của bạn không đủ");
             return;
           }
-          if (this.statusCode == 422) {
+          if (statusCode == 422) {
             this.makeVoucherErrors.push("Mã 2FA không đúng");
+            return;
+          }
+          if (statusCode == 500) {
+            this.makeVoucherErrors.push("Lỗi không mong đợi");
             return;
           }
         }
@@ -446,6 +694,12 @@ export default {
           verify_2fa_code: this.verify_2fa_code_useVoucher,
         },
         (response) => {
+          this.CallAPI("get", "money/v2/balance", {}, (response) => {
+            this.balance = response.data.data[0].balance;
+          });
+          this.CallAPI("get", "money/v2/history", {}, (response) => {
+            this.history = response.data.data;
+          });
           this.$toast.success("Nạp tiền thành công!");
           this.voucher = "";
           this.verify_2fa_code_useVoucher = "";
@@ -469,6 +723,48 @@ export default {
     formatMoney(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    formatDate(value) {
+      return new Date(value).toLocaleDateString();
+    },
+    formatTime(date) {
+      return new Date(date).toLocaleTimeString();
+    },
+    withdrawRequest() {
+      this.withdrawErrors = [];
+      if (!this.amount || !this.info || !this.code_2fa) {
+        this.withdrawErrors.push("Vui lòng nhập đủ thông tin");
+        return;
+      }
+      if (this.amount > this.balance) {
+        this.withdrawErrors.push("Tài khoản không đủ");
+        return;
+      }
+      const data = {
+        amount: Number(this.amount),
+        info: this.info,
+        verify_2fa_code: this.code_2fa,
+      };
+      this.CallAPI(
+        "post",
+        "money/withdraw",
+        data,
+        (response) => {
+          this.$toast.success("Gửi yêu cầu thành công");
+          this.amount = "";
+          this.info = "";
+          this.code_2fa = "";
+          this.CallAPI("get", "money/my-request-withdraw", {}, (response) => {
+            this.withdrawHistory = response.data.data;
+          });
+        },
+        (error) => {
+          if (error.response.data.error == "Invalid 2fa code!") {
+            this.withdrawErrors.push("Mã 2FA không đúng");
+            return;
+          }
+        }
+      );
+    },
   },
 };
 </script>
@@ -481,7 +777,8 @@ export default {
 #depositByEBC .card,
 #depositByVoucher .card,
 #makeVoucher .card,
-#tutorial .card {
+#tutorial .card,
+#withdraw .card {
   width: 52%;
   margin: 0 auto;
 }
@@ -508,6 +805,9 @@ export default {
   width: 100%;
   border: none;
   outline: none;
+}
+#profile .card {
+  text-align: left;
 }
 @media (max-width: 375px) {
   #depositByEBC .card,
