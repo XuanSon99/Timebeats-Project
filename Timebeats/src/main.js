@@ -6,6 +6,7 @@ import bootstrap from 'bootstrap'
 import axios from 'axios'
 import vueHeadful from 'vue-headful'
 import './assets/vendor/css/style.css'
+import './assets/vendor/css/my-style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import jquery from 'jquery'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
@@ -18,7 +19,6 @@ import VueClipboard from 'vue-clipboard2'
 import './assets/vendor/css/reponsive.css'
 import './assets/vendor/js/custom'
 import 'vue2-timepicker/dist/VueTimepicker.css'
-
 Vue.use(VueClipboard)
 
 import GoogleAuth from '@/config/google_oAuth.js'

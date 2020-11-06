@@ -79,18 +79,14 @@
                         data-target="#modal-resource"
                         style="float: right"
                       >
-                        + Thêm tài nguyên
+                        <i class="fas fa-plus-circle"></i> Thêm tài nguyên
                       </button>
                       <div class="load btn btn-success" @click="download">
                         <i class="fas fa-cloud-download-alt"></i>
                         <span>Tải về</span>
                       </div>
                     </div>
-                    <div
-                      class="table-responsive"
-                      v-for="(item, index) in data"
-                      :key="index"
-                    >
+                    <div class="table-responsive scroll">
                       <table
                         class="table text-md-nowrap data-table table-bordered table-hover resource-table"
                         id="statistic"
@@ -107,7 +103,9 @@
                         </thead>
                         <tbody>
                           <tr
-                            v-if="
+                            v-for="(item, index) in data"
+                            :key="index"
+                            v-show="
                               selected == item.social_code || selected == 'all'
                             "
                           >
@@ -130,63 +128,16 @@
                             </td>
                             <td>{{ formatDate(item.updated_at) }}</td>
                             <td>
-                              <span class="tag tag-danger tag-center">
-                                <a
-                                  style="color: white; cursor: pointer"
-                                  @click="deleteAccountSocial(item._id)"
-                                  >Xóa</a
-                                >
-                              </span>
+                              <button type="button" class="btn btn-danger" @click="deleteAccountSocial(item._id)">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                      <nav aria-label="Page navigation example">
-                        <ul
-                          class="pagination"
-                          v-if="
-                            selected == item.social_code || selected == 'all'
-                          "
-                        >
-                          <li class="page-item previous">
-                            <button
-                              type="button"
-                              class="page-link"
-                              v-if="page != 1"
-                              @click="page--"
-                            >
-                              Previous
-                            </button>
-                          </li>
-                          <li class="page-item">
-                            <button
-                              type="button"
-                              class="page-link"
-                              v-for="(pageNumber, index) in pages.slice(
-                                page - 1,
-                                page + 5
-                              )"
-                              :key="index"
-                              @click="page = pageNumber"
-                            >
-                              {{ pageNumber }}
-                            </button>
-                          </li>
-                          <li class="page-item next">
-                            <button
-                              type="button"
-                              @click="page++"
-                              v-if="page < pages.length"
-                              class="page-link"
-                            >
-                              Next
-                            </button>
-                          </li>
-                        </ul>
-                      </nav>
                     </div>
                     <div id="download-table">
-                      <table
+                      <!-- <table
                         class="table text-md-nowrap data-table table-bordered table-hover"
                         id="statistic"
                       >
@@ -204,6 +155,47 @@
                           <td v-html="item.user"></td>
                           <td>{{ formatDate(item.date) }}</td>
                         </tr>
+                      </table> -->
+                      <table
+                        class="table text-md-nowrap data-table table-bordered table-hover resource-table"
+                        id="statistic"
+                      >
+                        <thead>
+                          <tr>
+                            <th class="wd-10p border-bottom-0">STT</th>
+                            <th class="wd-10p border-bottom-0">NỀN TẢNG</th>
+                            <th class="wd-10p border-bottom-0">TRẠNG THÁI</th>
+                            <th class="wd-10p border-bottom-0">TÀI KHOẢN</th>
+                            <th class="wd-10p border-bottom-0">NGÀY TẠO</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in data" :key="index">
+                            <td scope="row">{{ index + 1 }}</td>
+                            <td>{{ item.social_code }}</td>
+                            <td>
+                              <span v-if="(item.status = 'available')"
+                                >Sẵn sàng</span
+                              >
+                            </td>
+                            <td style="display: flex; align-items: center">
+                              <img
+                                :src="item.account_profile.avatarUri[0]"
+                                alt=""
+                                class="avatar-social"
+                                style="
+                                  width: 50px;
+                                  height: 50px;
+                                  border-radius: 50%;
+                                "
+                              />
+                              <span class="name-social">{{
+                                item.account_profile.uniqueId
+                              }}</span>
+                            </td>
+                            <td>{{ formatDate(item.updated_at) }}</td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                   </div>

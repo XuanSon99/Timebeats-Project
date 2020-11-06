@@ -54,9 +54,10 @@
                       v-for="(item, index) in faq"
                       :key="index"
                     >
-                      <span class="text-muted mt-1 tx-13 mb-0">{{
-                        item.updated_at
-                      }}</span>
+                      <small class="text-muted mt-1 tx-13 mb-0"
+                        >Đã cập nhật lúc
+                        {{ formatDate(item.updated_at) }}</small
+                      >
                       <p>
                         <strong>{{ index + 1 }}. {{ item.title }}</strong>
                       </p>
@@ -382,7 +383,6 @@ export default {
       {},
       (response) => {
         this.listFeedback = response.data.data;
-        console.log(this.listFeedback);
       },
       (error) => {}
     );
@@ -443,7 +443,11 @@ export default {
       this.url = [];
     },
     formatDate(value) {
-      return new Date(value).toLocaleDateString();
+      return (
+        new Date(value).toLocaleTimeString() +
+        "s " +
+        new Date(value).toLocaleDateString()
+      );
     },
     detailFeedback(id) {
       this.active = false;
