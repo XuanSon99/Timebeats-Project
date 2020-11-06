@@ -11,8 +11,8 @@
       <div class="copyright text-center">
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
-        <a href="https://binarcode.com" target="_blank">Snoopyy</a>.
-        Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">TimeBeat</a>.
+        <a href="#" target="_blank">Snoopyy</a>.
+        Designed by <a href="#" target="_blank">TimeBeat web developer team</a>.
       </div>
     </div>
   </footer>

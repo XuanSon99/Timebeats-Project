@@ -1,25 +1,21 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
-// GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
-
-// Admin pages
 import Overview from 'src/pages/Overview.vue'
-import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
-import Typography from 'src/pages/Typography.vue'
-import Icons from 'src/pages/Icons.vue'
-import Maps from 'src/pages/Maps.vue'
+import Campaign from 'src/pages/Campaign.vue'
+import Social from 'src/pages/Social.vue'
 import Notifications from 'src/pages/Notifications.vue'
-
+import Feedback from 'src/pages/Feedback'
+import Task from 'src/pages/Task'
+import Request from 'src/pages/Request'
+import Withdraw from 'src/pages/Withdraw'
+import Introduced from 'src/pages/Introduced'
+import Policy from 'src/pages/Policy'
 const routes = [
-  {
-    path: '/',
-    component: DashboardLayout,
-    redirect: '/admin/overview'
-  },
+
   {
     path: '/admin',
     component: DashboardLayout,
+    name: 'admin',
     redirect: '/admin/overview',
     children: [
       {
@@ -28,34 +24,49 @@ const routes = [
         component: Overview
       },
       {
-        path: 'user',
-        name: 'User',
-        component: UserProfile
+        path: 'campaign',
+        name: 'Campaign',
+        component: Campaign
       },
       {
-        path: 'table-list',
-        name: 'Table List',
-        component: TableList
-      },
-      {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
-      },
-      {
-        path: 'icons',
-        name: 'Icons',
-        component: Icons
-      },
-      {
-        path: 'maps',
-        name: 'Maps',
-        component: Maps
+        path: 'social',
+        name: 'Social',
+        component: Social
       },
       {
         path: 'notifications',
         name: 'Notifications',
         component: Notifications
+      },
+      {
+        path: 'feedback',
+        name: 'feedback',
+        component: Feedback
+      },
+      {
+        path: 'task',
+        name: 'task',
+        component: Task
+      },
+      {
+        path: 'request',
+        name: 'request',
+        component: Request
+      },
+      {
+        path: 'withdraw',
+        name: 'withdraw',
+        component: Withdraw
+      },
+      {
+        path: 'introduced',
+        name: 'introduced',
+        component: Introduced
+      },
+      {
+        path: 'policy',
+        name: 'policy',
+        component: Policy
       }
     ]
   },

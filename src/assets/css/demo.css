@@ -826,3 +826,20 @@
 .documentation .dropdown .dropdown-menu.show {
     transform: translate3d(0, 39px, 0) !important;
 }
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .scroll {
+    max-height: 500px;
+    overflow: scroll;
+  }
+  .display-flex {
+    display: flex;
+    align-items: center;
+  }
+  .space-between {
+    justify-content: space-between;
+  }

@@ -55,7 +55,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="" class="nav-link" @click="logOut">
               Log out
             </a>
           </li>
@@ -92,7 +92,12 @@
       },
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
-      }
+      },
+      logOut() {
+      localStorage.removeItem("LoggedUser");
+      this.$router.push({ name: "adminLogin" }).catch((error) => {});
+      location.reload();
+    }
     }
   }
 
