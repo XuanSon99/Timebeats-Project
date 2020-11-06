@@ -1,15 +1,15 @@
 <template>
   <div class="content">
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="card" v-if="card.list">
           <div class="card-header">
-            <h4 class="card-title">List Request</h4>
+            <span class="font-weight-bold">Danh sách yêu cầu của User</span>
           </div>
           <div class="card-body">
             <div class="scroll">
-              <table class="table table-hover">
+              <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -45,7 +45,7 @@
         <div class="card" v-if="card.request">
           <div class="card-header">
             <div class="display-flex space-between">
-              <h4 class="card-title">Xét duyệt yêu cầu</h4>
+              <span class="font-weight-bold">Xét duyệt Creator</span>
               <button class="btn btn-success" @click="back">
                 <i class="fas fa-arrow-circle-left"></i> Quay lại
               </button>
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-1"></div>
     </div>
   </div>
 </template>

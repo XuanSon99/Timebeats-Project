@@ -2,12 +2,15 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <card class="card" v-if="card.list_card" title="Danh sách social">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="card" v-if="card.list_card">
+            <div class="card-header">
+              <span class="font-weight-bold">Danh sách Social</span>
+            </div>
             <div class="card-body">
               <div class="scroll">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -38,11 +41,11 @@
                 </table>
               </div>
             </div>
-          </card>
+          </div>
           <div class="card" v-if="card.update_card">
             <div class="card-header">
               <div class="display-flex space-between">
-                <h4 class="card-title">Cập nhật social</h4>
+                <span class="font-weight-bold">Cập nhật Social</span>
                 <button class="btn btn-success" @click="back">
                   <i class="fas fa-arrow-circle-left"></i> Danh sách
                 </button>
@@ -128,7 +131,7 @@
                         :key="index"
                       >
                         <div class="card-header display-flex space-between">
-                          <h4 class="card-title">{{ item.key }}</h4>
+                          <span class="font-weight-bold">{{item.key}}</span>
 
                           <button
                             type="button"
@@ -229,7 +232,7 @@
             <div class="card-footer"></div>
           </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
       </div>
     </div>
   </div>

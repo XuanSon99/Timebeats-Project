@@ -2,15 +2,15 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div class="card" v-if="card.list">
             <div class="card-header">
-              <h4 class="card-title">Danh sách chiến dịch</h4>
+              <span class="font-weight-bold">Danh sách chiến dịch</span>
             </div>
             <div class="card-body">
               <div class="scroll">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -41,7 +41,7 @@
           <div class="card" v-if="card.request">
             <div class="card-header">
               <div class="display-flex space-between">
-                <h4 class="card-title">Xét duyệt</h4>
+                <span class="font-weight-bold">Xét duyệt chiến dịch</span>
                 <button @click="back" class="btn btn-success">
                   <i class="fas fa-arrow-circle-left"></i> Quay lại
                 </button>
@@ -138,7 +138,7 @@
             <div class="card-footer"></div>
           </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
       </div>
     </div>
   </div>

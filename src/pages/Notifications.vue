@@ -1,14 +1,14 @@
 <template>
   <div class="content">
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">Thông báo</h4>
+            <span class="font-weight-bold">Thông báo</span>
           </div>
           <div class="card-body">
-            <h4 class="card-title">Thêm Thông báo</h4>
+            <span class="font-weight-bold">Tạo thông báo</span>
             <form>
               <div class="form-group">
                 <div>
@@ -106,7 +106,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-1"></div>
     </div>
   </div>
 </template>
