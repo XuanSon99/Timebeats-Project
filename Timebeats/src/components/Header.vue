@@ -196,7 +196,11 @@ export default {
           link: "/resource",
           icon: "fas fa-recycle",
         },
-        { content: " Giới thiệu", link: "/introduction", icon: "fas fa-address-card" },
+        {
+          content: " Giới thiệu",
+          link: "/introduction",
+          icon: "fas fa-address-card",
+        },
         { content: " Hỗ trợ", link: "/faq", icon: "fas fa-question-circle" },
         {
           id: "logout",
