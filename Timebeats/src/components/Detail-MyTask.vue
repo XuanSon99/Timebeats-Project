@@ -15,7 +15,7 @@
           <div class="card card-body pd-20 pd-md-40 border shadow-none">
             <!---->
             <div class="detail-task">
-              <router-link tag="a" to="/task"><span id="return-list"><i class="fas fa-arrow-left"></i></span></router-link>
+              <router-link tag="a" to="/make-camp"><span id="return-list"><i class="fas fa-arrow-left"></i></span></router-link>
               <span class="title">{{ detailTask.description }}</span>
               <div class="content">
                 <div class="table-responsive">
@@ -31,16 +31,14 @@
                         </th>
                         <th class="wd-10p border-bottom-0 task">PHẦN THƯỞNG</th>
                         <th class="wd-10p border-bottom-0 task">CÒN LẠI</th>
-                        <th class="wd-10p border-bottom-0 task">ĐÃ NHẬN</th>
                         <th class="wd-10p border-bottom-0 task">LINK</th>
-                        <th class="wd-10p border-bottom-0 task">
-                          Ngày bắt đầu
-                        </th>
+                        <th class="wd-10p border-bottom-0 task">Ngày bắt đầu</th>
+                        <th class="wd-10p border-bottom-0 task">Trạng thái</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="text-center">{{ nameSocial }}</td>
+                        <td class="text-center">{{nameSocial}}</td>
                         <td>
                           <span
                             v-for="item in detailTask.require"
@@ -49,28 +47,15 @@
                             >{{ item.key }}</span
                           >
                         </td>
-                        <td>
-                          {{ detailTask.total_price / detailTask.amount }}₫/lượt
-                        </td>
-                        <td>
-                          {{ detailTask.total_done }}/{{ detailTask.amount }}
-                          lượt
-                        </td>
-                        <td>{{ detailTask.total_take }} lượt</td>
+                        <td>{{ detailTask.total_price/detailTask.amount }}₫/lượt</td>
+                        <td>{{ detailTask.total_done }}/{{ detailTask.amount }} lượt</td>
                         <td style="max-width: 200px">{{ detailTask.link }}</td>
                         <td class="text-center">{{ formatTime }}</td>
+                        <td class="text-center" v-if="detailTask.status == 'confirmed'">Đã xác nhận</td>
+                        <td class="text-center" v-else>Chưa xác nhận</td>
                       </tr>
                     </tbody>
                   </table>
-                  <button
-                    type="submit"
-                    class="btn btn-success btn-feedback"
-                    @click="
-                      receive_task(detailTask._id, detailTask.social_id._id)
-                    "
-                  >
-                    Nhận nhiệm vụ
-                  </button>
                 </div>
               </div>
             </div>
@@ -87,7 +72,7 @@ export default {
     return {
       detailTask: {},
       social_account_id: "",
-      nameSocial: "",
+      nameSocial: ""
     };
   },
   computed: {
@@ -102,7 +87,8 @@ export default {
       {},
       (response) => {
         this.detailTask = response.data.data[0];
-        this.nameSocial = response.data.data[0].social_id.name;
+        console.log(this.detailTask);
+        this.nameSocial = this.detailTask.social_id.name;
       }
     );
 
@@ -118,40 +104,8 @@ export default {
       (response) => {
         this.accountList = response.data.data;
       },
-      (error) => {}
+      ((error) => {})
     );
-  },
-  methods: {
-    receive_task(id, social_id) {
-      for (let acc of this.accountList) {
-        if (acc.social_id == social_id) {
-          this.social_account_id = acc._id;
-        }
-      }
-      this.CallAPI(
-        "post",
-        "task/receive-task",
-        {
-          task_id: id,
-          social_account_id: this.social_account_id,
-        },
-        (response) => {
-          this.$toast.success("Nhận nhiệm vụ thành công!");
-        },
-        (error) => {
-          const statusCode = error.response.data.statusCode;
-          if (statusCode == 409) {
-            this.$toast.warning("Bạn đã nhận nhiệm vụ này rồi!");
-          }
-          if (statusCode == 403) {
-            this.$toast.warning("Đây là nhiệm vụ của bạn");
-          }
-          if (statusCode == 422) {
-            this.$toast.warning("Vui lòng thêm tài nguyên");
-          }
-        }
-      );
-    },
   },
 };
 </script>

@@ -110,7 +110,10 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span><img alt :src="avatar" /> {{ name }}</span>
+                <span
+                  ><img alt :src="profile.avatar" />
+                  {{ formatName(profile.display_name) }}</span
+                >
               </a>
             </div>
           </div>
@@ -135,14 +138,7 @@
               <li>
                 <router-link class="sub-icon" tag="a" to="/task">
                   <div>
-                    <i class="fas fa-book-open"> Nhận nhiệm vụ</i>
-                  </div>
-                </router-link>
-              </li>
-              <li v-if="group == 'creator'">
-                <router-link class="sub-icon" tag="a" to="/make-camp">
-                  <div>
-                    <i class="fas fa-ad"> Tạo chiến dịch</i>
+                    <i class="fas fa-book-open"> Nhiệm vụ</i>
                   </div>
                 </router-link>
               </li>
@@ -187,8 +183,6 @@
 export default {
   data() {
     return {
-      avatar: "",
-      name: "",
       codeCopied: "https://timebeats.com/ref/y3pwnm",
       menu: [
         { content: " Tài khoản", link: "/payment", icon: "fas fa-wallet" },
@@ -202,6 +196,7 @@ export default {
           link: "/resource",
           icon: "fas fa-recycle",
         },
+        { content: " Giới thiệu", link: "/introduction", icon: "fas fa-address-card" },
         { content: " Hỗ trợ", link: "/faq", icon: "fas fa-question-circle" },
         {
           id: "logout",
@@ -215,11 +210,22 @@ export default {
       notify: [],
       notify_no_read: null,
       group: localStorage.getItem("group"),
+      profile: {},
     };
   },
   methods: {
+    formatName(name) {
+      if (name) {
+        const arr = name.split(" ");
+        return arr.slice(arr.length - 2, arr.length).join(" ");
+      }
+    },
     logOut() {
-      localStorage.clear();
+      localStorage.removeItem("LoggedUser");
+      localStorage.removeItem("group");
+      localStorage.removeItem("token");
+      localStorage.removeItem("Data");
+      localStorage.removeItem("vuex");
       this.$router.push({ name: "Login" }).catch((error) => {});
       location.reload();
     },
@@ -276,9 +282,7 @@ export default {
   },
   mounted() {
     this.CallAPI("get", "user/my-profile", {}, (response) => {
-      const profile = response.data.data[0];
-      this.avatar = profile.avatar;
-      this.name = profile.display_name;
+      this.profile = response.data.data[0];
     });
     //get api list notify
     this.CallAPI("get", "notify?limit=10&page=1", {}, (response) => {
@@ -376,7 +380,7 @@ export default {
   border-radius: 0;
 }
 #dropdown-message {
-  left: -305px !important;
+  left: -200px !important;
 }
 .dropdown-body {
   border-top: 1px solid #dce1ef;

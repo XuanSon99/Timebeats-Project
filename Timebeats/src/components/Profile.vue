@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-comp">
     <vue-headful title="Thông tin người dùng" />
     <div class="main-content horizontal-content">
       <!-- container opened -->
@@ -65,7 +65,7 @@
                         aria-expanded="false"
                       >
                         <span class="visible-xs">
-                          <i class="fas fa-key"></i>
+                          <i class="fas fa-share-square"></i>
                         </span>
                         <span class="hidden-xs">YÊU CẦU CREATER</span>
                       </a>
@@ -682,7 +682,7 @@ export default {
 </script>
 
 <style>
-#profile .card,
+.profile-comp #profile .card,
 #settings .card,
 #creator .card {
   text-align: center;

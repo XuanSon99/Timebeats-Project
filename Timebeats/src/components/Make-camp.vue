@@ -8,7 +8,7 @@
         <div class="breadcrumb-header justify-content-between">
           <div class="my-auto">
             <div class="d-flex">
-              <h4 class="content-title mb-0 my-auto">Tạo Chiến Dịch</h4>
+              <h4 class="content-title mb-0 my-auto">Nhiệm Vụ</h4>
             </div>
           </div>
         </div>
@@ -20,79 +20,118 @@
               <div class="text-wrap">
                 <div class="example">
                   <div class="panel panel-primary tabs-style-1" v-if="isActive">
-                    <div class="tab-menu-heading">
-                      <div class="tabs-menu1">
-                        <!-- Tabs -->
-                        <ul class="nav panel-tabs main-nav-line">
-                          <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                              Lịch Sử Chiến Dịch
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <button @click="toMakeCamp" class="btn btn-success">
-                              + Tạo Chiến Dịch
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="tabs-menu">
+                      <ul class="nav nav-tabs profile navtab-custom panel-tabs">
+                        <li>
+                          <router-link
+                            data-toggle="tab"
+                            aria-expanded="false"
+                            tag="a"
+                            to="/task"
+                          >
+                            <span class="visible-xs">
+                              <i class="fas fa-user"></i>
+                            </span>
+                            <span class="hidden-xs">NHẬN NHIỆM VỤ</span>
+                          </router-link>
+                        </li>
+                        <li>
+                          <router-link
+                            data-toggle="tab"
+                            aria-expanded="false"
+                            tag="a"
+                            to="/make-camp"
+                            class="active"
+                          >
+                            <span class="visible-xs">
+                              <i class="fas fa-user"></i>
+                            </span>
+                            <span class="hidden-xs">TẠO NHIỆM VỤ</span>
+                          </router-link>
+                        </li>
+                      </ul>
                     </div>
-                    <div
-                      class="panel-body tabs-menu-body main-content-body-right border-top-0 border"
-                    >
+                    <div class="panel-body border-top-0 border">
                       <div class="row">
-                        <div class="col-xl-12">
-                          <div class="table-responsive table-camp">
-                            <table
-                              class="table text-md-nowrap data-table table-bordered table-hover"
-                              id="statistic"
-                            >
-                              <thead>
-                                <tr>
-                                  <th class="border-bottom-0">STT</th>
-                                  <th class="border-bottom-0">NỀN TẢNG</th>
-                                  <th class="border-bottom-0">
-                                    NỘI DUNG NHIỆM VỤ
-                                  </th>
-                                  <th class="border-bottom-0">KINH PHÍ</th>
-                                  <th class="border-bottom-0">SỐ LƯỢT</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  v-for="(item, index) in myTaskList"
-                                  :key="index"
-                                >
-                                  <th scope="row">
-                                    {{ index + 1 }}
-                                  </th>
-                                  <td>
-                                    <span
-                                      v-for="(social, index) in socialList"
-                                      :key="index"
-                                      ><span
-                                        v-if="social._id == item.social_id"
-                                        >{{ social.name }}</span
-                                      ></span
-                                    >
-                                  </td>
-                                  <td>
-                                    <span
-                                      class="require"
-                                      v-for="(req, index) in item.require"
-                                      :key="index"
-                                      >{{ req.key }}</span
-                                    >
-                                  </td>
-                                  <td>
-                                    {{ item.total_price }}₫
-                                  </td>
-                                  <td>
-                                    {{ item.amount }} Lượt
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                        <div class="col-12">
+                          <div class="tab-menu-heading" style="float: right">
+                            <div class="tabs-menu1">
+                              <!-- Tabs -->
+                              <ul class="nav panel-tabs main-nav-line" style="border: none;">
+                                <li class="nav-item">
+                                  <button
+                                    @click="toMakeCamp"
+                                    class="btn btn-success"
+                                    style="margin-bottom: 10px"
+                                  >
+                                    + Tạo Nhiệm Vụ
+                                  </button>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tabs-menu-body main-content-body-right"
+                      >
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="table-responsive table-camp">
+                              <table
+                                class="table text-md-nowrap data-table table-bordered table-hover"
+                                id="statistic"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th class="border-bottom-0">STT</th>
+                                    <th class="border-bottom-0">NỀN TẢNG</th>
+                                    <th class="border-bottom-0">
+                                      NỘI DUNG NHIỆM VỤ
+                                    </th>
+                                    <th class="border-bottom-0">KINH PHÍ</th>
+                                    <th class="border-bottom-0">SỐ LƯỢT</th>
+                                    <th class="border-bottom-0">
+                                      Ngày bắt đầu
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    v-for="(item, index) in myTaskList"
+                                    :key="index"
+                                    @click="taskDetail(item._id)"
+                                  >
+                                    <th scope="row">
+                                      {{ index + 1 }}
+                                    </th>
+                                    <td>
+                                      <span
+                                        v-for="(social, index) in socialList"
+                                        :key="index"
+                                        ><span
+                                          v-if="social._id == item.social_id"
+                                          >{{ social.name }}</span
+                                        ></span
+                                      >
+                                    </td>
+                                    <td>
+                                      <span
+                                        class="require"
+                                        v-for="(req, index) in item.require"
+                                        :key="index"
+                                        >{{ req.key }}</span
+                                      >
+                                    </td>
+                                    <td>{{ item.total_price }}₫</td>
+                                    <td>{{ item.amount }} Lượt</td>
+                                    <td>
+                                      {{ formatDate(item.begin_date) }}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -161,7 +200,7 @@
                                         item.option.total_price != 0
                                       "
                                     >
-                                      - Giá: {{ item.option.total_price }}
+                                      - Giá: {{ item.option.total_price }}₫
                                     </span>
                                   </span>
                                 </label>
@@ -286,7 +325,7 @@ export default {
       social: "",
       link: "",
       checkedFunction: [],
-      amount: 0,
+      amount: "",
       requires: [],
       key_option: "",
       price: 0,
@@ -446,7 +485,10 @@ export default {
     },
     taskDetail(id) {
       this.$store.dispatch("setTypeKey", id);
-      this.$router.push("/detail-task").catch((error) => {});
+      this.$router.push("/detail-mytask").catch((error) => {});
+    },
+    formatDate(value) {
+      return new Date(value).toLocaleDateString();
     },
   },
 };

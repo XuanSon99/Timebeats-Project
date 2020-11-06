@@ -210,6 +210,7 @@
                           <td>STT</td>
                           <td scope="col">Số tiền</td>
                           <td scope="col">Ngày</td>
+                          <td scope="col">Thông tin</td>
                           <td scope="col">Trạng thái</td>
                         </tr>
                       </thead>
@@ -225,6 +226,7 @@
                           <td class="text-center">
                             {{ formatDate(item.created_at) }}
                           </td>
+                          <td style="max-width: 200px">{{item.external_info.info}}</td>
                           <td
                             class="text-center"
                             v-if="item.status == 'pending'"
@@ -424,7 +426,7 @@
                           v-for="(voucher, index) in voucherList"
                           :key="index"
                         >
-                          <th scope="row">{{ index + 1 }}</th>
+                          <td class="text-center">{{ index + 1 }}</td>
                           <td>{{ formatMoney(voucher.amount) }}₫</td>
                           <td>
                             <input
@@ -443,8 +445,8 @@
                               >Copy</span
                             >
                           </td>
-                          <td v-if="voucher.count == 2">Đã sử dụng</td>
-                          <td v-else>Chưa sử dụng</td>
+                          <td class="text-center" v-if="voucher.count == 2">Đã sử dụng</td>
+                          <td class="text-center" v-else>Chưa sử dụng</td>
                         </tr>
                       </tbody>
                     </table>
@@ -606,6 +608,7 @@ export default {
     });
     this.CallAPI("get", "money/my-request-withdraw", {}, (response) => {
       this.withdrawHistory = response.data.data;
+      console.log(this.withdrawHistory);
     });
     this.CallAPI("get", "money/v2/history", {}, (response) => {
       this.history = response.data.data;
@@ -808,6 +811,16 @@ export default {
 }
 #profile .card {
   text-align: left;
+}
+#history .card-body {
+  max-height: 400px;
+  overflow: scroll;
+}
+.voucher-table tbody tr:hover {
+  background: #eff3f7;
+}
+.voucher-table tbody tr:hover input {
+  background: #eff3f7;
 }
 @media (max-width: 375px) {
   #depositByEBC .card,

@@ -17,6 +17,8 @@ import "vue-toastification/dist/index.css"
 import VueClipboard from 'vue-clipboard2'
 import './assets/vendor/css/reponsive.css'
 import './assets/vendor/js/custom'
+import 'vue2-timepicker/dist/VueTimepicker.css'
+
 Vue.use(VueClipboard)
 
 import GoogleAuth from '@/config/google_oAuth.js'

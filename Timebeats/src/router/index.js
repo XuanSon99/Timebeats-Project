@@ -14,6 +14,8 @@ import Payment from '@/components/Payment'
 import Notify from '@/components/Notify'
 import DetailNotify from '@/components/Detail-Notify'
 import DetailTask from '@/components/Detail-Task'
+import DetailMyTask from '@/components/Detail-MyTask'
+import Introduction from '@/components/Introduction'
 
 Vue.use(Router)
 
@@ -153,6 +155,24 @@ const router = new Router({
       path: '/Detail-Task',
       name: 'DetailTask',
       component: DetailTask,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/detail-mytask',
+      name: 'DetailMyTask',
+      component: DetailMyTask,
+      meta: {
+        header: true,
+        footer: true
+      }
+    },
+    {
+      path: '/introduction',
+      name: 'Introduction',
+      component: Introduction,
       meta: {
         header: true,
         footer: true

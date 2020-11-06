@@ -323,6 +323,7 @@
                             <img
                               alt
                               src="https://cf.shopee.vn/file/01566b94a0243a192eae029c72fc4503_tn"
+                              class="avatar"
                             />
                           </td>
                           <td class="pad-top-20">
@@ -566,6 +567,7 @@ export default {
   width: 40px;
   padding: 5px 0;
   border-top: 1px solid #dde2ef;
+  vertical-align: top;
 }
 .detail-feedback .content {
   padding-bottom: 20px;

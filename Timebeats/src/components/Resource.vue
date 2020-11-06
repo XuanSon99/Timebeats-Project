@@ -34,15 +34,11 @@
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="#downExtension"
-                        data-toggle="tab"
-                        aria-expanded="false"
-                      >
+                      <a href="#tool" data-toggle="tab" aria-expanded="false">
                         <span class="visible-xs">
                           <i class="fas fa-cloud-download-alt"></i>
                         </span>
-                        <span class="hidden-xs">TẢI VỀ</span>
+                        <span class="hidden-xs">CÔNG CỤ</span>
                       </a>
                     </li>
                   </ul>
@@ -211,88 +207,239 @@
                       </table>
                     </div>
                   </div>
-                  <div class="tab-pane" id="downExtension">
-                    <div class="mb-4 main-content-label">CÀI ĐẶT EXTENSION</div>
-                  </div>
-                </div>
-                <!-- Modal -->
-                <div
-                  class="modal fade"
-                  id="modal-resource"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id>THÊM MỚI TÀI NGUYÊN</h5>
-                        <button
-                          type="button"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="card-body">
-                          <form
-                            action="/social/add-account-social"
-                            method="post"
+                  <!-- Modal -->
+                  <div
+                    class="modal fade"
+                    id="modal-resource"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id>THÊM MỚI TÀI NGUYÊN</h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
                           >
-                            <p class="text-danger"></p>
-                            <input
-                              type="hidden"
-                              name="_token"
-                              value="NUsQFF66-HgOai8bOxrFrGkWgHwMqN9FNOwk"
-                            />
-                            <div class="form-body">
-                              <h6 class="card-title">Mạng xã hội</h6>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <select
-                                      class="form-control"
-                                      required
-                                      name="social_code"
-                                      :selected="selected"
-                                      v-model="selected_add"
-                                    >
-                                      <option value="all">Tất cả</option>
-                                      <option
-                                        v-for="item in info"
-                                        :key="item._id"
-                                        :data-id="item._id"
-                                        :value="item.code"
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="card-body">
+                            <form
+                              action="/social/add-account-social"
+                              method="post"
+                            >
+                              <p class="text-danger"></p>
+                              <input
+                                type="hidden"
+                                name="_token"
+                                value="NUsQFF66-HgOai8bOxrFrGkWgHwMqN9FNOwk"
+                              />
+                              <div class="form-body">
+                                <h6 class="card-title">Mạng xã hội</h6>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <select
+                                        class="form-control"
+                                        required
+                                        name="social_code"
+                                        :selected="selected"
+                                        v-model="selected_add"
                                       >
-                                        {{ item.name }}
-                                      </option>
-                                    </select>
+                                        <option value="all">Tất cả</option>
+                                        <option
+                                          v-for="item in info"
+                                          :key="item._id"
+                                          :data-id="item._id"
+                                          :value="item.code"
+                                        >
+                                          {{ item.name }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h5>
+                                  Yêu cầu bạn phải đăng nhập tài khoản vào trình
+                                  duyệt đang sử dụng (cung cấp thông tin tài
+                                  khoản
+                                  <b class="text-danger">*</b>)
+                                </h5>
+                                <div class="form-actions">
+                                  <div class="text-center">
+                                    <button
+                                      type="button"
+                                      class="btn btn-info"
+                                      id="AddAccountSocialBtn"
+                                    >
+                                      Lưu
+                                    </button>
                                   </div>
                                 </div>
                               </div>
-                              <h5>
-                                Yêu cầu bạn phải đăng nhập tài khoản vào trình
-                                duyệt đang sử dụng (cung cấp thông tin tài khoản
-                                <b class="text-danger">*</b>)
-                              </h5>
-                              <div class="form-actions">
-                                <div class="text-center">
-                                  <button
-                                    type="button"
-                                    class="btn btn-info"
-                                    id="AddAccountSocialBtn"
-                                  >
-                                    Lưu
-                                  </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="tool">
+                    <div class="mb-4 main-content-label">CÔNG CỤ TỰ ĐỘNG</div>
+                    <div
+                      class="make-camp card card-body pd-20 pd-md-40 border shadow-none"
+                    >
+                      <form>
+                        <div class="form-group">
+                          <label
+                            class="main-content-label tx-12 tx-medium tx-gray-600"
+                            >Chọn nền tảng</label
+                          >
+                          <select
+                            class="form-control"
+                            v-model="social"
+                            style="margin-bottom: 10px"
+                          >
+                            <option disabled value>
+                              Chọn mạng xã hội cần chạy
+                            </option>
+                            <option v-for="list in socialList" :key="list._id">
+                              {{ list.code }}
+                            </option>
+                          </select>
+                        </div>
+
+                        <div
+                          class="socialList"
+                          v-for="list in socialList"
+                          :key="list._id"
+                        >
+                          <div class="card" v-if="social == list.code">
+                            <div class="card-body">
+                              <h4 class="card-title append-social-function">
+                                Chức năng của
+                                <b class="social_name">{{ list.name }}</b>
+                              </h4>
+                              <div class="area_functoin_social">
+                                <div
+                                  class="custom-control custom-checkbox"
+                                  v-for="func in list.function"
+                                  :key="func.key"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    :id="func.key"
+                                    class="custom-control-input"
+                                    v-model="checkedFunction"
+                                    :value="func.key"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    :for="func.key"
+                                    >{{ func.key }}
+                                  </label>
                                 </div>
                               </div>
                             </div>
-                          </form>
+                          </div>
                         </div>
-                      </div>
+                        <div class="form-group">
+                          <label
+                            class="main-content-label tx-12 tx-medium tx-gray-600"
+                            >Nhập link</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="link"
+                            id="link"
+                          />
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Ngày bắt đầu</label
+                        >
+                        <div class="form-group">
+                          <Datepicker
+                            v-model="start_date"
+                            class="birthday-box"
+                            :format="customFormatter"
+                            @closed="changeBirthday"
+                          ></Datepicker>
+                        </div>
+                        <label
+                          class="main-content-label tx-12 tx-medium tx-gray-600"
+                          >Thời gian bắt đầu</label
+                        >
+                        <div class="form-group">
+                          <vue-timepicker v-model="start_time"></vue-timepicker>
+                        </div>
+                        <p
+                          class="text-danger"
+                          v-for="item in error"
+                          :key="item"
+                        >
+                          {{ item }}
+                        </p>
+                        <div class="form-group">
+                          <button
+                            class="btn btn-success btn-makecamp"
+                            @click="toolHandle"
+                          >
+                            Xác nhận
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                    <h5 class="card-title mg-b-20">DANH SÁCH</h5>
+                    <div class="table-responsive">
+                      <table
+                        id="resource-tool"
+                        class="table text-md-nowrap data-table table-bordered table-hover"
+                      >
+                        <thead class="text-center">
+                          <tr>
+                            <th>STT</th>
+                            <th>Nền tảng</th>
+                            <th>Chức năng</th>
+                            <th>Link</th>
+                            <th>Thời gian</th>
+                            <th>Thao tác</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in dataList" :key="index">
+                            <td class="text-center">{{ index + 1 }}</td>
+                            <td>{{ item.social }}</td>
+                            <td>
+                              <span
+                                class="require"
+                                v-for="req in item.function"
+                                :key="req"
+                                >{{ req }}</span
+                              >
+                            </td>
+                            <td>{{ item.link }}</td>
+                            <td>
+                              {{ item.start_time }} / {{ item.start_date }}
+                            </td>
+                            <td>
+                              <span
+                                class="tag tag-danger tag-center"
+                                @click="deleteTool(index)"
+                                ><a style="color: white; cursor: pointer"
+                                  >Xóa</a
+                                ></span
+                              >
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -305,7 +452,19 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
+import VueMoment from "vue-moment";
+import moment from "moment-timezone";
+Vue.use(VueMoment, {
+  moment,
+});
+import Datepicker from "vuejs-datepicker";
+import VueTimepicker from "vue2-timepicker";
 export default {
+  components: {
+    Datepicker,
+    VueTimepicker,
+  },
   data() {
     return {
       info: [],
@@ -317,9 +476,25 @@ export default {
       pages: [],
       data: [],
       selected_add: "all",
+      socialList: [],
+      checkedFunction: [],
+      social: "",
+      link: "",
+      makeCampErrors: [],
+      start_date: "",
+      start_time: "",
+      dataList: [],
+      error: [],
+      dataList: [],
     };
   },
   mounted() {
+    if (JSON.parse(localStorage.getItem("resource/tool"))) {
+      this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+    }
+    this.CallAPI("get", "social/list", {}, (response) => {
+      this.socialList = response.data.data;
+    });
     this.CallAPI("get", "social/list-account", {}, (response) => {
       this.account = response.data.data;
       this.data = response.data.data;
@@ -330,6 +505,44 @@ export default {
     });
   },
   methods: {
+    deleteTool(value) {
+      this.dataList = this.dataList.filter((item, index) => index != value);
+      localStorage.setItem("resource/tool", JSON.stringify(this.dataList));
+    },
+    customFormatter() {
+      return moment(this.start_date).format("DD/MM/YYYY");
+    },
+    changeBirthday() {
+      var dd = String(this.start_date.getDate()).padStart(2, "0");
+      var mm = String(this.start_date.getMonth() + 1).padStart(2, "0");
+      var yyyy = this.start_date.getFullYear();
+      this.start_date = yyyy + "-" + mm + "-" + dd;
+    },
+    toolHandle(e) {
+      e.preventDefault();
+      this.error = [];
+      if (
+        !this.checkedFunction[0] ||
+        !this.link ||
+        !this.start_time ||
+        !this.start_date
+      ) {
+        this.error.push("Vui lòng nhập đủ thông tin");
+        return;
+      }
+      const data = {
+        social: this.social,
+        function: this.checkedFunction,
+        link: this.link,
+        start_date: this.start_date,
+        start_time: this.start_time,
+      };
+      if (localStorage.getItem("resource/tool")) {
+        this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+      }
+      this.dataList.push(data);
+      localStorage.setItem("resource/tool", JSON.stringify(this.dataList));
+    },
     getPosts() {
       this.data = JSON.parse(localStorage.getItem("Data")) || []; // get storage
       for (let item of this.data) {
@@ -388,7 +601,7 @@ export default {
       addTiktok.init();
       let social = this.selected_add;
       chrome.console.log({ social });
-      location.reload()
+      location.reload();
     },
     download() {
       var printWindow = window.open("", "", "height=400,width=1200");
@@ -543,5 +756,68 @@ button.page-link {
 .resource-table tbody td {
   line-height: 35px;
   text-align: center;
+}
+button {
+  margin-top: 0 !important;
+}
+.socialList {
+  box-shadow: -8px 12px 18px 0 #dadee8;
+  border-radius: 5px;
+}
+.socialList .card {
+  border-radius: 5px;
+}
+.make-camp {
+  width: 52%;
+  margin: 30px auto;
+}
+.form-group {
+  margin-bottom: 1rem !important;
+}
+.btn-makecamp {
+  margin: 0 auto;
+  display: block;
+  margin-top: 1rem !important;
+}
+.birthday-box input {
+  height: 50px;
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4d5875;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.vue__time-picker {
+  width: 100%;
+  height: 50px;
+}
+.vue__time-picker input.display-time {
+  width: 100%;
+  height: 50px;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #e1e5ef;
+  border-radius: 3px;
+}
+.vue__time-picker .dropdown {
+  top: 50px;
+}
+#resource-tool td {
+  vertical-align: middle;
+}
+#resource-tool .require {
+  background: #fbbc0b;
+  margin-left: 5px;
+  padding: 2px 10px;
+  border-radius: 3px;
+  color: #fff;
 }
 </style>
