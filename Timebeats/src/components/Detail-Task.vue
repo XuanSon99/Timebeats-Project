@@ -15,7 +15,9 @@
           <div class="card card-body pd-20 pd-md-40 border shadow-none">
             <!---->
             <div class="detail-task">
-              <router-link tag="a" to="/task"><span id="return-list"><i class="fas fa-arrow-left"></i></span></router-link>
+              <router-link tag="a" to="/task"
+                ><span id="return-list"><i class="fas fa-arrow-left"></i></span
+              ></router-link>
               <span class="title">{{ detailTask.description }}</span>
               <div class="content">
                 <div class="table-responsive">
@@ -65,12 +67,66 @@
                   <button
                     type="submit"
                     class="btn btn-success btn-feedback"
+                    data-target="#account-Modal"
+                    data-toggle="modal"
                     @click="
                       receive_task(detailTask._id, detailTask.social_id._id)
                     "
                   >
                     Nhận nhiệm vụ
                   </button>
+                </div>
+                <div
+                  class="modal fade"
+                  id="account-Modal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Chọn tài khoản
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p v-if="!accountList[0]" class="no_account">
+                          Vui lòng thêm tài khoản mạng xã hội
+                        </p>
+                        <span
+                          v-for="acc in accountList"
+                          :key="acc.social_id"
+                          class="account"
+                          @click="receive_task_handle(acc._id, acc.social_id)"
+                          v-else
+                        >
+                          <img
+                            :src="acc.account_profile.avatarUri[1]"
+                            alt=""
+                            class="avatar-social"
+                          />
+                          {{ acc.account_profile.uniqueId }}
+                        </span>
+                        <p
+                          class="text-danger"
+                          v-for="item in error"
+                          :key="item"
+                          style="margin: 10px 0 0 0"
+                        >
+                          {{ item }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,35 +178,40 @@ export default {
     );
   },
   methods: {
-    receive_task(id, social_id) {
-      for (let acc of this.accountList) {
-        if (acc.social_id == social_id) {
-          this.social_account_id = acc._id;
-        }
+    receive_task_handle(acc_id, social_id) {
+      this.error = [];
+      if (this.social_id == social_id) {
+        this.CallAPI(
+          "post",
+          "task/receive-task",
+          {
+            task_id: this.task_id,
+            social_account_id: acc_id,
+          },
+          (response) => {
+            this.$toast.success("Nhận nhiệm vụ thành công!");
+          },
+          (error) => {
+            const statusCode = error.response.data.statusCode;
+            if (statusCode == 409) {
+              this.$toast.warning("Bạn đã nhận nhiệm vụ này rồi!");
+            }
+            if (statusCode == 422) {
+              this.$toast.warning("Bạn vui lòng thêm tài nguyên");
+            }
+            if (statusCode == 403) {
+              this.$toast.warning("Nhiệm vụ này chưa bắt đầu");
+            }
+          }
+        );
+      } else {
+        this.error.push("Mạng xã hội không đúng !");
       }
-      this.CallAPI(
-        "post",
-        "task/receive-task",
-        {
-          task_id: id,
-          social_account_id: this.social_account_id,
-        },
-        (response) => {
-          this.$toast.success("Nhận nhiệm vụ thành công!");
-        },
-        (error) => {
-          const statusCode = error.response.data.statusCode;
-          if (statusCode == 409) {
-            this.$toast.warning("Bạn đã nhận nhiệm vụ này rồi!");
-          }
-          if (statusCode == 403) {
-            this.$toast.warning("Đây là nhiệm vụ của bạn");
-          }
-          if (statusCode == 422) {
-            this.$toast.warning("Vui lòng thêm tài nguyên");
-          }
-        }
-      );
+    },
+    receive_task(id, social_id) {
+      this.error = [];
+      this.task_id = id;
+      this.social_id = social_id;
     },
   },
 };
@@ -192,5 +253,27 @@ table .require {
 }
 #return-list:hover {
   color: rgb(80, 80, 80);
+}
+#account-Modal .account {
+  display: block;
+  border-radius: 5px;
+  padding: 5px;
+}
+#account-Modal .account:hover {
+  background: rgb(0, 0, 0, 0.05);
+  transition: 100ms ease all;
+  cursor: pointer;
+}
+#account-Modal .no_account {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+}
+@media (min-width: 576px) {
+  #account-Modal .modal-dialog {
+    max-width: 30%;
+    margin: 5.75rem auto;
+  }
 }
 </style>
