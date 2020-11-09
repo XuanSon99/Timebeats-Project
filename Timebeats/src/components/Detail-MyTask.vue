@@ -48,7 +48,7 @@
                           >
                         </td>
                         <td>{{ detailTask.total_price/detailTask.amount }}₫/lượt</td>
-                        <td>{{ detailTask.total_done }}/{{ detailTask.amount }} lượt</td>
+                        <td>{{ detailTask.amount - detailTask.total_done }}/{{ detailTask.amount }} lượt</td>
                         <td style="max-width: 200px">{{ detailTask.link }}</td>
                         <td class="text-center">{{ formatTime }}</td>
                         <td class="text-center" v-if="detailTask.status == 'confirmed'">Đã xác nhận</td>

@@ -429,6 +429,53 @@
                                 ></span
                               >
                             </td>
+                            <td v-if="false"><button id="reload">Reload</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <h5 class="card-title mg-b-20">DANH SÁCH ĐANG CHẠY</h5>
+                    <div class="table-responsive">
+                      <table
+                        id="resource-tool"
+                        class="table text-md-nowrap data-table table-bordered table-hover"
+                      >
+                        <thead class="text-center">
+                          <tr>
+                            <th>STT</th>
+                            <th>Nền tảng</th>
+                            <th>Chức năng</th>
+                            <th>Link</th>
+                            <th>Thời gian</th>
+                            <th>Thao tác</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in dataList" :key="index">
+                            <td class="text-center">{{ index + 1 }}</td>
+                            <td>{{ item.social }}</td>
+                            <td>
+                              <span
+                                class="require"
+                                v-for="req in item.function"
+                                :key="req"
+                                >{{ req }}</span
+                              >
+                            </td>
+                            <td>{{ item.link }}</td>
+                            <td>
+                              {{ item.start_time }} / {{ item.start_date }}
+                            </td>
+                            <td>
+                              <span
+                                class="tag tag-danger tag-center"
+                                @click="deleteTool(index)"
+                                ><a style="color: white; cursor: pointer"
+                                  >Xóa</a
+                                ></span
+                              >
+                            </td>
+                            <td v-if="false"><button id="reload">Reload</button></td>
                           </tr>
                         </tbody>
                       </table>

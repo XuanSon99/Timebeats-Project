@@ -172,7 +172,7 @@
     <div class="mobile-menu" id="mobile-menu">
       <ul>
         <li>
-          <router-link tag="a" to="/Daboard"></router-link>
+          <router-link tag="a" to="/">Trang chủ</router-link>
         </li>
       </ul>
     </div>
@@ -448,9 +448,39 @@ export default {
   cursor: pointer;
   text-decoration: underline;
 }
+#mobile-menu {
+  background-color: #fff;
+  color: #000;
+  top: 62px;
+  display: none;
+}
 @media (min-width: 576px) {
   .main-header-notification.show > a::after {
     display: none;
+  }
+}
+@media (max-width: 990px) {
+  .sticky-pin {
+    display: none;
+  }
+  .main-content.horizontal-content {
+    margin-top: 100px !important;
+  }
+  #logo {
+    display: none;
+  }
+  #mobile-menu {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .main-content.horizontal-content {
+    margin-top: 40px !important;
+  }
+}
+@media (max-width: 480px) {
+  .main-content.horizontal-content {
+    margin-top: 100px !important;
   }
 }
 </style>

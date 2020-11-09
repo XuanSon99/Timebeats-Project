@@ -532,13 +532,13 @@
                                     uid == item.destination &&
                                     item.method == 'task'
                                   "
-                                  >- Nhận nhiệm vụ</span
+                                  >- Nhiệm vụ</span
                                 >
                                 <span
                                   v-if="
                                     uid == item.source && item.method == 'task'
                                   "
-                                  >- Tạo nhiệm vụ</span
+                                  >- Nhiệm vụ</span
                                 >
                                 <span v-if="item.method == 'withdraw'"
                                   >- Rút tiền</span

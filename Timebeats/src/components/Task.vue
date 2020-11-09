@@ -174,7 +174,7 @@
                                         selected == 'Tất cả'
                                       "
                                     >
-                                      {{ item.total_done }}/{{ item.amount }}
+                                      {{ item.amount - item.total_done }}/{{ item.amount }}
                                       lượt
                                     </td>
                                     <td

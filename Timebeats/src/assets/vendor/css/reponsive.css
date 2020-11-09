@@ -45,9 +45,6 @@
     .modal.show .modal-dialog {
         margin-top: 100px;
     }
-    .router-link-exact-active.router-link-active {
-        display: none;
-    }
     #feedback .card {
         width: 100%!important;
     }
@@ -81,9 +78,6 @@
     }
     .modal.show .modal-dialog {
         margin-top: 100px;
-    }
-    .router-link-exact-active.router-link-active {
-        display: none;
     }
   }
   @media(min-width: 500px) and (max-width: 768px) {

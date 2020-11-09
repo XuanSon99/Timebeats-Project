@@ -55,7 +55,7 @@
                           {{ detailTask.total_price / detailTask.amount }}₫/lượt
                         </td>
                         <td>
-                          {{ detailTask.total_done }}/{{ detailTask.amount }}
+                          {{ detailTask.amount - detailTask.total_done }}/{{ detailTask.amount }}
                           lượt
                         </td>
                         <td>{{ detailTask.total_take }} lượt</td>
@@ -229,6 +229,7 @@ export default {
       {},
       (response) => {
         this.detailTask = response.data.data[0];
+        console.log(this.detailTask);
         this.nameSocial = response.data.data[0].social_id.name;
       }
     );
