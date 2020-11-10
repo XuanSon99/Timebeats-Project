@@ -107,11 +107,9 @@
       position: relative;
   }
   #mobile-menu {
-      width: 200px;
       height: 100%;
-      background-color: red;
       position: fixed   ;
-      left: -200px;
+      left: -250px;
       z-index: 9999;
       top: 64px;
       transition: all ease-in-out 0.3s;
