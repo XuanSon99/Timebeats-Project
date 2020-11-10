@@ -395,7 +395,6 @@
                     <h5 class="card-title mg-b-20">DANH SÁCH</h5>
                     <button
                       id="reload_storage"
-                      style="display: none"
                       @click="reload_storage"
                     ></button>
                     <div class="table-responsive">
@@ -669,6 +668,8 @@ export default {
     reload_storage() {
       if (JSON.parse(localStorage.getItem("resource/tool"))) {
         this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+      } else {
+        this.dataList = [];
       }
       if (JSON.parse(localStorage.getItem("resource/tool/run"))) {
         this.dataRuningList = JSON.parse(
