@@ -408,9 +408,6 @@ export default {
 .dropdown-body .nav .nav-item .dropdown-menu {
   border-radius: 0;
 }
-#dropdown-message {
-  left: -200px !important;
-}
 .dropdown-body {
   border-top: 1px solid #dce1ef;
   max-height: 370px;
