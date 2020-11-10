@@ -393,7 +393,11 @@
                       </form>
                     </div>
                     <h5 class="card-title mg-b-20">DANH SÁCH</h5>
-                    <button id="reload_storage" style="display: none"></button>
+                    <button
+                      id="reload_storage"
+                      style="display: none"
+                      @click="reload_storage"
+                    ></button>
                     <div class="table-responsive">
                       <table
                         id="resource-tool"
@@ -525,16 +529,10 @@ export default {
     };
   },
   mounted() {
-    if (
-      JSON.parse(localStorage.getItem("resource/tool")) &&
-      JSON.parse(localStorage.getItem("resource/tool")) != ""
-    ) {
+    if (JSON.parse(localStorage.getItem("resource/tool"))) {
       this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
     }
-    if (
-      JSON.parse(localStorage.getItem("resource/tool/run")) &&
-      JSON.parse(localStorage.getItem("resource/tool/run")) != ""
-    ) {
+    if (JSON.parse(localStorage.getItem("resource/tool/run"))) {
       this.dataRuningList = JSON.parse(
         localStorage.getItem("resource/tool/run")
       );
@@ -667,6 +665,16 @@ export default {
     },
     formatDate(value) {
       return new Date(value).toLocaleDateString();
+    },
+    reload_storage() {
+      if (JSON.parse(localStorage.getItem("resource/tool"))) {
+        this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+      }
+      if (JSON.parse(localStorage.getItem("resource/tool/run"))) {
+        this.dataRuningList = JSON.parse(
+          localStorage.getItem("resource/tool/run")
+        );
+      }
     },
   },
   computed: {
