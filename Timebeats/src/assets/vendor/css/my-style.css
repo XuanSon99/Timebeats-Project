@@ -50,4 +50,75 @@
     .table thead th, .table thead td {
         padding: 10px 4px;
     }
+    .p-4 {
+        padding: 0.2rem!important;
+        
+    }
+}
+@media(min-width: 770px) and (max-width: 1030px ) {
+    .tab-responsive li a {
+        letter-spacing: -0.5px!important;
+        padding: 10px 10px!important;
+        margin: 0px!important;
+        font-size: 13px!important;
+    }
+    .tab-responsive {
+        display: flex;
+        justify-content: space-between;
+    }
+    #accuracy .card, #settings .card, #profile .card {
+        width: 100%!important;
+    }
+    #depositByEBC .card, #depositByVoucher .card, #makeVoucher .card, #tutorial .card, #withdraw .card {
+        width: 100%!important;
+    }
+    #creator .card {
+        width: 100%!important;
+    }
+    #dropdown-message {
+        left: 0!important;
+    }
+    .horizontalMenu > .horizontalMenu-list > li > ul.sub-menu, .horizontalMenu > .horizontalMenu-list > li > .horizontal-megamenu {
+        right: 0;
+    }
+}
+@media (min-width: 600px) and (max-width: 768px){
+    #accuracy .card, #settings .card, #profile .card {
+        width: 100%!important;
+    }
+    #depositByEBC .card, #depositByVoucher .card, #makeVoucher .card, #tutorial .card, #withdraw .card {
+        width: 100%!important;
+    }
+    .tab-responsive li a {
+        letter-spacing: -0.7px!important;
+        padding: 10px 7px!important;
+        margin: 0px!important;
+        font-size: 11px!important;
+    }
+    .card-body {
+        padding: 0.75rem;
+    }
+    .mg-b-20 {
+        margin-top: 20px;
+    }
+    .make-camp {
+        width: 100%!important;
+    }
+    .tab-responsive {
+        display: flex;
+        justify-content: space-between;
+    }
+    #dropdown-message {
+        left: 0!important;
+    }
+    .dropdown-body {
+        max-height: 250px!important;
+    }
+    #mobile-menu {
+        width: 300px;
+        left: -300px;
+    }
+    #creator .card {
+        width: 100%!important;
+    }
 }

@@ -19,7 +19,7 @@
               <div class="card-body">
                 <div class="tabs-menu">
                   <!-- Tabs -->
-                  <ul class="nav nav-tabs profile navtab-custom panel-tabs">
+                  <ul class="nav nav-tabs profile navtab-custom panel-tabs tab-responsive">
                     <li class="">
                       <a
                         href="#profile"
@@ -252,16 +252,6 @@
                     >
                       <form>
                         <h5 class="card-title mg-b-20">CHỌN NGUỒN TIỀN NẠP</h5>
-                        <!-- <div class="form-group">
-                          <select
-                            class="form-control"
-                            v-model="depositType"
-                            style="margin-bottom: 10px"
-                          >
-                            <option>Voucher</option>
-                            <option>EBC (Etherbanking)</option>
-                          </select>
-                        </div> -->
                         <div class="form-group">
                           <select v-model="ecbAddress" class="form-control">
                             <option v-for="list in walletList" :key="list.id">
@@ -660,6 +650,7 @@ export default {
         },
         (error) => {
           const statusCode = error.response.data.statusCode;
+          const rule_of_error = error.response.data.message.amount.rule;
           if (statusCode == 406) {
             this.makeVoucherErrors.push("Tài khoản của bạn không đủ");
             return;
@@ -761,9 +752,13 @@ export default {
           });
         },
         (error) => {
+          console.log()
           if (error.response.data.error == "Invalid 2fa code!") {
             this.withdrawErrors.push("Mã 2FA không đúng");
             return;
+          }
+          if(error.response.data.message.amount.rule == 'min') {
+            this.withdrawErrors.push("Số tiền rút ít nhất là 1000₫")
           }
         }
       );
