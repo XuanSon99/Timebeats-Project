@@ -128,7 +128,11 @@
                             </td>
                             <td>{{ formatDate(item.updated_at) }}</td>
                             <td>
-                              <button type="button" class="btn btn-danger" @click="deleteAccountSocial(item._id)">
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                @click="deleteAccountSocial(item._id)"
+                              >
                                 <i class="fas fa-trash-alt"></i>
                               </button>
                             </td>
@@ -389,6 +393,10 @@
                       </form>
                     </div>
                     <h5 class="card-title mg-b-20">DANH SÁCH</h5>
+                    <button
+                      id="reload_storage"
+                      @click="reload_storage"
+                    ></button>
                     <div class="table-responsive">
                       <table
                         id="resource-tool"
@@ -429,12 +437,11 @@
                                 ></span
                               >
                             </td>
-                            <td v-if="false"><button id="reload">Reload</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                    <h5 class="card-title mg-b-20">DANH SÁCH ĐANG CHẠY</h5>
+                    <h5 class="card-title mg-b-20">ĐÃ CHẠY</h5>
                     <div class="table-responsive">
                       <table
                         id="resource-tool"
@@ -447,11 +454,13 @@
                             <th>Chức năng</th>
                             <th>Link</th>
                             <th>Thời gian</th>
-                            <th>Thao tác</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, index) in dataList" :key="index">
+                          <tr
+                            v-for="(item, index) in dataRuningList"
+                            :key="index"
+                          >
                             <td class="text-center">{{ index + 1 }}</td>
                             <td>{{ item.social }}</td>
                             <td>
@@ -466,16 +475,6 @@
                             <td>
                               {{ item.start_time }} / {{ item.start_date }}
                             </td>
-                            <td>
-                              <span
-                                class="tag tag-danger tag-center"
-                                @click="deleteTool(index)"
-                                ><a style="color: white; cursor: pointer"
-                                  >Xóa</a
-                                ></span
-                              >
-                            </td>
-                            <td v-if="false"><button id="reload">Reload</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -525,11 +524,17 @@ export default {
       dataList: [],
       error: [],
       dataList: [],
+      dataRuningList: [],
     };
   },
   mounted() {
     if (JSON.parse(localStorage.getItem("resource/tool"))) {
       this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+    }
+    if (JSON.parse(localStorage.getItem("resource/tool/run"))) {
+      this.dataRuningList = JSON.parse(
+        localStorage.getItem("resource/tool/run")
+      );
     }
     this.CallAPI("get", "social/list", {}, (response) => {
       this.socialList = response.data.data;
@@ -659,6 +664,18 @@ export default {
     },
     formatDate(value) {
       return new Date(value).toLocaleDateString();
+    },
+    reload_storage() {
+      if (JSON.parse(localStorage.getItem("resource/tool"))) {
+        this.dataList = JSON.parse(localStorage.getItem("resource/tool"));
+      } else {
+        this.dataList = [];
+      }
+      if (JSON.parse(localStorage.getItem("resource/tool/run"))) {
+        this.dataRuningList = JSON.parse(
+          localStorage.getItem("resource/tool/run")
+        );
+      }
     },
   },
   computed: {

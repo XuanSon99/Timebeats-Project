@@ -172,7 +172,32 @@
     <div class="mobile-menu" id="mobile-menu">
       <ul>
         <li>
-          <router-link tag="a" to="/">Trang chủ</router-link>
+          <span class="menu-off"><i class="fas fa-times"></i></span>
+        </li>
+        <li>
+          <router-link class="sub-icon" tag="a" to="/">
+            <div><i class="fa fa-home"></i> Trang chủ</div>
+          </router-link>
+        </li>
+        <li>
+          <router-link class="sub-icon" tag="a" to="/task">
+            <div><i class="fas fa-book-open"></i> Nhiệm vụ</div>
+          </router-link>
+        </li>
+        <li aria-haspopup="true" v-for="item in menu" :key="item.index" v-show="item.id != 'logout'">
+          <router-link class="sub-icon" tag="a" :to="item.link">
+            <div><i :class="item.icon"></i>{{ item.content }}</div>
+          </router-link>
+        </li>
+        <li>
+          <router-link class="sub-icon" tag="a" to="/profile">
+            <div><i class="fas fa-info-circle"></i> Thông tin cá nhân</div>
+          </router-link>
+        </li>
+        <li>
+          <a href="" @click="logOut"
+            ><i class="fas fa-power-off"></i> Đăng xuất</a
+          >
         </li>
       </ul>
     </div>
@@ -448,8 +473,62 @@ export default {
 #mobile-menu {
   background-color: #fff;
   color: #000;
-  top: 62px;
+  top: 0;
   display: none;
+  width: 250px;
+}
+#mobile-menu li {
+  list-style: none;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 20px;
+}
+#mobile-menu li:not(:first-child) {
+  border-bottom: 1px solid #f6f6fb;
+}
+#mobile-menu li:first-child {
+  height: 0;
+  position: relative;
+}
+#mobile-menu li:not(:first-child):hover {
+  background: #f6f6fb;
+  padding-left: 30px;
+  transition: all 200ms ease-in-out;
+}
+#mobile-menu .menu-off {
+  cursor: pointer;
+  text-align: right;
+  padding: 0 5px;
+  position: absolute;
+  left: 220px;
+  top: -10px;
+  transition: all 1000ms ease;
+}
+#mobile-menu li:hover a {
+  color: #22c03c;
+  display: block;
+}
+#mobile-menu li:not(:first-child) i {
+  width: 25px;
+  display: block;
+  float: left;
+  height: 50px;
+  line-height: 50px;
+}
+#mobile-menu li:first-child i {
+  font-size: 20px;
+  color: #666;
+}
+#mobile-menu li:first-child i:hover {
+  color: #555;
+  transition: all 200ms ease;
+}
+#mobile-menu li a {
+  color: #22c03c;
+  font-weight: 600;
+}
+#mobile-menu ul {
+  padding: 0;
 }
 @media (min-width: 576px) {
   .main-header-notification.show > a::after {
