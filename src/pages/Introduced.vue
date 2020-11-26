@@ -1,27 +1,30 @@
 <template>
-  <div class="content">
+  <div class="content display-flex">
+    <div class="container-fluid">
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10">
-        <h1 class="text-info">Giới thiệu về Timebeat</h1>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <ckeditor
+      <div class="card">
+        <div class="card-header font-weight-bold">
+          Giới thiệu về Timebeat
+        </div>
+          <div class="card-body">
+            <ckeditor
           :editor="editor"
           v-model="editorData"
           :config="editorConfig"
         ></ckeditor>
-        <div class="send text-right" style="margin-top: 20px">
+          </div>
+          <div class="card-footer text-right">
           <button class="btn btn-success" type="button" @click="send">
-            <i class="fas fa-paper-plane"></i>
+           Gửi <i class="fas fa-paper-plane"></i>
           </button>
-        </div>
+          </div>
+      </div>
+        
       </div>
       <div class="col-md-1"></div>
+    </div>
     </div>
   </div>
 </template>

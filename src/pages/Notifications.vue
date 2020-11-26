@@ -1,14 +1,14 @@
 <template>
-  <div class="content">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
+  <div class="content display-flex">
+   <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header">
             <span class="font-weight-bold">Thông báo</span>
           </div>
-          <div class="card-body">
-            <span class="font-weight-bold">Tạo thông báo</span>
+          <div class="card-body" style="padding: 20px 50px;">
             <form>
               <div class="form-group">
                 <div>
@@ -29,7 +29,7 @@
                   </multiselect>
                 </div>
               </div>
-              <div class="form-group uploadAvatar">
+              <div class="form-group uploadAvatar" style="display: none;">
                 <label for="inputImg" class="profile-edit choose-avatar"
                   ><i class="fas fa-camera-retro"></i
                 ></label>
@@ -106,8 +106,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-md-3"></div>
     </div>
+   </div>
   </div>
 </template>
 <script>
@@ -138,38 +139,28 @@ export default {
       valueNotify: [],
       optionsType: [
         { name: "Thông thường", type: "normal" },
-        { name: "Nhiệm vụ mới", type: "new_task" },
+        { name: "Nhiệm vụ mới", type: "new_task", $isDisabled: true },
       ],
     };
   },
   mounted() {
     // GET LIST GROUP
-    this.CallAPI(
-      "get",
-      this.$urlAPI + "setting/list-group-admin",
-      {},
-      (data) => {
-        var item = data.data[0];
-        for (let index in item) {
-          this.optionsGroup.push({ type: "group", value: item[index].code });
-        }
+    this.CallAPI("get", "setting/list-group-admin", {}, (data) => {
+      var item = data.data[0];
+      for (let index in item) {
+        this.optionsGroup.push({ type: "group", value: item[index].code });
       }
-    );
-    this.CallAPI(
-      "get",
-      this.$urlAPI + "user/list-admin?uid=&keyword=&email=",
-      {},
-      (data) => {
-        var item = data.data[0];
-        for (let index in item) {
-          this.optionsUser.push({
-            type: "user",
-            value: item[index]._id,
-            label: item[index].email,
-          });
-        }
+    });
+    this.CallAPI("get", "user/list-admin?uid=&keyword=&email=", {}, (data) => {
+      var item = data.data[0];
+      for (let index in item) {
+        this.optionsUser.push({
+          type: "user",
+          value: item[index]._id,
+          label: item[index].email,
+        });
       }
-    );
+    });
   },
   methods: {
     notifyVue(verticalAlign, horizontalAlign) {
@@ -190,7 +181,7 @@ export default {
     addNotify(e) {
       this.errors = [];
       e.preventDefault();
-      if (!this.title || !this.content || !this.url || !this.type) {
+      if (!this.title || !this.content || !this.type) {
         this.errors.push("Vui lòng nhập đầy đủ thông tin !");
         return;
       }
@@ -213,7 +204,7 @@ export default {
       dataR.append("avatar", this.srcImg);
       this.CallAPI(
         "post",
-        this.$urlAPI + "notify/send-admin",
+        "notify/send-admin",
         dataR,
         (data) => {
           this.$toast.success("Thông báo thành công !");

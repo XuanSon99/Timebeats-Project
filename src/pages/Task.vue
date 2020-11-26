@@ -1,221 +1,239 @@
 <template>
-  <div class="content">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="card" v-if="card.list">
-          <div class="card-header">
-            <span class="font-weight-bold">Danh sách nhiệm vụ cần xét duyệt</span>
-          </div>
-          <div class="card-body">
-            <div class="scroll">
-              <table class="table table-hover table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tên người dùng</th>
-
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Ngày tạo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in list_task" :key="index">
-                    <th scope="row">{{ index + 1 }}</th>
-                    <td @click="accept_task(item)">
-                      {{ item.uid.display_name }}
-                    </td>
-
-                    <td @click="accept_task(item)">{{ item.status }}</td>
-                    <td @click="accept_task(item)">
-                      {{ formatDate(item.created_at) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+  <div class="content display-flex">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="card" v-if="card.list">
+            <div class="card-header">
+              <span class="font-weight-bold">Danh sách nhiệm vụ</span>
             </div>
-          </div>
-          <div class="card-footer"></div>
-        </div>
-        <div class="card" v-if="card.accept">
-          <div class="card-header">
-            <div class="display-flex space-between">
-              <span class="font-weight-bold">Xét duyệt nhiệm vụ</span>
-              <button class="btn btn-success" @click="back">
-                <i class="fas fa-arrow-circle-left"></i> Quay lại
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <form action="">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="">Task ID</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      :value="user_task.id"
-                      disabled
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="">Link</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      disabled
-                      :value="user_task.link"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div>
-                    <label class="typo__label">Trạng thái</label>
-                    <multiselect
-                      v-model="value_confirm"
-                      deselect-label="Can't remove this value"
-                      track-by="status"
-                      label="status"
-                      placeholder="Select one"
-                      :options="options_confirm"
-                      :searchable="false"
-                      :allow-empty="false"
+            <div class="card-body">
+              <div class="scroll">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Nền tảng</th>
+                      <th scope="col">Trạng thái</th>
+                      <th scope="col">Ngày tạo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in get_list"
+                      :key="index"
+                      @click="getItem(item)"
                     >
-                      <template slot="singleLabel" slot-scope="{ option }"
-                        ><strong>{{ option.status }}</strong></template
-                      >
-                    </multiselect>
-                  </div>
-                </div>
+                      <th scope="row">{{ index + 1 }}</th>
+                      <td>{{ item.uid.display_name }}</td>
+                      <td>{{ item.social_id.name }}</td>
+                      <td>{{ translate(item.status) }}</td>
+                      <td>{{ formatDate(item.created_at) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="">Mô tả nhiệm vụ</label>
-                    <textarea
-                      type="text"
-                      class="form-control"
-                      rows="3"
-                      :value="user_task.id"
-                      disabled
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="">Nội dung</label>
-                    <textarea
-                      type="text"
-                      class="form-control"
-                      rows="3"
-                      v-model="content"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-danger" v-for="item in error" :key="item">
-                    {{ item }}
-                  </p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group text-center">
-                    <button class="btn btn-success" @click="Active_task">
-                      <i class="fas fa-check"></i> Xác nhận
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
+            </div>
+            <div class="card-footer"></div>
           </div>
-          <div class="card-footer"></div>
+          <div class="card" v-if="card.request">
+            <div class="card-header">
+              <div class="display-flex space-between">
+                <span class="font-weight-bold">Xét duyệt nhiệm vụ</span>
+                <button @click="back" class="btn btn-success">
+                  <i class="fas fa-arrow-circle-left"></i> Quay lại
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="">TASK ID</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :value="user_task.task_id"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div>
+                      <label class="typo__label">Trạng thái</label>
+                      <multiselect
+                        v-model="value_status"
+                        deselect-label="Can't remove this value"
+                        track-by="name"
+                        label="name"
+                        placeholder="Select one"
+                        :options="options_status"
+                        :searchable="false"
+                        :allow-empty="false"
+                      >
+                        <template slot="singleLabel" slot-scope="{ option }"
+                          ><strong>{{ option.name }}</strong></template
+                        >
+                      </multiselect>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Tên người dùng</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :value="user_task.uid.display_name"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <label class="typo__label">Lĩnh vực</label>
+                      <multiselect
+                        v-model="value"
+                        tag-placeholder="Add this as new tag"
+                        placeholder="Search or add a tag"
+                        label="name"
+                        track-by="id"
+                        :options="options"
+                        :multiple="true"
+                        :taggable="true"
+                      ></multiselect>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Nội dung nhiệm vụ</label>
+                      <textarea
+                        class="form-control"
+                        name=""
+                        id=""
+                        cols="4"
+                        rows="4"
+                        v-model="user_task.description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group text-center">
+                      <button class="btn btn-success" @click="accept">
+                        Xác nhận <i class="fas fa-check"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer"></div>
+          </div>
         </div>
+        <div class="col-md-2"></div>
       </div>
-      <div class="col-md-1"></div>
     </div>
   </div>
 </template>
 <script>
-import multiselect from "vue-multiselect";
+import Card from "src/components/Cards/Card.vue";
+import Multiselect from "vue-multiselect";
 export default {
+  components: {
+    Card,
+    Multiselect,
+  },
   data() {
     return {
       card: {
         list: true,
-        accept: false,
+        request: false,
       },
-      content: null,
+      get_list: [],
       user_task: {
-        link: null,
-        id: null,
+        uid: {
+          display_name: null,
+        },
+        task_id: null,
         description: null,
       },
-      list_task: [],
-      value_confirm: {},
-      options_confirm: [
-        { status: "confirmed" },
-        { status: "unconfirmed", $isDisabled: true },
-      ],
+      value: [],
+      options: [],
+      value_status: {},
+      options_status: [{ name: "confirmed" }, { name: "unconfirmed" }],
       error: [],
     };
   },
-  components: {
-    multiselect,
-  },
   mounted() {
-    this.CallAPI("get", this.$urlAPI + "task/list-task-admin", {}, (data) => {
-      this.list_task = data.data;
+    this.CallAPI("get", "task/list-task-admin", {}, (data) => {
+      this.get_list = data.data;
     });
   },
   methods: {
-    accept_task(item) {
-      this.card.list = false;
-      this.card.accept = true;
-      this.user_task.link = item.link;
-      this.user_task.id = item._id;
-      this.user_task.description = item.description;
-      this.value_confirm.status = item.status;
+    back() {
+      this.card.list = true;
+      this.card.request = false;
+      this.value_status = {};
+      this.value = [];
     },
-    Active_task(e) {
+    getItem(arr) {
+      this.card.list = false;
+      this.card.request = true;
+      this.user_task.uid.display_name = arr.uid.display_name;
+      this.user_task.task_id = arr._id;
+      this.user_task.description = arr.description;
+      this.value_status = { name: arr.status };
+      for (let item of arr.field) {
+        this.options.push({ name: item.name, id: item._id });
+        this.value.push({ name: item.name, id: item._id });
+      }
+    },
+    accept(e) {
       this.error = [];
       e.preventDefault();
-      if (!this.content) {
-        this.error.push("Vui lòng nhập đầy đủ thông tin");
+      if (!this.user_task.description) {
+        this.error.push("Vui lòng điền đầy đủ thông tin!");
         return;
       }
       this.CallAPI(
         "post",
-        this.$urlAPI + "task/active-task-admin",
+        "task/active-task-admin",
         {
-          task_id: this.user_task.id,
-          content: this.content,
-          status: this.value_confirm.status,
+          task_id: this.user_task.task_id,
+          content: this.user_task.description,
+          status: this.value_status.name,
         },
         (data) => {
-          this.$toast.success("Xét duyệt thành công !");
+          this.$toast.success("Xét duyệt thành công");
+          location.reload();
+          this.card.list = true;
+          this.card.request = false;
+        },
+        (error) => {
+          this.$toast.error("Xét duyệt thất bại!");
         }
       );
     },
     formatDate(time) {
       return new Date(time).toLocaleDateString();
     },
-    back() {
-      this.card.list = true;
-      this.card.accept = false;
+    translate(status) {
+      if (status === "confirmed") {
+        return "Đã xác nhận";
+      } else if (status === "unconfirmed") {
+        return "Chưa xác nhận";
+      }
     },
   },
 };
 </script>
-
 <style>
 </style>

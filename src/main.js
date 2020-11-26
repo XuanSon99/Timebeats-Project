@@ -21,15 +21,15 @@ Vue.use( CKEditor );
 Vue.use(Vuetify);
 Vue.prototype.$urlSever = 'http://192.168.100.211:3000'
 Vue.prototype.$urlAPI = 'http://192.168.100.211:3000/api/';
-Vue.prototype.$header = {
-  headers: {
-    Authorization: localStorage.getItem('id') + ' ' + localStorage.getItem('token'),
-  },
-};
+  Vue.prototype.$header = {
+    headers: {
+      Authorization: localStorage.getItem('id') + ' ' + localStorage.getItem('token'),
+    },
+  };
 Vue.prototype.CallAPI = function (method, url, data, callback, callError) {
   switch (method) {
     case "post":
-      axios.post(url, data, this.$header).then((result) => {
+      axios.post(this.$urlAPI + url, data, this.$header).then((result) => {
         let statusCode = result.data.statusCode;
         if (statusCode === 401) {
           localStorage.clear();
@@ -38,7 +38,7 @@ Vue.prototype.CallAPI = function (method, url, data, callback, callError) {
       }).catch((error) => callError(error))
       break;
     case "get":
-      axios.get(url, this.$header).then((result) => {
+      axios.get(this.$urlAPI + url, this.$header).then((result) => {
         let statusCode = result.data.statusCode;
         if (statusCode === 401) {
           localStorage.clear();

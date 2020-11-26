@@ -1,6 +1,7 @@
 <template>
-  <div class="content">
-    <div class="row">
+  <div class="content display-flex">
+    <div class="container-fluid">
+      <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10">
         <div class="card" v-if="card.list">
@@ -29,7 +30,7 @@
                       {{ item.note.reason }}
                     </td>
                     <td>{{ formatDate(item.created_at) }}</td>
-                    <td>{{ item.status }}</td>
+                    <td>{{ translate(item.status) }}</td>
                     <td class="text-center">
                       <button class="btn btn-danger" @click="Delete(item._id)">
                         <i class="fas fa-trash-alt"></i>
@@ -82,6 +83,7 @@
       <div class="col-md-1"></div>
     </div>
   </div>
+    </div>
 </template>
 
 <script>
@@ -97,14 +99,9 @@ export default {
     };
   },
   mounted() {
-    this.CallAPI(
-      "get",
-      this.$urlAPI + "setting/list-request-admin",
-      {},
-      (data) => {
-        this.list_request = data.data[0].docs;
-      }
-    );
+    this.CallAPI("get", "setting/list-request-admin", {}, (data) => {
+      this.list_request = data.data[0].docs;
+    });
   },
   methods: {
     formatDate(time) {
@@ -123,16 +120,24 @@ export default {
       this.card.request = true;
       this.id = id;
     },
+    translate(status) {
+      if (status === "success") {
+        return "Thành công";
+      } else if (status === "pending") {
+        return "Đang chờ";
+      }
+    },
     accept_req(e) {
       e.preventDefault();
       this.CallAPI(
         "post",
-        this.$urlAPI + "setting/active-request-creator-admin",
+        "setting/active-request-creator-admin",
         {
           request_id: this.id,
         },
         (data) => {
           this.$toast.success("Duyệt thành công !");
+          location.reload();
           this.card.list = true;
           this.card.request = false;
         },

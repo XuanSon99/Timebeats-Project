@@ -1,9 +1,9 @@
 <template>
-  <div class="content">
+  <div class="content display-flex">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
           <div class="card" v-if="card.list_card">
             <div class="card-header">
               <span class="font-weight-bold">Danh sách Social</span>
@@ -15,7 +15,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">ID</th>
-                      <th scope="col">Nền tảng</th>
+                      <th scope="col" class="text-center">Nền tảng</th>
                       <th scope="col" class="text-center">trạng thái</th>
                       <th scope="col" class="text-center">Hành động</th>
                     </tr>
@@ -24,9 +24,9 @@
                     <tr v-for="(item, index) in list_social" :key="index">
                       <th scope="row">{{ index + 1 }}</th>
                       <td @click="getSocial(item)">{{ item._id }}</td>
-                      <td @click="getSocial(item)">{{ item.name }}</td>
+                      <td @click="getSocial(item)" class="text-center">{{ item.name }}</td>
                       <td @click="getSocial(item)" class="text-center">
-                        {{ item.status }}
+                        {{ translate(item.status) }}
                       </td>
                       <td class="text-center">
                         <button
@@ -89,7 +89,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label class="typo__label">Nền tảng</label>
                       <multiselect
@@ -106,6 +106,12 @@
                           ><strong>{{ option.name }}</strong>
                         </template>
                       </multiselect>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Phí hệ thống</label>
+                      <input type="number" class="form-control" v-model="system_fee">
                     </div>
                   </div>
                 </div>
@@ -179,7 +185,7 @@
                                 </td>
                                 <td>
                                   <input
-                                    type="text"
+                                    type="number"
                                     class="form-control edit_input"
                                     v-model="option.from"
                                     placeholder="Nhập một số"
@@ -187,7 +193,7 @@
                                 </td>
                                 <td>
                                   <input
-                                    type="text"
+                                    type="number"
                                     class="form-control edit_input"
                                     v-model="option.to"
                                     placeholder="Nhập một số"
@@ -195,7 +201,7 @@
                                 </td>
                                 <td>
                                   <input
-                                    type="text"
+                                    type="number"
                                     class="form-control edit_input"
                                     v-model="option.price"
                                     placeholder="Nhập một số"
@@ -232,7 +238,7 @@
             <div class="card-footer"></div>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
       </div>
     </div>
   </div>
@@ -252,6 +258,7 @@ export default {
       name: null,
       value: null,
       url: null,
+      system_fee: null,
       option_social: {
         key_option: null,
         from: null,
@@ -321,13 +328,13 @@ export default {
   mounted() {
     this.CallAPI(
       "get",
-      this.$urlAPI + "social/list-social-admin",
+      "social/list-social-admin",
       {},
       (data) => {
         this.list_social = data.data[0].docs;
       }
     );
-    this.CallAPI("get", this.$urlAPI + "social/list", {}, (data) => {});
+    this.CallAPI("get","social/list", {}, (data) => {});
   },
   methods: {
     getSocial(user_social) {
@@ -337,6 +344,9 @@ export default {
       this.user_social = user_social;
       this.url = this.user_social.avatar;
       this.social_id = this.user_social._id;
+      this.system_fee = user_social.system_fee;
+      
+      console.log(user_social);
       this.value_Platform = {
         name: this.user_social.name,
         code: this.user_social.code,
@@ -357,6 +367,7 @@ export default {
           status: item.status,
           type: item.type,
           option: item.option,
+          system_fee: this.system_fee
         });
       }
     },
@@ -377,8 +388,9 @@ export default {
       this.isEdit = true;
     },
     add_option(index) {
+      let length = this.value_key[index].option.length;
       this.value_key[index].option.push({
-        key_option: null,
+        key_option: `option_${length + 1}`,
         from: null,
         to: null,
         price: null,
@@ -412,7 +424,7 @@ export default {
       ];
       this.CallAPI(
         "post",
-        this.$urlAPI + "social/update-social-admin",
+        "social/update-social-admin",
         {
           social_id: this.social_id,
           status: "active",
@@ -421,12 +433,16 @@ export default {
           avatar: this.url,
           function: JSON.stringify(this.value_key),
           require: req,
+          system_fee: this.system_fee
         },
         (data) => {
           this.$toast.success("Cập nhật thành công!");
+          location.reload();
+          this.card.list_card = true;
+          this.card.update_card = false;
         },
         (error) => {
-          this.$toast.error("Cập nhật thất bại!");
+          this.$toast.error("Cập nhật không thành công!");
         }
       );
     },
@@ -434,6 +450,17 @@ export default {
       let cf = confirm("Bạn có chắc chắn muốn xóa option này ?");
       if (cf) this.value_key[index].option.splice(i, 1);
     },
+    translate(status) {
+      if(status === 'active') {
+        return "Hoạt động";
+      }
+      if(status == 'manual') {
+        return "Thủ công";
+      }
+      else if(status == 'auto') {
+        return "Tự động";
+      }
+    }
   },
 };
 </script>

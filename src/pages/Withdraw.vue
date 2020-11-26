@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content display-flex">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-1"></div>
@@ -184,14 +184,9 @@ export default {
     };
   },
   mounted() {
-    this.CallAPI(
-      "get",
-      this.$urlAPI + "money/list-request-withdraw-admin",
-      {},
-      (data) => {
-        this.list = data.data;
-      }
-    );
+    this.CallAPI("get", "money/list-request-withdraw-admin", {}, (data) => {
+      this.list = data.data;
+    });
   },
   methods: {
     formatDate(time) {
@@ -226,7 +221,7 @@ export default {
       }
       this.CallAPI(
         "post",
-        this.$urlAPI + "money/reply-request-withdraw-admin",
+        "money/reply-request-withdraw-admin",
         {
           transaction_id: this.list_send.id,
           reason: this.content,
@@ -234,6 +229,9 @@ export default {
         },
         (data) => {
           this.$toast.success("Thành công !");
+          location.reload();
+          this.card.list = true;
+          this.card.request = false;
         },
         (error) => {
           this.$toast.error("Thất bại !");

@@ -1,6 +1,7 @@
 <template>
-  <div class="content">
-    <div class="row">
+  <div class="content display-flex">
+    <div class="container-fluid">
+      <div class="row">
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-1"></div>
@@ -90,7 +91,7 @@
                     <h3>{{ title }}</h3>
                     <p>{{ content }}</p>
                     <div class="row">
-                      <div class="col-md-4" v-for="item in image" :key="item">
+                      <div class="col-md-4" style="padding: 15px;" v-for="item in image" :key="item">
                         <img class="qs-img" :src="item" alt="" />
                       </div>
                     </div>
@@ -165,6 +166,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -193,7 +195,7 @@ export default {
     };
   },
   beforeMount() {
-    this.CallAPI("get", this.$urlAPI + "faq/feedback-admin", {}, (data) => {
+    this.CallAPI("get", "faq/feedback-admin", {}, (data) => {
       this.listQuestions = data.data.docs;
     });
   },
@@ -238,7 +240,7 @@ export default {
       }
       this.CallAPI(
         "post",
-        this.$urlAPI + "faq/feedback-admin-reply",
+        "faq/feedback-admin-reply",
         {
           feedback_id: this.id,
           content: `<h3>${this.titleREP}</h3><p>${this.contentREP}</p>`,

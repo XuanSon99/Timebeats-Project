@@ -7,7 +7,7 @@
         <p>Dashboard</p>
       </sidebar-link>
       <sidebar-link to="/admin/task">
-        <i class="nc-icon nc-paper-2"></i>
+        <i class="nc-icon nc-notes"></i>
         <p>Quản lý nhiệm vụ</p>
       </sidebar-link>
       <sidebar-link to="/admin/withdraw">
@@ -25,10 +25,6 @@
       <sidebar-link to="/admin/policy">
         <i class="nc-icon nc-single-copy-04"></i>
         <p>Chính sách</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/campaign">
-        <i class="nc-icon nc-notes"></i>
-        <p>Quản lý chiến dịch</p>
       </sidebar-link>
       <sidebar-link to="/admin/social">
         <i class="nc-icon nc-atom"></i>

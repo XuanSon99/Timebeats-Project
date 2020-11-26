@@ -1,7 +1,6 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
 import NotFound from '../pages/NotFoundPage.vue'
 import Overview from 'src/pages/Overview.vue'
-import Campaign from 'src/pages/Campaign.vue'
 import Social from 'src/pages/Social.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Feedback from 'src/pages/Feedback'
@@ -22,11 +21,6 @@ const routes = [
         path: 'overview',
         name: 'Overview',
         component: Overview
-      },
-      {
-        path: 'campaign',
-        name: 'Campaign',
-        component: Campaign
       },
       {
         path: 'social',
